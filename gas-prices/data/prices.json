@@ -1,0 +1,39 @@
+{
+  "_comment": "Written by scripts/fetch-prices.mjs via .github/workflows/gas-prices.yml. Hand-editing is fine; the next scheduled run overwrites it. All prices are regular unleaded, USD per gallon.",
+  "_status_values": {
+    "ok": "fetched successfully on this run",
+    "stale": "this run could not fetch; price is the last one we did see, at 'observed'",
+    "unavailable": "no price has ever been fetched from this source"
+  },
+  "updated": "2026-08-09T22:14:26.334Z",
+  "stations": {
+    "wawa": {
+      "price": 3.819,
+      "observed": "2026-08-09T22:14:26.334Z",
+      "status": "ok",
+      "source": "https://www.wawa.com/locations/5185",
+      "note": null
+    },
+    "costco": {
+      "price": 3.699,
+      "observed": "2026-08-09T22:14:26.334Z",
+      "status": "ok",
+      "source": "https://www.costco.com/w/-/fl/bradenton/1364",
+      "note": null
+    },
+    "racetrac": {
+      "price": 3.769,
+      "observed": "2026-08-09T22:14:26.334Z",
+      "status": "ok",
+      "source": "https://www.racetrac.com/locations/florida/bradenton/lena",
+      "note": null
+    },
+    "7-eleven": {
+      "price": null,
+      "observed": null,
+      "status": "unavailable",
+      "source": null,
+      "note": "7-Eleven does not publish fuel prices online — manual entry only"
+    }
+  }
+}

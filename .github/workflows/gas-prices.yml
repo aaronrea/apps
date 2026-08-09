@@ -1,0 +1,79 @@
+name: Fetch gas prices
+
+# The page is static and these origins send no CORS headers, so the browser
+# cannot fetch them. This workflow is the fetching half of the app: it runs the
+# scraper and commits the result, and the page just reads the committed file.
+on:
+  schedule:
+    # Bradenton is UTC-4 in summer, UTC-5 in winter. Three times a day is
+    # plenty for prices that move once a day, and it keeps the app inside the
+    # 12-hour staleness window for all of the waking hours that matter.
+    - cron: '10 11 * * *'   # ~7am ET
+    - cron: '10 17 * * *'   # ~1pm ET
+    - cron: '10 23 * * *'   # ~7pm ET
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Never let two runs race each other into a push conflict.
+concurrency:
+  group: gas-prices
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The fetcher has no dependencies, so there is nothing to install.
+      # It exits non-zero only when *every* adapter failed; it still writes a
+      # coherent file in that case (everything carried forward as stale), so
+      # let the commit happen either way and fail the job at the end.
+      - name: Fetch prices
+        id: fetch
+        continue-on-error: true
+        run: node gas-prices/scripts/fetch-prices.mjs
+
+      - name: Check the comparison logic still holds
+        run: node gas-prices/scripts/test-compare.mjs
+
+      - name: Commit prices.json if it changed
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- gas-prices/data/prices.json; then
+            echo "No price change — nothing to commit."
+            exit 0
+          fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gas-prices/data/prices.json
+          git commit -m "Update gas prices"
+
+          # A scheduled run can collide with a push to main; rebase and retry
+          # rather than failing the run over it.
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push failed (attempt $attempt), rebasing on origin/${GITHUB_REF_NAME}"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            sleep $((attempt * 5))
+          done
+
+          echo "Could not push after 3 attempts" >&2
+          exit 1
+
+      - name: Fail if nothing could be fetched
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "Every adapter failed — prices.json holds stale data only." >&2
+          exit 1
