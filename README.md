@@ -5,7 +5,7 @@ they're all served from the same GitHub Pages site.
 
 | App | Directory | What it is |
 | --- | --- | --- |
-| Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, The Bone, Westwood One) |
+| Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, The Bone, The Zone, DEF CON) |
 
 The root `index.html` is a plain landing page linking to each app — add a list
 item there when you add a sibling app.
