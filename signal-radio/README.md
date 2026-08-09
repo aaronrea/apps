@@ -5,12 +5,20 @@ just static files.
 
 Stations:
 
-| Station | Where | Host | Wired? |
-| --- | --- | --- | --- |
-| 101X | KROX-FM 101.5, Austin TX | iHeart | no — needs a URL |
-| The Bone | WHPT 102.5, Tampa FL | Audacy (verify — see below) | no — needs a URL |
-| The Zone | KZNE 1150 / K229DK 93.7, College Station TX — Texas A&M football | KZNE | no — needs a URL |
-| DEF CON | SomaFM | SomaFM | yes |
+| Station | Where | Host | Stream | Wired? |
+| --- | --- | --- | --- | --- |
+| 101X | KROX-FM 101.5, Austin TX | StreamGuys (Waterloo Media) | **HLS** `.m3u8` | yes |
+| The Bone | WHPT 102.5, Tampa FL | StreamGuys (Cox Media Group) | MP3 128k | yes |
+| The Zone | KZNE 1150 / K229DK 93.7, College Station TX — Texas A&M football | SecureNet Systems (SoCast site) | HE-AAC 32k | yes |
+| DEF CON | SomaFM | SomaFM | MP3 128k | yes |
+
+All four are static, tokenless URLs — no session endpoint, no CORS problem,
+nothing to refresh. They live in `STREAM_URLS` at the top of `js/adapters.js`.
+
+⚠️ **101X is HLS-only.** iOS Safari plays `.m3u8` natively in `<audio>`, so the
+iPhone is fine, but **desktop Chrome will not play 101X** without hls.js. That
+isn't a broken stream — check it on the phone before chasing it. The other
+three are plain progressive streams and play anywhere.
 
 ## Files
 
@@ -49,41 +57,44 @@ timestamped into the on-screen event log at the bottom of the page, which is
 the thing to read when a stream misbehaves on the phone (where there's no
 console).
 
-## Wiring up the real streams
+## Where the stream URLs came from
 
 All stream URLs live in one `STREAM_URLS` map at the top of `js/adapters.js`.
-Wiring a station is a one-line edit: paste its URL into that map. Only DEF CON
-is filled in; the other three are empty strings, and selecting one logs
-`no stream URL for "<id>" yet` and goes to `error` rather than failing
-silently.
+Wiring a station is a one-line edit. An empty entry isn't silent — selecting
+that station logs `no stream URL for "<id>" yet` and goes to `error`.
 
-Where to find each URL:
+Two of the three guesses in the original notes were wrong, so here's what's
+actually true, for whoever has to re-sniff these when one breaks:
 
-- **101X** — iHeart streams look like `https://stream.revma.ihrhls.com/zcNNNN`.
-  The `NNNN` is opaque and per-station. Open <https://www.101x.com/listen-live/>,
-  View Source, search the page for `ihrhls`.
-- **The Bone** — DevTools → Network on <https://www.theboneonline.com/>, hit
-  play. Wikipedia lists WHPT's owner as **Cox Media Group**, not Audacy, so
-  confirm which player you're sniffing. StreamTheWorld URLs (used by Audacy
-  and many Cox stations) look like
-  `https://playerservices.streamtheworld.com/api/livestream-redirect/<MOUNT>.aac`,
-  where `<MOUNT>` is usually the call sign + `FMAAC`.
-- **The Zone** — DevTools → Network on <https://www.zone1150.com/>, hit play.
-  Small-market stations often have a plain static Shoutcast/Icecast URL with
-  no token at all.
+- **101X — not iHeart.** No `ihrhls` or `revma` anywhere on the site. KROX is
+  Waterloo Media, and `/listen-live/` injects a StreamGuys player:
+  `//player.streamguys.com/waterloo/kroxfm/sgplayer/embed.min.js`. That script
+  XHRs `config.json` sitting next to it, and its one and only source is
+  `https://waterloo.streamguys1.com/krox-fm/playlist.m3u8`.
+  There *is* a stale `KROXFMAAC.aac` StreamTheWorld URL still in the page
+  markup — it 404s on every mount variant. Ignore it.
+- **The Bone — Cox was right, Audacy was wrong.** Again StreamGuys, no
+  StreamTheWorld. The page sets `window.sgStationId = "tam1025"`, and
+  `player.streamguys.com/cmg/tam1025/sgplayer/config.json` lists the mounts:
+  `…/tam1025-sgplayer-mp3` (128k) and `…-sgplayer-aac` (49k). We use the MP3.
+- **The Zone — the easy case, as predicted.** The site is SoCast, but its play
+  button opens a SecureNet Systems "Cirrus" popup at
+  `radio.securenetsystems.net/cirruscontent/ZONE1150`, whose page carries
+  `streamSrcDB = 'https://ice42.securenetsystems.net/ZONE1150'`. The player
+  appends `?playSessionID=…` for analytics; the bare URL works without it.
 
-If a station turns out to hand back a **short-lived tokenised** URL rather
-than a stable one, replace that adapter's `resolveStream(this.id)` line with
-the fetch that resolves it. `getStreamUrl()` is already async and is re-called
-on every play and every retry, so nothing else has to change. Don't cache the
-result.
+The general lesson: **look for the player vendor, not the station's owner.**
+Owner tells you nothing about who serves the audio. Grep a station page for
+`streamguys`, `streamtheworld`, `securenetsystems`, `ihrhls`, or `socast`,
+find the vendor's config JSON, and the mounts are listed in the clear.
 
-Two things to check while sniffing, because they can change the design:
-
-- **CORS** on the token endpoint — no `Access-Control-Allow-Origin` means
-  `fetch()` from the Pages origin fails regardless of a correct URL.
-- **HLS vs. direct** — iOS Safari plays `.m3u8` natively in `<audio>`; desktop
-  Chrome does not, so an HLS station will need hls.js for desktop testing.
+If a station later starts handing back a **short-lived tokenised** URL,
+replace that adapter's `resolveStream(this.id)` line with the fetch that
+resolves it. `getStreamUrl()` is already async and re-called on every play and
+every retry, so nothing else has to change. Don't cache the result — and check
+the token endpoint sends `Access-Control-Allow-Origin`, because without it a
+`fetch()` from the Pages origin can't call it at all and the backend-free
+design stops working.
 
 Use the **Test a stream URL** field at the bottom of the app to try a
 candidate URL before committing it.
