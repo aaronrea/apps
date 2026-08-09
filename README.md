@@ -6,7 +6,7 @@ they're all served from the same GitHub Pages site.
 | App | Directory | What it is |
 | --- | --- | --- |
 | Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, The Bone, The Zone, DEF CON) |
-| Pump | [`gas-prices/`](gas-prices/) | Regular unleaded at four Bradenton stations, already compared |
+| Pump | [`gas-prices/`](gas-prices/) | Regular unleaded at four nearby stations, already compared |
 | Slate | [`sports-schedule/`](sports-schedule/) | Today and the next 7 days for the Aggies, Bucs and Lightning |
 
 The root `index.html` is a plain landing page linking to each app — add a list

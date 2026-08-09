@@ -1,7 +1,7 @@
 {
   "name": "Pump",
   "short_name": "Pump",
-  "description": "Regular unleaded at four Bradenton stations, already compared.",
+  "description": "Regular unleaded at four nearby stations, already compared.",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

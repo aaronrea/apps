@@ -185,25 +185,30 @@ button { font: inherit; color: inherit; }
 .station__who { min-width: 0; }
 
 .station__name {
+  margin: 0;
   font-size: 17px;
   font-weight: 600;
   color: var(--text);
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.station__name:hover { color: var(--accent); }
 
-.station__where {
-  margin: 2px 0 0;
-  font-size: 13px;
-  color: var(--muted);
+/* Emoji render at whatever size the font gives them; pin the box so the four
+ * rows line up even though the glyphs have different natural widths. */
+.station__icon {
+  flex: none;
+  width: 1.4em;
+  font-size: 18px;
+  line-height: 1;
+  text-align: center;
 }
 
 .station__tags {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin-left: 8px;
-  vertical-align: middle;
+  margin-top: 6px;
 }
 .tag {
   font-size: 10px;
@@ -215,8 +220,6 @@ button { font: inherit; color: inherit; }
   color: var(--muted);
   white-space: nowrap;
 }
-.tag--pref { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
-.tag--bench { color: var(--accent); border-color: var(--accent); }
 .tag--cheap { color: var(--ok); border-color: var(--ok); background: var(--ok-dim); }
 .tag--manual { color: var(--text); }
 .tag--stale { color: var(--warn); border-color: var(--warn); background: var(--warn-dim); }
