@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Slate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Today and the next 7 days for the Aggies, the Bucs and the Lightning.">
+  <meta name="theme-color" content="#0b0b0d">
+
+  <!-- iOS standalone / home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Slate">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+
+  <!-- Logos come from ESPN's CDN; warming the connection saves a round trip
+       on the first card that paints. -->
+  <link rel="preconnect" href="https://a.espncdn.com" crossorigin>
+  <link rel="preconnect" href="https://site.api.espn.com">
+
+  <!-- All paths are relative so this works from a GitHub Pages subpath. -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <main class="app">
+
+    <header class="topbar">
+      <h1 class="wordmark">Slate</h1>
+      <span id="status" class="status status--loading" role="status" aria-live="polite">loading</span>
+    </header>
+
+    <!-- Today. The reason the app exists, so it is above everything. -->
+    <section class="section" aria-labelledby="today-heading">
+      <div class="section-head">
+        <p class="section-label" id="today-heading">Today</p>
+        <p class="section-note" id="today-date"></p>
+      </div>
+      <ul id="today" class="games"></ul>
+    </section>
+
+    <!-- The week ahead, grouped by day. Empty days are left out. -->
+    <section class="section" aria-labelledby="horizon-label">
+      <div class="section-head">
+        <p class="section-label" id="horizon-label">Next 7 days</p>
+        <p class="section-note" id="zone-note"></p>
+      </div>
+      <div id="upcoming" class="days"></div>
+    </section>
+
+    <!-- Meta -->
+    <section class="meta" aria-label="Data freshness">
+      <div class="meta__row">
+        <span id="updated" class="meta__updated">—</span>
+        <button id="refresh" class="btn btn--small" type="button">Refresh</button>
+      </div>
+      <p id="data-error" class="meta__error is-hidden" role="alert"></p>
+    </section>
+
+    <!-- Where this comes from, and what is not finished. -->
+    <section class="rule" aria-label="About this schedule">
+      <p class="section-label">Following</p>
+      <p class="rule__body">
+        <strong>Texas A&amp;M</strong> football, the <strong>Buccaneers</strong>,
+        and the <strong>Lightning</strong>. Times are shown in this device's
+        time zone. Schedules, channels and scores come straight from ESPN's
+        public API in the browser — there is no server and no scheduled job
+        behind this page.
+      </p>
+      <p class="rule__flag">
+        <strong>Stretch goals:</strong> channels and scores are wired up now
+        because ESPN returns them with the schedule, so the "static list" grew a
+        little. Still open: deep links into the streaming apps themselves
+        (ESPN gives a channel <em>name</em>, not a watch URL), a
+        <em>where can I actually watch this</em> answer that accounts for
+        regional blackouts, and per-game notifications.
+      </p>
+    </section>
+
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
