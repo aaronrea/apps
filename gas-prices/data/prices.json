@@ -1,0 +1,39 @@
+{
+  "_comment": "Written by scripts/fetch-prices.mjs via .github/workflows/gas-prices.yml. Hand-editing is fine; the next scheduled run overwrites it. All prices are regular unleaded, USD per gallon.",
+  "_status_values": {
+    "ok": "fetched successfully on this run",
+    "stale": "this run could not fetch; price is the last one we did see, at 'observed'",
+    "unavailable": "no price has ever been fetched from this source"
+  },
+  "updated": null,
+  "stations": {
+    "wawa": {
+      "price": null,
+      "observed": null,
+      "status": "unavailable",
+      "source": null,
+      "note": "No fetch has run yet"
+    },
+    "costco": {
+      "price": null,
+      "observed": null,
+      "status": "unavailable",
+      "source": null,
+      "note": "No fetch has run yet"
+    },
+    "racetrac": {
+      "price": null,
+      "observed": null,
+      "status": "unavailable",
+      "source": null,
+      "note": "No fetch has run yet"
+    },
+    "7-eleven": {
+      "price": null,
+      "observed": null,
+      "status": "unavailable",
+      "source": null,
+      "note": "No fetch has run yet"
+    }
+  }
+}
