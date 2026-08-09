@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Signal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Personal internet radio.">
+  <meta name="theme-color" content="#0b0b0d">
+
+  <!-- iOS standalone / home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Signal">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+
+  <!-- All paths are relative so this works from a GitHub Pages subpath. -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <main class="app">
+
+    <header class="topbar">
+      <h1 class="wordmark">Signal</h1>
+      <span id="status" class="status status--idle" role="status" aria-live="polite">idle</span>
+    </header>
+
+    <!-- Now playing -->
+    <section class="now" aria-label="Now playing">
+      <p class="now__label">Now playing</p>
+      <h2 id="now-name" class="now__name">—</h2>
+      <p id="now-sub" class="now__sub">Pick a station</p>
+
+      <div class="controls">
+        <button id="prev" class="btn btn--ghost" type="button" aria-label="Previous station">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14h2.2V5H7zm11 0l-8 7 8 7V5z"/></svg>
+        </button>
+
+        <button id="playpause" class="btn btn--play" type="button" aria-label="Play">
+          <svg id="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5z"/></svg>
+          <svg id="icon-pause" viewBox="0 0 24 24" aria-hidden="true" class="is-hidden"><path d="M7 5h3.5v14H7V5zm6.5 0H17v14h-3.5V5z"/></svg>
+        </button>
+
+        <button id="next" class="btn btn--ghost" type="button" aria-label="Next station">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 5v14h-2.2V5H17zM6 5l8 7-8 7V5z"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Stations -->
+    <section aria-label="Stations">
+      <p class="section-label">Stations</p>
+      <ul id="stations" class="stations"></ul>
+    </section>
+
+    <!-- Event log -->
+    <section class="log" aria-label="Event log">
+      <div class="log__head">
+        <p class="section-label">Event log</p>
+        <button id="log-clear" class="btn btn--tiny" type="button">clear</button>
+      </div>
+      <ol id="log" class="log__lines"></ol>
+    </section>
+
+  </main>
+
+  <!-- The one and only audio element. Its src is swapped per station. -->
+  <audio id="audio" preload="none" playsinline crossorigin="anonymous"></audio>
+
+  <script src="./js/adapters.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

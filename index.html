@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>apps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0d">
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0b0b0d;
+      color: #f2f2f4;
+      font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: calc(env(safe-area-inset-top) + 48px) 20px calc(env(safe-area-inset-bottom) + 48px);
+    }
+    main { width: 100%; max-width: 460px; }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    p.lede { margin: 0 0 28px; color: #8b8b96; font-size: 14px; }
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    a.app {
+      display: block;
+      padding: 16px;
+      background: #141417;
+      border: 1px solid #26262c;
+      border-radius: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+    a.app:hover { border-color: #ff7a1a; }
+    .name { font-size: 17px; font-weight: 600; color: #ff7a1a; }
+    .sub { display: block; margin-top: 2px; font-size: 13px; color: #8b8b96; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>apps</h1>
+    <p class="lede">Small personal web apps, one per directory.</p>
+    <ul>
+      <li>
+        <a class="app" href="./signal-radio/">
+          <span class="name">Signal</span>
+          <span class="sub">Personal internet radio — 101X, The Bone, Westwood One</span>
+        </a>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>
