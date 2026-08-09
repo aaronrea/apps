@@ -64,6 +64,20 @@
       <ol id="log" class="log__lines"></ol>
     </section>
 
+    <!-- DEV TOOL: play an arbitrary stream URL without a commit/push cycle.
+         Delete this section and section 9 of app.js once the three real
+         adapters are wired. -->
+    <section class="dev" aria-label="Test a stream URL">
+      <p class="section-label">Test a stream URL</p>
+      <div class="dev__row">
+        <input id="custom-url" class="dev__input" type="url" inputmode="url"
+               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+               placeholder="https://…"
+               value="https://ice5.somafm.com/defcon-128-mp3">
+        <button id="custom-load" class="btn btn--small" type="button">Load</button>
+      </div>
+    </section>
+
   </main>
 
   <!-- The one and only audio element. Its src is swapped per station. -->

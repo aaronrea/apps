@@ -254,6 +254,32 @@ button { font: inherit; color: inherit; }
   color: var(--muted);
 }
 
+/* -- dev tool: test a stream url ------------------------------------------ */
+
+.dev__row { display: flex; gap: 8px; }
+
+.dev__input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 12px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 16px; /* < 16px makes iOS Safari zoom on focus */
+}
+.dev__input:focus { outline: none; border-color: var(--accent); }
+
+.btn--small {
+  flex: none;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-hi);
+  font-size: 14px;
+}
+
 .log__line { display: flex; gap: 8px; }
 .log__time { color: #5a5a66; flex: none; }
 .log__msg { word-break: break-word; }
