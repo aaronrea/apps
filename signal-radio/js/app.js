@@ -10,7 +10,8 @@
  *   6. station selection (prev / next)
  *   7. MediaSession (lock screen)
  *   8. UI wiring
- *   9. service worker
+ *   9. dev: play an arbitrary stream URL
+ *  10. service worker
  * ------------------------------------------------------------------------- */
 
 /* -- 1. elements + state -------------------------------------------------- */
@@ -28,7 +29,9 @@ const els = {
   next: document.getElementById('next'),
   stations: document.getElementById('stations'),
   log: document.getElementById('log'),
-  logClear: document.getElementById('log-clear')
+  logClear: document.getElementById('log-clear'),
+  customUrl: document.getElementById('custom-url'),
+  customLoad: document.getElementById('custom-load')
 };
 
 // index      — which station is selected (-1 = none yet)
@@ -344,7 +347,66 @@ els.prev.addEventListener('click', () => step(-1));
 els.next.addEventListener('click', () => step(1));
 els.logClear.addEventListener('click', () => { els.log.innerHTML = ''; });
 
-/* -- 9. service worker ---------------------------------------------------- */
+/* -- 9. dev: play an arbitrary stream URL --------------------------------- */
+/* Paste a candidate stream URL — one you just sniffed, say — and play it on
+ * the spot, instead of commit → push → wait for Pages. It's added as a real
+ * station at the end of the list, so it runs through the exact same load /
+ * retry / MediaSession path as the other three. getStreamUrl() reads the
+ * input live, so editing the box and hitting Load again re-resolves it.
+ *
+ * Delete this section and the .dev block in index.html once the three real
+ * adapters are wired. */
+
+const CUSTOM_URL_KEY = 'signal.customUrl';
+
+const customStation = {
+  id: 'custom',
+  name: 'Custom URL',
+  sub: '—',
+  badge: 'test',
+  async getStreamUrl() {
+    return els.customUrl.value.trim();
+  }
+};
+
+// localStorage throws in Safari private browsing — a dev convenience is never
+// worth taking the app down with it.
+function remember(url) {
+  try { localStorage.setItem(CUSTOM_URL_KEY, url); } catch (err) { /* ignore */ }
+}
+
+function recallCustomUrl() {
+  try {
+    const saved = localStorage.getItem(CUSTOM_URL_KEY);
+    if (saved) els.customUrl.value = saved;
+  } catch (err) { /* ignore */ }
+}
+
+function loadCustomUrl() {
+  const url = els.customUrl.value.trim();
+  if (!url) {
+    log('custom: no url entered');
+    return;
+  }
+
+  remember(url);
+  customStation.sub = url.replace(/^https?:\/\//, '');
+
+  let index = STATIONS.indexOf(customStation);
+  if (index === -1) {
+    STATIONS.push(customStation);
+    index = STATIONS.length - 1;
+  }
+  log('custom: loading ' + url);
+  selectStation(index);
+}
+
+els.customLoad.addEventListener('click', loadCustomUrl);
+els.customUrl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') loadCustomUrl();
+});
+
+/* -- 10. service worker --------------------------------------------------- */
 /* Relative path on purpose: GitHub Pages project sites live at
  * /<repo>/signal-radio/, not at the domain root. */
 
@@ -360,6 +422,7 @@ function registerServiceWorker() {
 
 /* -- boot ----------------------------------------------------------------- */
 
+recallCustomUrl();
 render();
 setupMediaSession();
 log('Signal ready — ' + STATIONS.length + ' stations');

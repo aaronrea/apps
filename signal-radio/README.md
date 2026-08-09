@@ -5,11 +5,12 @@ just static files.
 
 Stations:
 
-| Station | Where | Host |
-| --- | --- | --- |
-| 101X | Austin, TX · Alternative | iHeart |
-| The Bone | Tampa, FL · WHPT 102.5 | Audacy |
-| Westwood One | NFL & Texas A&M football | Westwood One affiliate |
+| Station | Where | Host | Wired? |
+| --- | --- | --- | --- |
+| 101X | KROX-FM 101.5, Austin TX | iHeart | no — needs a URL |
+| The Bone | WHPT 102.5, Tampa FL | Audacy (verify — see below) | no — needs a URL |
+| The Zone | KZNE 1150 / K229DK 93.7, College Station TX — Texas A&M football | KZNE | no — needs a URL |
+| DEF CON | SomaFM | SomaFM | yes |
 
 ## Files
 
@@ -50,20 +51,42 @@ console).
 
 ## Wiring up the real streams
 
-`js/adapters.js` currently returns public SomaFM test streams from a
-`placeholderStream()` helper so the app is fully playable as built. Each
-adapter's `getStreamUrl()` body is a marked `TODO` describing what it needs to
-do instead.
+All stream URLs live in one `STREAM_URLS` map at the top of `js/adapters.js`.
+Wiring a station is a one-line edit: paste its URL into that map. Only DEF CON
+is filled in; the other three are empty strings, and selecting one logs
+`no stream URL for "<id>" yet` and goes to `error` rather than failing
+silently.
 
-Real commercial stations don't expose a static URL — the player asks a token /
-session endpoint for a session-scoped, expiring stream URL. So for each
-station: sniff the network requests its official web player makes, find the
-call that hands back the playback URL, and replace the placeholder call with
-that fetch. Return the resolved URL. Don't cache it — that's why the function
-is re-called on every play and every retry.
+Where to find each URL:
 
-When all three are real, delete the `PLACEHOLDER_STREAMS` /
-`placeholderStream()` block at the top of the file.
+- **101X** — iHeart streams look like `https://stream.revma.ihrhls.com/zcNNNN`.
+  The `NNNN` is opaque and per-station. Open <https://www.101x.com/listen-live/>,
+  View Source, search the page for `ihrhls`.
+- **The Bone** — DevTools → Network on <https://www.theboneonline.com/>, hit
+  play. Wikipedia lists WHPT's owner as **Cox Media Group**, not Audacy, so
+  confirm which player you're sniffing. StreamTheWorld URLs (used by Audacy
+  and many Cox stations) look like
+  `https://playerservices.streamtheworld.com/api/livestream-redirect/<MOUNT>.aac`,
+  where `<MOUNT>` is usually the call sign + `FMAAC`.
+- **The Zone** — DevTools → Network on <https://www.zone1150.com/>, hit play.
+  Small-market stations often have a plain static Shoutcast/Icecast URL with
+  no token at all.
+
+If a station turns out to hand back a **short-lived tokenised** URL rather
+than a stable one, replace that adapter's `resolveStream(this.id)` line with
+the fetch that resolves it. `getStreamUrl()` is already async and is re-called
+on every play and every retry, so nothing else has to change. Don't cache the
+result.
+
+Two things to check while sniffing, because they can change the design:
+
+- **CORS** on the token endpoint — no `Access-Control-Allow-Origin` means
+  `fetch()` from the Pages origin fails regardless of a correct URL.
+- **HLS vs. direct** — iOS Safari plays `.m3u8` natively in `<audio>`; desktop
+  Chrome does not, so an HLS station will need hls.js for desktop testing.
+
+Use the **Test a stream URL** field at the bottom of the app to try a
+candidate URL before committing it.
 
 ## Service worker
 
