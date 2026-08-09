@@ -65,14 +65,22 @@ function renderVerdict({ verdict, benchmark, benchmarkStation }) {
     'no-preferred': 'unknown'
   }[verdict.key] || 'unknown';
 
+  const badge = {
+    'preferred-wins': '⛽',
+    'preferred-ok': '⛽',
+    'costco-run': '🚗',
+    'no-benchmark': '🤷',
+    'no-preferred': '🤷'
+  }[verdict.key] || '🤷';
+
   els.verdict.className = `verdict verdict--${tone}`;
-  els.verdictHeadline.textContent = verdict.headline;
+  els.verdictHeadline.textContent = `${badge} ${verdict.headline}`;
   els.verdictDetail.textContent = verdict.detail || '';
   els.verdictDetail.classList.toggle('is-hidden', !verdict.detail);
 
   els.benchmarkNote.textContent = benchmark !== null && benchmarkStation
     ? `vs ${benchmarkStation.name} ${money(benchmark)}`
-    : 'No benchmark price';
+    : '🤷 No benchmark price';
 }
 
 function renderRows(result) {
@@ -90,27 +98,26 @@ function renderRow(row, result) {
   const who = document.createElement('div');
   who.className = 'station__who';
 
-  const name = document.createElement('a');
+  /* Plain text, not a link: the store URL is the street address in disguise.
+   * The roles that drive the verdict (preferred, benchmark) are deliberately
+   * not labelled here either — see the note in stations.js. */
+  const name = document.createElement('p');
   name.className = 'station__name';
-  name.href = station.url;
-  name.target = '_blank';
-  name.rel = 'noopener noreferrer';
-  name.textContent = station.name;
+
+  const icon = document.createElement('span');
+  icon.className = 'station__icon';
+  icon.textContent = station.icon;
+  icon.setAttribute('aria-hidden', 'true');
+
+  name.append(icon, document.createTextNode(station.name));
   who.append(name);
 
   const tags = document.createElement('div');
   tags.className = 'station__tags';
-  if (station.role === 'preferred') tags.append(tag('on the loop', 'pref'));
-  if (station.role === 'benchmark') tags.append(tag('benchmark', 'bench'));
-  if (row.cheapest) tags.append(tag('cheapest', 'cheap'));
-  if (row.manual) tags.append(tag('typed', 'manual'));
-  if (row.status === 'stale') tags.append(tag('stale', 'stale'));
+  if (row.cheapest) tags.append(tag('🥇 cheapest', 'cheap'));
+  if (row.manual) tags.append(tag('✏️ typed', 'manual'));
+  if (row.status === 'stale') tags.append(tag('⏳ stale', 'stale'));
   if (tags.children.length) who.append(tags);
-
-  const where = document.createElement('p');
-  where.className = 'station__where';
-  where.textContent = station.where;
-  who.append(where);
 
   /* -- right: what it costs -- */
   const what = document.createElement('div');
@@ -124,7 +131,9 @@ function renderRow(row, result) {
   const delta = document.createElement('p');
   delta.className = 'station__delta';
   if (station.role === 'benchmark') {
-    delta.textContent = 'the yardstick';
+    /* Nothing to say: it is being compared against itself. Labelling it would
+     * just re-add the "benchmark" tag by another name. */
+    delta.textContent = '';
   } else if (row.pct === null) {
     delta.textContent = row.price === null ? 'no price' : 'nothing to compare';
   } else {

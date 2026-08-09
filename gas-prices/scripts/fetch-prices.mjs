@@ -35,9 +35,12 @@
  *   RaceTrac  Prices are server-rendered into the store page as price chips:
  *             <span ...price-chip__label">Regular 87</span>
  *             <span ...price-chip__value">$3.769</span>
- *   7-Eleven  Does not publish fuel prices. The store page and its Next.js
- *             payload contain no price field of any kind. There is nothing to
- *             scrape, so this one is manual-entry only, by design.
+ *   7-Eleven  Publishes daily, in the store page's own payload, as
+ *             fuelData.grades[] with { abbr: "RUL", name: "Regular",
+ *             price_label: "$3.799" } plus a real `last_updated` stamp.
+ *             The JSON is escape-encoded inside a script string, so it does
+ *             not turn up in a naive search for `"price":` — it is spelled
+ *             \"price\": in the raw bytes.
  * ------------------------------------------------------------------------- */
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -152,11 +155,45 @@ async function fetchRaceTrac() {
   return { price: parsePrice(m[1], 'racetrac'), source: url };
 }
 
-/* 7-Eleven publishes no fuel prices. Rather than pretend this is a transient
- * failure that might one day succeed, say so plainly — the note ends up in the
- * UI and tells Aaron to type it in himself. */
+/* 7-Eleven is the only source here that publishes when it last saw the price,
+ * so this adapter reports that instead of the fetch time — a price stamped
+ * this morning should age from this morning, not from whenever CI happened to
+ * run. */
 async function fetchSevenEleven() {
-  throw new Error('7-Eleven does not publish fuel prices online — manual entry only');
+  const url = 'https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565';
+  const raw = await withRetry(() => get(url));
+
+  /* The payload is JSON embedded in a script string, so every quote arrives
+   * backslash-escaped. Unescape first, then parse it like the JSON it is. */
+  const html = raw.replace(/\\"/g, '"');
+
+  const m = html.match(/"fuelData"\s*:\s*\{\s*"grades"\s*:\s*(\[.*?\])\s*,\s*"last_updated"\s*:\s*"([^"]*)"/s);
+  if (!m) throw new Error('7-eleven: no fuelData.grades block in page payload');
+
+  const grades = JSON.parse(m[0].slice(m[0].indexOf('[' ), m[0].lastIndexOf(']') + 1));
+  const regular = grades.find((g) => g.abbr === 'RUL') || grades.find((g) => /^regular$/i.test(g.name || ''));
+  if (!regular) {
+    throw new Error(`7-eleven: no Regular grade (saw ${grades.map((g) => g.abbr).join(', ')})`);
+  }
+
+  /* price_label is the display string ("$3.799"); `price` is the same number
+   * in thousandths (3799). Prefer the label and let parsePrice sanity-check
+   * it, falling back to the integer. */
+  const price = regular.price_label
+    ? parsePrice(regular.price_label, '7-eleven')
+    : parsePrice(regular.price / 1000, '7-eleven');
+
+  /* "2026-08-09 12:12:05 -04:00" — not quite ISO 8601; Date can read it once
+   * the space before the offset is squared away. */
+  const observed = parseLooseDate(m[2]);
+
+  return { price, source: url, observed };
+}
+
+function parseLooseDate(text) {
+  if (!text) return null;
+  const t = Date.parse(String(text).replace(' ', 'T').replace(/\s+/, ''));
+  return Number.isFinite(t) ? new Date(t).toISOString() : null;
 }
 
 const ADAPTERS = {
@@ -179,8 +216,10 @@ async function main() {
     const prev = (previous.stations && previous.stations[id]) || {};
 
     try {
-      const { price, source } = await adapter();
-      stations[id] = { price, observed: now, status: 'ok', source, note: null };
+      const { price, source, observed } = await adapter();
+      /* An adapter that knows when the price was actually set says so; the
+       * rest can only report when we looked. */
+      stations[id] = { price, observed: observed || now, status: 'ok', source, note: null };
       okCount += 1;
       console.log(`ok        ${id.padEnd(10)} $${price.toFixed(3)}`);
     } catch (err) {

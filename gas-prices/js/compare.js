@@ -8,7 +8,7 @@
  *   - Costco is the benchmark. It is assumed cheapest, but nothing here
  *     depends on that assumption holding — if Costco is somehow not the
  *     cheapest, the math still reads correctly (negative percentages).
- *   - Wawa is preferred: it is on the daily loop, so it is the default
+ *   - Wawa is preferred: it is already on the route, so it is the default
  *     answer and gets an explicit go / no-go verdict.
  *   - Anything else is red when it is worse than 5% more expensive than
  *     Costco.
@@ -52,8 +52,9 @@ export function centsDiff(price, benchmark) {
  *
  *   { wawa: { price: 3.059, observed: '<iso>', status: 'ok', source: '...' } }
  *
- * Returns one row per station, in station order, plus the benchmark price and
- * a headline verdict. Rendering does no arithmetic of its own.
+ * Returns one row per station, sorted cheapest first, plus the benchmark price
+ * and a headline verdict. Rendering does no arithmetic of its own — and no
+ * sorting either, so the order on screen is the order tested here.
  * ------------------------------------------------------------------------- */
 export function evaluate(stations, priceData, threshold = THRESHOLD_PCT) {
   const data = priceData || {};
@@ -98,14 +99,36 @@ export function evaluate(stations, priceData, threshold = THRESHOLD_PCT) {
     priced.filter((r) => r.price === min).forEach((r) => { r.cheapest = true; });
   }
 
+  /* The verdict is computed before sorting, off the roles, so the ranking
+   * below is purely presentational and cannot change the answer. */
+  const answer = verdict(rows, benchmark, threshold);
+
   return {
-    rows,
+    rows: sortByPrice(rows),
     benchmark,
     benchmarkStation,
     threshold,
-    verdict: verdict(rows, benchmark, threshold),
+    verdict: answer,
     updated: latestObserved(rows)
   };
+}
+
+/* Cheapest first, because that is the question. Stations with no price sink to
+ * the bottom rather than sorting as if they were free, and ties keep their
+ * original order so the list does not shuffle between renders. */
+export function sortByPrice(rows) {
+  return rows
+    .map((row, index) => ({ row, index }))
+    .sort((a, b) => {
+      const ap = a.row.price;
+      const bp = b.row.price;
+      if (ap === null && bp === null) return a.index - b.index;
+      if (ap === null) return 1;
+      if (bp === null) return -1;
+      if (ap !== bp) return ap - bp;
+      return a.index - b.index;
+    })
+    .map((entry) => entry.row);
 }
 
 /* Colour intent for a row.
@@ -123,12 +146,12 @@ function tone({ price, benchmark, isBenchmark, over }) {
 
 /* ---------------------------------------------------------------------------
  * The headline. This is the one line worth reading, so it answers the actual
- * question — do I just fill up on the loop, or is it a Costco day?
+ * question — do I just fill up at the usual place, or is it a Costco day?
  *
  * The threshold is applied to the preferred station too. It is preferred, not
  * exempt: the reason to know Wawa's number is to know when it has drifted far
  * enough that the detour pays. When it is under the line, the answer is
- * always "fill up on the loop" — that is what preferred means.
+ * always "fill up at Wawa" — that is what preferred means.
  * ------------------------------------------------------------------------- */
 function verdict(rows, benchmark, threshold) {
   const pref = rows.find((r) => r.station.role === 'preferred');
@@ -147,7 +170,7 @@ function verdict(rows, benchmark, threshold) {
     return {
       key: 'preferred-wins',
       headline: 'Fill up at Wawa',
-      detail: `Cheaper than Costco, and it is on the loop.`
+      detail: 'Cheaper than Costco outright.'
     };
   }
   if (!pref.over) {

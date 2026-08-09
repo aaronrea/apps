@@ -130,13 +130,39 @@ check('the threshold applies to the preferred station too', () => {
 
 /* -- evaluate() ----------------------------------------------------------- */
 
-check('evaluate returns one row per station, in station order', () => {
+check('evaluate returns one row per station, sorted cheapest first', () => {
   const out = evaluate(STATIONS, prices({
     wawa: 3.05, costco: 2.99, racetrac: 3.09, '7-eleven': 3.29
   }));
   eq(out.rows.length, 4);
-  eq(out.rows.map((r) => r.station.id), ['wawa', 'costco', 'racetrac', '7-eleven']);
+  eq(out.rows.map((r) => r.station.id), ['costco', 'wawa', 'racetrac', '7-eleven']);
   eq(out.benchmark, 2.99);
+});
+
+check('stations with no price sort last, not as if they were free', () => {
+  const out = evaluate(STATIONS, prices({
+    wawa: null, costco: 3.20, racetrac: null, '7-eleven': 3.05
+  }));
+  eq(out.rows.map((r) => r.station.id), ['7-eleven', 'costco', 'wawa', 'racetrac']);
+  /* The two unpriced rows keep their original relative order. */
+  eq(out.rows.slice(2).every((r) => r.price === null), true);
+});
+
+check('ties keep station order so the list does not shuffle between renders', () => {
+  const out = evaluate(STATIONS, prices({
+    wawa: 3.00, costco: 3.00, racetrac: 3.00, '7-eleven': 3.00
+  }));
+  eq(out.rows.map((r) => r.station.id), ['wawa', 'costco', 'racetrac', '7-eleven']);
+});
+
+check('sorting is presentational and cannot change the verdict', () => {
+  /* Wawa is dead last by price here and still gets the verdict, because the
+   * verdict comes off the roles, not off the ranking. */
+  const out = evaluate(STATIONS, prices({
+    wawa: 3.90, costco: 3.00, racetrac: 3.10, '7-eleven': 3.20
+  }));
+  eq(out.rows.map((r) => r.station.id), ['costco', 'racetrac', '7-eleven', 'wawa']);
+  eq(out.verdict.key, 'costco-run');
 });
 
 check('the benchmark row is never judged against itself', () => {
@@ -345,14 +371,16 @@ check('the live prices fetched on 2026-08-09 land under the line', () => {
   /* Wawa 3.819 vs Costco 3.699 is +3.24%: preferred, inside 5%, so the answer
    * is the loop. This is the case the app exists to answer. */
   const out = evaluate(STATIONS, prices({
-    wawa: 3.819, costco: 3.699, racetrac: 3.769, '7-eleven': null
+    wawa: 3.819, costco: 3.699, racetrac: 3.769, '7-eleven': 3.789
   }));
   close(out.rows.find((r) => r.station.id === 'wawa').pct, 3.2441200324, 1e-6);
   eq(out.verdict.key, 'preferred-ok');
   eq(out.verdict.headline, 'Fill up at Wawa');
   eq(out.rows.find((r) => r.station.id === 'racetrac').tone, 'good');
-  eq(out.rows.find((r) => r.station.id === '7-eleven').status, 'unavailable');
+  eq(out.rows.find((r) => r.station.id === '7-eleven').tone, 'good');
   eq(out.rows.filter((r) => r.cheapest).map((r) => r.station.id), ['costco']);
+  /* All four within a few cents, so the ranking is what carries the detail. */
+  eq(out.rows.map((r) => r.station.id), ['costco', 'racetrac', '7-eleven', 'wawa']);
 });
 
 /* -- config sanity -------------------------------------------------------- */
@@ -362,6 +390,18 @@ check('there is exactly one benchmark and one preferred station', () => {
   eq(STATIONS.filter((s) => s.role === 'preferred').length, 1);
   eq(THRESHOLD_PCT, 5);
   eq(new Set(STATIONS.map((s) => s.id)).size, STATIONS.length, 'ids are unique: ');
+});
+
+check('no station carries a street address or store number', () => {
+  /* The roles still drive the logic, but nothing that describes *where* — a
+   * store number, a cross street, a neighbourhood — is in the config for the
+   * UI to render. The scrape URL is the deliberate exception. */
+  for (const s of STATIONS) {
+    eq(s.where, undefined, `${s.id} has no where: `);
+    eq(s.note, undefined, `${s.id} has no note: `);
+    eq(typeof s.icon, 'string', `${s.id} has an icon: `);
+    eq(Object.keys(s).sort(), ['icon', 'id', 'name', 'role', 'url'], `${s.id} fields: `);
+  }
 });
 
 /* -- report --------------------------------------------------------------- */
