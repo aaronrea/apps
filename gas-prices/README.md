@@ -1,24 +1,27 @@
 # Pump
 
-GasBuddy, pre-zoomed to four Bradenton stations. Regular unleaded only. No map
-to pan, no radius to widen, no results to sort — just the four, ranked, with
-the comparison already done.
+GasBuddy, pre-zoomed to four stations. Regular unleaded only. No map to pan,
+no radius to widen — just the four, sorted cheapest first, with the comparison
+already done.
 
-| Station | Where | Role |
-| --- | --- | --- |
-| [Wawa](https://www.wawa.com/locations/5185) | Store #5185 | **Preferred** — on the daily loop |
-| [Costco](https://www.costco.com/w/-/fl/bradenton/1364) | Bradenton #1364 | **Benchmark** — everything is measured against it |
-| [RaceTrac](https://www.racetrac.com/locations/florida/bradenton/lena) | Lena Rd (store #2381) | Reference |
-| [7-Eleven](https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565) | 11805 SR 70 E | Reference |
+Wawa, Costco, RaceTrac, 7-Eleven. Which specific store each one is stays out
+of the UI; see [Anonymity](#anonymity) for how far that actually goes.
 
 ## The rule
+
+The list is sorted cheapest first, and stations with no price sink to the
+bottom rather than sorting as if they were free.
 
 Costco is the benchmark — assumed cheapest, but **computed** rather than
 assumed, so the day it isn't, the app says so instead of lying.
 
-Wawa is preferred, because it is already on the drop-off loop. It is the
-default answer and gets the headline verdict. Anything more than **5%** over
-Costco is flagged red — strictly more than, so exactly 5.0% is not red.
+Wawa is preferred and gets the headline verdict. Anything more than **5%**
+over Costco is flagged red — strictly more than, so exactly 5.0% is not red.
+
+The roles still drive the logic but are no longer labelled on screen: the
+sorting is presentational and is computed *after* the verdict, so ranking can
+never change the answer. Wawa can sit dead last by price and still be the
+recommendation.
 
 > **Unconfirmed:** the 5% rule is applied to Wawa too — preferred, but not
 > exempt. Under the line the answer is always *fill up at Wawa*; over it,
@@ -41,9 +44,16 @@ Verified live on 2026-08-09, and this is what each adapter actually keys on:
 | Station | Source | Shape |
 | --- | --- | --- |
 | Wawa | Store page | `__NEXT_DATA__` → `fuelTypes[]` → `category: "Unleaded"` |
-| Costco | `/AjaxGetGasPricesService?warehouseid=1364` | `{"1364":{"regular":"3.699"}}` |
+| Costco | `AjaxGetGasPricesService` | `{"<id>":{"regular":"3.699"}}` |
 | RaceTrac | Store page | Server-rendered price chip, keyed on the `Regular` label |
-| 7-Eleven | — | **Publishes no fuel prices at all.** Manual entry only. |
+| 7-Eleven | Store page | `fuelData.grades[]` → `abbr: "RUL"` → `price_label` |
+
+All four publish. 7-Eleven's is easy to miss: its JSON is escape-encoded
+inside a script string, so it is spelled `\"price\":` in the raw bytes and a
+naive search for `"price":` finds nothing. It is also the only source that
+publishes **when it last saw the price** (`last_updated`), so that adapter
+reports the real observation time rather than the time CI happened to run —
+a price stamped this morning ages from this morning.
 
 Both Wawa (Incapsula) and Costco (Akamai) sit behind bot protection that
 rejects a share of requests at random, so those adapters retry and send a
@@ -80,7 +90,24 @@ Typed prices are cleared per-row (**Use fetched**) or all at once, and are
 demoted to `stale` after 12 hours like any other price — a number from Monday
 is Monday's number regardless of who wrote it down.
 
-This is also the only way 7-Eleven ever gets a price.
+## Anonymity
+
+The UI shows four brand names, four prices and nothing else. No street
+addresses, no store numbers, no cross streets, and no "on the daily loop"
+label — the roles that drive the verdict are not rendered, and the station
+names are plain text rather than links to their store pages.
+
+**This is cosmetic, not real.** The scrape URLs in `js/stations.js` pin the
+exact four stores, and this is a public repo, so anyone reading the source can
+see precisely which ones. The fetcher cannot work without them.
+
+If the goal is for the *stores* to be unidentifiable rather than just
+un-displayed, the options are, roughly in order of effort:
+
+1. Make the repo private (Pages then needs a paid plan).
+2. Move the URLs into an Actions secret, so the config holds ids and the
+   workflow supplies the addresses at fetch time.
+3. Drop the fetcher and use manual entry only.
 
 ## Run it locally
 
@@ -115,11 +142,14 @@ Actions tab.
 
 ## Known rough edges
 
-- **7-Eleven has no automatic price** and never will unless a different source
-  is wired in — the brand simply does not publish one.
 - **The bot walls are the fragile part.** Wawa and Costco 403 a fraction of
   requests; the retries handle the usual case, but a run that fails entirely
   leaves everything stale (visibly so) and fails the job.
+- **7-Eleven updates roughly daily** ("gas prices updated within 24hrs"), and
+  because that adapter reports the source's own timestamp rather than the
+  fetch time, its row will legitimately show `stale` whenever the published
+  price is more than 12 hours old. That is accurate, not a bug — but it will
+  look like one if you are expecting all four rows to age together.
 - The percentage is shown to one decimal, except within 0.05% of the
   threshold, where it switches to three so a red row can never read `+5.0%`
   while the rule on the same screen says *more than 5%*.

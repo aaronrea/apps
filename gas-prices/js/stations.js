@@ -5,46 +5,47 @@
  * that it is *already* zoomed in: no map to pan, no radius to widen, no
  * results to sort. These four, ranked, with the comparison already done.
  *
- * Roles drive both layout and logic:
- *   preferred — the default answer. On the daily loop, so it wins ties and
- *               gets the go / no-go verdict.
+ * Roles drive the logic but are deliberately NOT shown. `preferred` and
+ * `benchmark` still decide the verdict and the yardstick; they just aren't
+ * labelled on screen, because a "preferred" label describes a routine and a
+ * store number describes a neighbourhood. The list renders as four brands and
+ * four prices, sorted cheapest first.
+ *
+ *   preferred — the default answer. Wins ties and gets the go / no-go verdict.
  *   benchmark — the price everything else is measured against.
  *   other     — reference only. Flagged red past the threshold.
  *
- * `where` is intentionally only ever what the station's own URL already
- * tells us (store number, cross street, street address). Full addresses are
- * left to the fetcher to fill in if a source happens to publish one — better
- * a short label than a confidently wrong address.
+ * `url` is what the fetcher scrapes, so it necessarily pins the exact store.
+ * It is not linked from the UI, but it is right here in a public repo — see
+ * the anonymity note in README.md before treating this as private.
  * ------------------------------------------------------------------------- */
 
 export const STATIONS = [
   {
     id: 'wawa',
     name: 'Wawa',
-    where: 'Store #5185',
+    icon: '🦆',
     role: 'preferred',
-    note: 'On the daily loop',
     url: 'https://www.wawa.com/locations/5185'
   },
   {
     id: 'costco',
     name: 'Costco',
-    where: 'Bradenton #1364',
+    icon: '📦',
     role: 'benchmark',
-    note: 'Membership required',
     url: 'https://www.costco.com/w/-/fl/bradenton/1364'
   },
   {
     id: 'racetrac',
     name: 'RaceTrac',
-    where: 'Lena Rd',
+    icon: '🏁',
     role: 'other',
     url: 'https://www.racetrac.com/locations/florida/bradenton/lena'
   },
   {
     id: '7-eleven',
     name: '7-Eleven',
-    where: '11805 SR 70 E',
+    icon: '🏪',
     role: 'other',
     url: 'https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565'
   }
