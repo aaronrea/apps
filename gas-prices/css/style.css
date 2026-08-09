@@ -1,0 +1,360 @@
+/* Pump — dark, mobile-first, one column.
+ *
+ * The accent is blue on purpose: red / amber / green are load-bearing here
+ * (over the line, make the trip, fill up), so the brand colour has to stay
+ * out of that vocabulary entirely.
+ */
+
+:root {
+  --bg: #0b0b0d;
+  --surface: #141417;
+  --surface-hi: #1c1c21;
+  --line: #26262c;
+  --text: #f2f2f4;
+  --muted: #8b8b96;
+  --accent: #4da3ff;
+  --accent-dim: rgba(77, 163, 255, 0.14);
+
+  --ok: #3ddc84;
+  --ok-dim: rgba(61, 220, 132, 0.12);
+  --warn: #ffc857;
+  --warn-dim: rgba(255, 200, 87, 0.12);
+  --bad: #ff5c5c;
+  --bad-dim: rgba(255, 92, 92, 0.12);
+
+  --radius: 14px;
+  --pad: 16px;
+}
+
+* { box-sizing: border-box; }
+
+.is-hidden { display: none; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+button { font: inherit; color: inherit; }
+
+/* Safe areas: iOS notch at the top, home indicator at the bottom. */
+.app {
+  max-width: 560px;
+  margin: 0 auto;
+  padding:
+    calc(env(safe-area-inset-top) + 12px)
+    calc(env(safe-area-inset-right) + var(--pad))
+    calc(env(safe-area-inset-bottom) + 20px)
+    calc(env(safe-area-inset-left) + var(--pad));
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* -- top bar -------------------------------------------------------------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.wordmark {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.wordmark::first-letter { color: var(--accent); }
+
+.status {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.status::before {
+  content: "";
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  background: currentColor;
+}
+.status--loading { color: var(--muted); }
+.status--ok { color: var(--ok); }
+.status--warn { color: var(--warn); }
+.status--error { color: var(--bad); }
+
+/* -- verdict -------------------------------------------------------------- */
+
+.verdict {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  padding: var(--pad);
+}
+.verdict--good { border-left-color: var(--ok); background: linear-gradient(var(--ok-dim), transparent 60%), var(--surface); }
+.verdict--warn { border-left-color: var(--warn); background: linear-gradient(var(--warn-dim), transparent 60%), var(--surface); }
+.verdict--unknown { border-left-color: var(--line); }
+
+.verdict__label {
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.verdict__headline {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+.verdict--good .verdict__headline { color: var(--ok); }
+.verdict--warn .verdict__headline { color: var(--warn); }
+
+.verdict__detail {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* -- section headings ----------------------------------------------------- */
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.section-label {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* -- stations ------------------------------------------------------------- */
+
+.stations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.station {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  padding: 12px var(--pad);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+}
+.station--good { border-left-color: var(--ok); }
+.station--bad { border-left-color: var(--bad); }
+.station--benchmark { border-left-color: var(--accent); }
+.station--unknown { border-left-color: var(--line); }
+
+.station.is-cheapest { background: var(--surface-hi); }
+
+.station__who { min-width: 0; }
+
+.station__name {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+.station__name:hover { color: var(--accent); }
+
+.station__where {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.station__tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.tag--pref { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+.tag--bench { color: var(--accent); border-color: var(--accent); }
+.tag--cheap { color: var(--ok); border-color: var(--ok); background: var(--ok-dim); }
+.tag--manual { color: var(--text); }
+.tag--stale { color: var(--warn); border-color: var(--warn); background: var(--warn-dim); }
+
+.station__what { text-align: right; white-space: nowrap; }
+
+.station__price {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.station--bad .station__price { color: var(--bad); }
+.station--benchmark .station__price { color: var(--accent); }
+
+.station__delta {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.station--bad .station__delta { color: var(--bad); }
+
+.station__foot {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.station__age { font-size: 12px; color: var(--muted); }
+.station__actions { display: flex; gap: 6px; }
+
+.station__note {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+/* -- buttons -------------------------------------------------------------- */
+
+.btn {
+  background: var(--surface-hi);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn:active { transform: translateY(1px); }
+
+.btn--small { font-size: 13px; padding: 6px 12px; }
+.btn--tiny {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  color: var(--muted);
+}
+
+/* -- manual price entry --------------------------------------------------- */
+
+.editor {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.editor__input {
+  flex: 1 1 120px;
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  color: var(--text);
+  /* 16px keeps iOS from zooming the viewport when the field takes focus. */
+  font: 16px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-variant-numeric: tabular-nums;
+  padding: 10px 12px;
+}
+.editor__input:focus { outline: 2px solid var(--accent-dim); outline-offset: 1px; }
+
+/* The number spinners are useless at a 0.001 step on a phone. */
+.editor__input::-webkit-outer-spin-button,
+.editor__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.editor__input { -moz-appearance: textfield; appearance: textfield; }
+
+.editor__error {
+  flex: 1 0 100%;
+  margin: 0;
+  font-size: 12px;
+  color: var(--bad);
+}
+
+/* -- meta ----------------------------------------------------------------- */
+
+.meta { display: flex; flex-direction: column; gap: 8px; }
+.meta__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.meta__updated { font-size: 13px; color: var(--muted); }
+.meta__error { margin: 0; font-size: 13px; color: var(--bad); }
+.meta .btn--tiny { align-self: flex-start; }
+
+/* -- the rule ------------------------------------------------------------- */
+
+.rule {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--pad);
+}
+.rule__body {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.rule__body strong { color: var(--text); }
+
+.rule__flag {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.rule__flag strong { color: var(--warn); }

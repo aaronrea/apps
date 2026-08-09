@@ -6,6 +6,7 @@ they're all served from the same GitHub Pages site.
 | App | Directory | What it is |
 | --- | --- | --- |
 | Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, The Bone, The Zone, DEF CON) |
+| Pump | [`gas-prices/`](gas-prices/) | Regular unleaded at four Bradenton stations, already compared |
 
 The root `index.html` is a plain landing page linking to each app — add a list
 item there when you add a sibling app.

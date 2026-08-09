@@ -154,13 +154,13 @@ function verdict(rows, benchmark, threshold) {
     return {
       key: 'preferred-ok',
       headline: 'Fill up at Wawa',
-      detail: `Only ${fmtCents(pref.cents)} over Costco — inside ${threshold}%.`
+      detail: `Only ${fmtCentsAbs(pref.cents)} over Costco — inside ${threshold}%.`
     };
   }
   return {
     key: 'costco-run',
     headline: 'Worth the Costco run',
-    detail: `Wawa is ${fmtCents(pref.cents)} over Costco (${fmtPct(pref.pct)}).`
+    detail: `Wawa is ${fmtCentsAbs(pref.cents)} over Costco (${fmtPctNear(pref.pct, threshold)}).`
   };
 }
 
@@ -194,6 +194,25 @@ export function fmtCents(cents) {
   if (cents > 0) return `${unit} more`;
   if (cents < 0) return `${unit} less`;
   return 'the same';
+}
+
+/* The magnitude on its own, for sentences that supply their own preposition
+ * ("18.5¢ over Costco") and would otherwise read "18.5¢ more over Costco". */
+export function fmtCentsAbs(cents) {
+  return cents === null ? '—' : `${Math.abs(cents).toFixed(1)}¢`;
+}
+
+/* One decimal place is the right amount of precision everywhere except right
+ * at the threshold, where it rounds to exactly the threshold — so a row can
+ * read "+5.0%" while being flagged for being over 5%, contradicting the rule
+ * printed on the same screen. Inside that band, show enough digits to make
+ * the flag legible. */
+export function fmtPctNear(pct, threshold = THRESHOLD_PCT) {
+  if (pct === null) return '—';
+  if (Math.abs(pct - threshold) >= 0.05) return fmtPct(pct);
+
+  const sign = pct > 0 ? '+' : pct < 0 ? '−' : '';
+  return `${sign}${Math.abs(pct).toFixed(3)}%`;
 }
 
 /* "3 min ago" / "2 hr ago" / "Aug 9". Gas prices go stale fast, so age is

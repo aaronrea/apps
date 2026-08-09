@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pump</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Regular unleaded at four Bradenton stations, already compared.">
+  <meta name="theme-color" content="#0b0b0d">
+
+  <!-- iOS standalone / home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pump">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+
+  <!-- All paths are relative so this works from a GitHub Pages subpath. -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <main class="app">
+
+    <header class="topbar">
+      <h1 class="wordmark">Pump</h1>
+      <span id="status" class="status status--idle" role="status" aria-live="polite">loading</span>
+    </header>
+
+    <!-- The answer. Everything below this is the reasoning. -->
+    <section id="verdict" class="verdict verdict--unknown" aria-label="Verdict">
+      <p class="verdict__label">Today</p>
+      <h2 id="verdict-headline" class="verdict__headline">…</h2>
+      <p id="verdict-detail" class="verdict__detail"></p>
+    </section>
+
+    <!-- Stations -->
+    <section aria-label="Stations">
+      <div class="section-head">
+        <p class="section-label">Regular unleaded</p>
+        <p id="benchmark-note" class="section-note"></p>
+      </div>
+      <ul id="stations" class="stations"></ul>
+    </section>
+
+    <!-- Meta -->
+    <section class="meta" aria-label="Data freshness">
+      <div class="meta__row">
+        <span id="updated" class="meta__updated">—</span>
+        <button id="refresh" class="btn btn--small" type="button">Refresh</button>
+      </div>
+      <p id="data-error" class="meta__error is-hidden" role="alert"></p>
+      <button id="clear-all" class="btn btn--tiny is-hidden" type="button">Clear all typed prices</button>
+    </section>
+
+    <!-- The rule, stated plainly, because it is a judgement call and not a fact. -->
+    <section class="rule" aria-label="How this decides">
+      <p class="section-label">How this decides</p>
+      <p class="rule__body">
+        Costco is the benchmark. Wawa is the default because it is already on
+        the daily loop, so it wins unless it drifts more than
+        <strong>5%</strong> over Costco — then the detour is worth it. Anything
+        more than 5% over Costco is flagged red.
+      </p>
+      <p class="rule__flag">
+        <strong>Unconfirmed:</strong> the 5% rule is applied to Wawa too —
+        preferred, but not exempt. Under the line the answer is always Wawa;
+        over it, the Costco run. Say the word if you meant Wawa to be exempt,
+        or wanted a cents-per-gallon cutoff instead of a percentage.
+      </p>
+    </section>
+
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
