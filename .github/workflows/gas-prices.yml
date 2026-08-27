@@ -10,7 +10,7 @@ on:
     # 12-hour staleness window for all of the waking hours that matter.
     - cron: '10 11 * * *'   # ~7am ET
     - cron: '10 17 * * *'   # ~1pm ET
-    - cron: '29 21 * * *'   # TEMP: moved up for testing SHA-pin fix, revert to '10 23 * * *' (~7pm ET) after
+    - cron: '49 21 * * *'   # TEMP: moved up for testing SHA-pin fix, revert to '10 23 * * *' (~7pm ET) after
   workflow_dispatch:
 
 permissions:
