@@ -10,7 +10,7 @@ on:
     # 12-hour staleness window for all of the waking hours that matter.
     - cron: '10 11 * * *'   # ~7am ET
     - cron: '10 17 * * *'   # ~1pm ET
-    - cron: '10 23 * * *'   # ~7pm ET
+    - cron: '20 21 * * *'   # TEMP: moved up for testing SHA-pin fix, revert to '10 23 * * *' (~7pm ET) after
   workflow_dispatch:
 
 permissions:
@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
 
