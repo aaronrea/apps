@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:georss="http://www.georss.org/georss"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:nhc="https://www.nhc.noaa.gov">
+  <channel>
+    <pubDate>Sun, 30 Aug 2026 23:20:08 GMT</pubDate>
+    <title>NHC Atlantic</title>
+    <description>Active tropical cyclones in the Atlantic, Caribbean, and the Gulf of America</description>
+    <link>https://www.nhc.noaa.gov/</link>
+    <copyright>none</copyright>
+    <managingEditor>nhcwebmaster@noaa.gov (NHC Webmaster)</managingEditor>
+    <language>en-us</language>
+    <webMaster>nhcwebmaster@noaa.gov (NHC Webmaster)</webMaster>
+    <image>
+      <url>https://www.nhc.noaa.gov/gifs/xml_logo_nhc.gif</url>
+      <link>https://www.nhc.noaa.gov/</link>
+      <title>NHC Atlantic</title>
+      <description>NOAA logo</description>
+      <width>95</width>
+      <height>45</height>
+    </image>
+    <item>
+      <title>Atlantic Tropical Weather Outlook</title>
+      <description>
+      <![CDATA[000<br />ABNT20 KNHC 301828 CCA<br />TWOAT <br /><br />Tropical Weather Outlook...Corrteced<br />NWS National Hurricane Center Miami FL<br />200 PM EDT Sun Aug 30 2026<br /><br />Correct low chance to medium chance for the Gulf system<br /><br />For the North Atlantic...Caribbean Sea and the Gulf of America:<br /><br />Northern Gulf of America (AL97):<br />A low pressure area is located over the northern Gulf of America <br />about 125 mils south of the coast of southeastern Louisiana.  <br />Satellite imagery and recent satellite wind data indicate that this <br />system has become better organized since yesterday.  Additional <br />development is possible as the low moves slowly west-northwestward, <br />and a short-lived tropical depression or tropical storm could form <br />before the system reaches the Upper Texas or southwestern Louisiana <br />coasts Tuesday or Tuesday night. Interests along the Louisiana and <br />Upper Texas coasts should monitor the progress of this system. <br />Regardless of development, locally heavy rainfall is possible over <br />portions of the Upper Texas or southwestern Louisiana coasts during <br />the next couple of days.<br />* Formation chance through 48 hours...medium...50 percent.<br />* Formation chance through 7 days...medium...50 percent.<br /><br />Near Puerto Rico and the Virgin Islands (Remnants of Dolly):<br />A strong tropical wave, the remnants of Tropical Storm Dolly, is <br />producing an area of showers and thunderstorms from Puerto Rico <br />eastward across the Virgin Islands and the northern Leeward Islands. <br />Satellite data and surface observations indicate that there are no <br />signs of a closed surface circulation, and redevelopment is unlikely <br />during the next day or two while the wave moves westward to <br />west-northwestward at about 25 mph. The system should bring locally <br />heavy rains and gusty winds to portions of the Leeward Islands, the <br />Virgin Islands, Puerto Rico, and Hispaniola over the next couple of <br />days. Conditions may become more conducive for redevelopment by the <br />middle of the week as the system reaches the southeastern Gulf of <br />America.<br />* Formation chance through 48 hours...low...near 0 percent.<br />* Formation chance through 7 days...low...20 percent.<br /><br />$$<br />Forecaster Beven]]>
+      </description>
+      <pubDate>Sun, 30 Aug 2026 18:29:30 GMT</pubDate>
+      <link>https://www.nhc.noaa.gov/gtwo.php?basin=atlc</link>
+      <guid>https://www.nhc.noaa.gov/gtwo.php?basin=atlc&amp;202608301829</guid>
+      <author>nhcwebmaster@noaa.gov (NHC Webmaster)</author>
+    </item>
+    <item>
+      <title>There are no tropical cyclones at this time.</title>
+      <description>No tropical cyclones as of Sun, 30 Aug 2026 23:20:08 GMT</description>
+      <pubDate>Tue, 01 Sep 2026 06:29:30 GMT</pubDate>
+      <link>https://www.nhc.noaa.gov/</link>
+      <guid>https://www.nhc.noaa.gov/</guid>
+      <author>nhcwebmaster@noaa.gov (NHC Webmaster)</author>
+    </item>
+  </channel>
+</rss>

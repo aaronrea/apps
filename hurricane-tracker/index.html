@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Active NHC storms and invests, filtered to the Gulf Coast, Texas, Florida and the western Caribbean.">
+  <meta name="theme-color" content="#0b0b0d">
+
+  <!-- iOS standalone / home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Cone">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+
+  <!-- All paths are relative so this works from a GitHub Pages subpath. -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <main class="app">
+
+    <header class="topbar">
+      <h1 class="wordmark">Cone</h1>
+      <span id="status" class="status status--idle" role="status" aria-live="polite">loading</span>
+    </header>
+
+    <!-- The answer. Everything below this is the reasoning. -->
+    <section id="banner" class="banner banner--unknown" aria-label="Overall status">
+      <p class="banner__label">Tampa · Texas Gulf Coast · Honduras &amp; western Caribbean</p>
+      <h2 id="banner-headline" class="banner__headline">…</h2>
+      <p id="banner-detail" class="banner__detail"></p>
+    </section>
+
+    <!-- Active systems -->
+    <section aria-label="Active systems in your regions">
+      <div class="section-head">
+        <p class="section-label">Active systems</p>
+        <p id="storms-note" class="section-note"></p>
+      </div>
+      <ul id="storms" class="cards"></ul>
+    </section>
+
+    <!-- Tropical weather outlook -->
+    <section aria-label="Tropical weather outlook">
+      <div class="section-head">
+        <p class="section-label">Tropical weather outlook</p>
+        <p id="outlook-note" class="section-note"></p>
+      </div>
+      <ul id="outlook" class="cards"></ul>
+    </section>
+
+    <!-- Meta -->
+    <section class="meta" aria-label="Data freshness">
+      <div class="meta__row">
+        <div class="meta__timestamps">
+          <p id="storms-updated" class="meta__line">Storms —</p>
+          <p id="outlook-updated" class="meta__line">Outlook —</p>
+        </div>
+        <button id="refresh" class="btn btn--small" type="button">Refresh</button>
+      </div>
+      <p id="data-error" class="meta__error is-hidden" role="alert"></p>
+    </section>
+
+    <!-- The rule, stated plainly, because the filter is a judgement call. -->
+    <section class="rule" aria-label="How this decides">
+      <p class="section-label">How this decides</p>
+      <p class="rule__body">
+        NHC publishes <a href="https://www.nhc.noaa.gov/CurrentStorms.json" target="_blank" rel="noopener">every active system worldwide</a>
+        and the <a href="https://www.nhc.noaa.gov/text/MIATWOAT.shtml" target="_blank" rel="noopener">Atlantic outlook</a> for
+        disturbances that don't have a full advisory yet. This page keeps only what could plausibly reach
+        Tampa/the Gulf Coast, Texas, Florida, the Bahamas, or Honduras/the western Caribbean — a bounding box
+        for storms with a known position, plus a keyword match on the outlook text for invests that don't have
+        one yet. A GitHub Action re-fetches both roughly every hour; NHC itself only updates every ~6 hours
+        (more often near landfall).
+      </p>
+    </section>
+
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

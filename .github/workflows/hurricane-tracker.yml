@@ -1,0 +1,77 @@
+name: Fetch storms
+
+# CurrentStorms.json and the Atlantic outlook feed send no CORS headers, so a
+# static page can't fetch them from the browser. This workflow is the
+# fetching half of the app: it runs the fetcher and commits the result, and
+# the page just reads the committed files.
+on:
+  schedule:
+    - cron: '15 * * * *'   # hourly — NHC itself only updates every ~6 hours,
+                            # so most runs are a no-op commit-wise; this just
+                            # keeps the page within an hour of whenever it does.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Never let two runs race each other into a push conflict.
+concurrency:
+  group: hurricane-tracker
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+
+      # The fetcher has no dependencies, so there is nothing to install.
+      # It exits non-zero only if a source failed; it still writes a coherent
+      # file in that case (the previous data carried forward, marked not ok),
+      # so let the commit happen either way and fail the job at the end.
+      - name: Fetch storms + outlook
+        id: fetch
+        continue-on-error: true
+        run: node hurricane-tracker/scripts/fetch-storms.mjs
+
+      - name: Check the region filter + outlook parser still hold
+        run: node hurricane-tracker/scripts/test-filter.mjs
+
+      - name: Commit data if it changed
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- hurricane-tracker/data/current-storms.json hurricane-tracker/data/outlook-atlantic.json; then
+            echo "No change — nothing to commit."
+            exit 0
+          fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hurricane-tracker/data/current-storms.json hurricane-tracker/data/outlook-atlantic.json
+          git commit -m "Update storm data"
+
+          # A scheduled run can collide with a push to main; rebase and retry
+          # rather than failing the run over it.
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push failed (attempt $attempt), rebasing on origin/${GITHUB_REF_NAME}"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            sleep $((attempt * 5))
+          done
+
+          echo "Could not push after 3 attempts" >&2
+          exit 1
+
+      - name: Fail if a source could not be fetched
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "One or both sources failed — see the fetch step's log above." >&2
+          exit 1
