@@ -18,7 +18,7 @@
  * ------------------------------------------------------------------------- */
 
 import { classificationInfo, formationTone } from './filter.js';
-import { fmtAge } from './format.js';
+import { fmtAge, localizeGulf } from './format.js';
 import { loadAll } from './store.js';
 
 const els = {
@@ -148,7 +148,7 @@ function renderOutlookRow(area) {
   const chance = area.formationChance7d || area.formationChance48h;
   const tone = formationTone(chance?.category);
   const meta = chance ? `${capitalize(chance.category)} chance · ${chance.percent}` : 'Formation chance unknown';
-  return rowEl({ tone, name: area.area, meta, href: OUTLOOK_URL });
+  return rowEl({ tone, name: localizeGulf(area.area), meta, href: OUTLOOK_URL });
 }
 
 function capitalize(s) {

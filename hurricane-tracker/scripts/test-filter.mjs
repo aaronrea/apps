@@ -18,6 +18,7 @@ import {
   classificationInfo, ktToMph, formationTone, REGION_BOX
 } from '../js/filter.js';
 import { htmlToText, parseOutlook } from '../js/outlook.js';
+import { localizeGulf } from '../js/format.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
@@ -124,6 +125,15 @@ ok('area 2 is in-region via "Gulf of America" mention later in the text', dolly.
 const quietText = 'For the North Atlantic...Caribbean Sea and the Gulf of America:\n\n'
   + 'Tropical cyclone formation is not expected during the next 7 days.\n\n$$\nForecaster Beven';
 check('quiet basin parses to zero areas', parseOutlook(quietText).length, 0);
+
+/* -- display-only renaming --------------------------------------------- */
+
+check('renames Gulf of America for display', localizeGulf('Northern Gulf of America'), 'Northern Gulf of Mexico');
+check('renaming is case-insensitive', localizeGulf('the gulf of america'), 'the Gulf of Mexico');
+check('leaves unrelated text alone', localizeGulf('Near Puerto Rico'), 'Near Puerto Rico');
+check('non-string input passes through unchanged', localizeGulf(null), null);
+ok('parsed area name from the fixture still says "Gulf of America" (source stays verbatim)', gulf.area.includes('Gulf of America'));
+check('the same name renders as Gulf of Mexico', localizeGulf(gulf.area), 'Northern Gulf of Mexico');
 
 /* -- summary ------------------------------------------------------------ */
 

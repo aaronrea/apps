@@ -65,3 +65,12 @@ export function isStaleAge(iso, now = Date.now(), staleAfterMs = 8 * HOUR) {
   if (!Number.isFinite(then)) return true;
   return (now - then) > staleAfterMs;
 }
+
+/* NHC's product text now reads "Gulf of America" (the 2025 US government
+ * rename). The stored data keeps NHC's actual wording verbatim — that's the
+ * real source text, and the parser/fixtures are built against it — but this
+ * app calls it the Gulf of Mexico on screen, so the display layer renames it
+ * right before it hits the DOM. */
+export function localizeGulf(text) {
+  return typeof text === 'string' ? text.replace(/Gulf of America/gi, 'Gulf of Mexico') : text;
+}
