@@ -138,107 +138,60 @@ html, body {
   color: var(--muted);
 }
 
-.cards {
+.rows {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
-/* -- cards ---------------------------------------------------------------------- */
+/* -- rows: one line per system/area, the whole line links to NOAA ---------------- */
 
-.card {
+.row {
   background: var(--surface);
   border: 1px solid var(--line);
   border-left: 3px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px var(--pad);
+  border-radius: 10px;
 }
-.card--bad     { border-left-color: var(--bad); }
-.card--warn    { border-left-color: var(--warn); }
-.card--ok      { border-left-color: var(--ok); }
-.card--info    { border-left-color: var(--info); }
-.card--muted   { border-left-color: var(--line); }
-.card--empty   { color: var(--muted); }
+.row--bad     { border-left-color: var(--bad); }
+.row--warn    { border-left-color: var(--warn); }
+.row--ok      { border-left-color: var(--ok); }
+.row--info    { border-left-color: var(--info); }
+.row--muted   { border-left-color: var(--line); }
 
-.card__empty-text { margin: 0; font-size: 14px; }
-
-.card__head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.card__name {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-.card__subtle {
-  font-weight: 400;
+.row--empty {
+  padding: 12px var(--pad);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
 }
+.row__empty-text { margin: 0; }
 
-.badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  padding: 3px 8px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-.badge--bad     { background: var(--bad-dim);  color: var(--bad); }
-.badge--warn    { background: var(--warn-dim); color: var(--warn); }
-.badge--ok      { background: var(--ok-dim);   color: var(--ok); }
-.badge--info    { background: var(--info-dim); color: var(--info); }
-.badge--muted   { background: var(--unknown-dim); color: var(--muted); }
-
-.card__stats {
+.row__link {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  margin-top: 10px;
-}
-.card__stat {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.card__body {
-  margin: 10px 0 0;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text);
-}
-
-.card__foot {
-  display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  margin-top: 10px;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 12px var(--pad);
+  text-decoration: none;
+  color: inherit;
 }
-.card__foot--end { justify-content: flex-end; }
-.card__age {
-  font-size: 12px;
+.row__link:hover { background: var(--surface-hi); }
+.row__link[aria-disabled="true"] { pointer-events: none; }
+
+.row__name {
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 0;
+}
+.row__meta {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 13px;
   color: var(--muted);
 }
-.card__links {
-  display: flex;
-  gap: 12px;
-}
-.card__link {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
-}
-.card__link:hover { text-decoration: underline; }
 
 /* -- meta ----------------------------------------------------------------------- */
 

@@ -17,8 +17,8 @@
  * the fetcher.
  * ------------------------------------------------------------------------- */
 
-import { classificationInfo, ktToMph, formationTone } from './filter.js';
-import { fmtWind, fmtPressure, fmtMovement, fmtCoords, fmtAge } from './format.js';
+import { classificationInfo, formationTone } from './filter.js';
+import { fmtAge } from './format.js';
 import { loadAll } from './store.js';
 
 const els = {
@@ -65,28 +65,26 @@ function computeBanner({ inStorms, inAreas, bothFailed }) {
   if (inStorms.length > 0) {
     const worst = inStorms[0];
     const info = classificationInfo(worst.classification);
-    const names = inStorms.map((s) => `${s.name} (${classificationInfo(s.classification).label})`).join(', ');
     const badge = { HU: '🌀', TS: '🌪️', STS: '🌪️', TD: '👀', STD: '👀', PTC: '🌫️' }[worst.classification] || '👀';
     const headline = info.tone === 'bad'
       ? `Hurricane in your regions: ${worst.name}`
       : info.tone === 'warn'
         ? `Tropical storm activity: ${worst.name}`
         : `Tracking ${worst.name} near your regions`;
-    return { tone: info.tone, badge, headline, detail: names };
+    const detail = inStorms.length > 1 ? `+${inStorms.length - 1} more system(s) below` : null;
+    return { tone: info.tone, badge, headline, detail };
   }
 
   if (inAreas.length > 0) {
     const sorted = [...inAreas].sort((a, b) => formationRank(b) - formationRank(a));
     const worst = sorted[0];
     const tone = formationTone(worst.formationChance7d?.category || worst.formationChance48h?.category);
-    const detail = sorted
-      .map((a) => `${a.area} — ${a.formationChance7d?.category || 'low'} chance (${a.formationChance7d?.percent || 'n/a'} in 7 days)`)
-      .join('; ');
     const headline = tone === 'bad'
       ? 'High chance of development in your regions'
       : tone === 'warn'
         ? 'Development possible in your regions'
         : 'Low-chance disturbance being watched';
+    const detail = sorted.length > 1 ? `+${sorted.length - 1} more area(s) below` : null;
     return { tone, badge: '🌊', headline, detail };
   }
 
@@ -105,15 +103,13 @@ function renderBanner(banner) {
   els.bannerDetail.classList.toggle('is-hidden', !banner.detail);
 }
 
-/* -- 4. storm cards ------------------------------------------------------------ */
+/* -- 4. storms --------------------------------------------------------------- */
 
 function renderStorms(inStorms, allStorms) {
-  els.stormsNote.textContent = allStorms.length
-    ? `${allStorms.length} active worldwide · ${inStorms.length} in your regions`
-    : '';
+  els.stormsNote.textContent = allStorms.length ? `${inStorms.length} of ${allStorms.length} active worldwide` : '';
 
   if (inStorms.length === 0) {
-    els.storms.replaceChildren(emptyCard('No active systems in your regions right now.'));
+    els.storms.replaceChildren(emptyRow('No active systems in your regions right now.'));
     return;
   }
 
@@ -122,164 +118,82 @@ function renderStorms(inStorms, allStorms) {
     return rankDiff !== 0 ? rankDiff : (b.intensity || 0) - (a.intensity || 0);
   });
 
-  els.storms.replaceChildren(...sorted.map(renderStormCard));
+  els.storms.replaceChildren(...sorted.map(renderStormRow));
 }
 
-function renderStormCard(storm) {
+function renderStormRow(storm) {
   const info = classificationInfo(storm.classification);
-  const mph = ktToMph(storm.intensity);
-
-  const li = document.createElement('li');
-  li.className = `card card--${info.tone}`;
-
-  const head = document.createElement('div');
-  head.className = 'card__head';
-
-  const badge = document.createElement('span');
-  badge.className = `badge badge--${info.tone}`;
-  badge.textContent = info.label;
-
-  const name = document.createElement('p');
-  name.className = 'card__name';
-  name.textContent = storm.name;
-  if (storm.binNumber) {
-    const bin = document.createElement('span');
-    bin.className = 'card__subtle';
-    bin.textContent = ` (${storm.binNumber})`;
-    name.append(bin);
-  }
-
-  head.append(badge, name);
-  li.append(head);
-
-  const stats = document.createElement('div');
-  stats.className = 'card__stats';
-  [
-    fmtWind(storm.intensity, mph),
-    fmtPressure(storm.pressure),
-    fmtMovement(storm.movementDir, storm.movementSpeed),
-    fmtCoords(storm.lat, storm.lon)
-  ].filter(Boolean).forEach((text) => {
-    const p = document.createElement('span');
-    p.className = 'card__stat';
-    p.textContent = text;
-    stats.append(p);
-  });
-  li.append(stats);
-
-  const foot = document.createElement('div');
-  foot.className = 'card__foot';
-
-  const age = document.createElement('span');
-  age.className = 'card__age';
-  age.textContent = storm.lastUpdate ? `Updated ${fmtAge(storm.lastUpdate)}` : '';
-  foot.append(age);
-
-  const links = document.createElement('span');
-  links.className = 'card__links';
-  if (storm.links?.publicAdvisory) links.append(linkEl('Advisory', storm.links.publicAdvisory));
-  if (storm.links?.forecastDiscussion) links.append(linkEl('Discussion', storm.links.forecastDiscussion));
-  foot.append(links);
-
-  li.append(foot);
-  return li;
+  const href = storm.links?.publicAdvisory || storm.links?.forecastDiscussion || null;
+  const meta = storm.intensity != null ? `${info.label} · ${storm.intensity} kt` : info.label;
+  return rowEl({ tone: info.tone, name: storm.name, meta, href });
 }
 
-/* -- 5. outlook cards ----------------------------------------------------------- */
+/* -- 5. outlook ---------------------------------------------------------------- */
 
 const OUTLOOK_URL = 'https://www.nhc.noaa.gov/text/MIATWOAT.shtml';
 
 function renderOutlook(inAreas, allAreas) {
-  els.outlookNote.textContent = allAreas.length
-    ? `${allAreas.length} disturbance(s) noted · ${inAreas.length} in your regions`
-    : '';
+  els.outlookNote.textContent = allAreas.length ? `${inAreas.length} of ${allAreas.length} disturbance(s) noted` : '';
 
   if (inAreas.length === 0) {
-    els.outlook.replaceChildren(emptyCard('No disturbances being tracked in your regions right now.'));
+    els.outlook.replaceChildren(emptyRow('No disturbances being tracked in your regions right now.'));
     return;
   }
 
   const sorted = [...inAreas].sort((a, b) => formationRank(b) - formationRank(a));
-  els.outlook.replaceChildren(...sorted.map(renderOutlookCard));
+  els.outlook.replaceChildren(...sorted.map(renderOutlookRow));
 }
 
-function renderOutlookCard(area) {
-  const tone48 = formationTone(area.formationChance48h?.category);
-  const tone7d = formationTone(area.formationChance7d?.category);
+function renderOutlookRow(area) {
+  const chance = area.formationChance7d || area.formationChance48h;
+  const tone = formationTone(chance?.category);
+  const meta = chance ? `${capitalize(chance.category)} chance · ${chance.percent}` : 'Formation chance unknown';
+  return rowEl({ tone, name: area.area, meta, href: OUTLOOK_URL });
+}
 
+function capitalize(s) {
+  return s ? s[0].toUpperCase() + s.slice(1) : s;
+}
+
+/* -- shared row -------------------------------------------------------------- */
+
+/* One line: name, then the likelihood/severity that answers "how worried
+ * should I be," the whole thing linking straight to the NOAA product. */
+function rowEl({ tone, name, meta, href }) {
   const li = document.createElement('li');
-  li.className = `card card--${tone7d}`;
+  li.className = `row row--${tone}`;
 
-  const head = document.createElement('div');
-  head.className = 'card__head';
-
-  const name = document.createElement('p');
-  name.className = 'card__name';
-  name.textContent = area.area;
-  if (area.descriptor) {
-    const sub = document.createElement('span');
-    sub.className = 'card__subtle';
-    sub.textContent = ` (${area.descriptor})`;
-    name.append(sub);
-  }
-  head.append(name);
-  li.append(head);
-
-  const chips = document.createElement('div');
-  chips.className = 'card__stats';
-  if (area.formationChance48h) {
-    chips.append(chipEl(`48h: ${area.formationChance48h.category} (${area.formationChance48h.percent})`, tone48));
-  }
-  if (area.formationChance7d) {
-    chips.append(chipEl(`7d: ${area.formationChance7d.category} (${area.formationChance7d.percent})`, tone7d));
-  }
-  li.append(chips);
-
-  if (area.text) {
-    const body = document.createElement('p');
-    body.className = 'card__body';
-    body.textContent = area.text;
-    li.append(body);
-  }
-
-  const foot = document.createElement('div');
-  foot.className = 'card__foot card__foot--end';
-  const links = document.createElement('span');
-  links.className = 'card__links';
-  links.append(linkEl('Full outlook', OUTLOOK_URL));
-  foot.append(links);
-  li.append(foot);
-
-  return li;
-}
-
-/* -- shared card bits ------------------------------------------------------------ */
-
-function emptyCard(text) {
-  const li = document.createElement('li');
-  li.className = 'card card--empty';
-  const p = document.createElement('p');
-  p.className = 'card__empty-text';
-  p.textContent = text;
-  li.append(p);
-  return li;
-}
-
-function chipEl(text, tone) {
-  const span = document.createElement('span');
-  span.className = `badge badge--${tone}`;
-  span.textContent = text;
-  return span;
-}
-
-function linkEl(text, href) {
   const a = document.createElement('a');
-  a.className = 'card__link';
-  a.href = href;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  a.textContent = text;
-  return a;
+  a.className = 'row__link';
+  if (href) {
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+  } else {
+    a.setAttribute('aria-disabled', 'true');
+  }
+
+  const nameEl = document.createElement('span');
+  nameEl.className = 'row__name';
+  nameEl.textContent = name;
+
+  const metaEl = document.createElement('span');
+  metaEl.className = 'row__meta';
+  metaEl.textContent = meta;
+
+  a.append(nameEl, metaEl);
+  li.append(a);
+  return li;
+}
+
+function emptyRow(text) {
+  const li = document.createElement('li');
+  li.className = 'row row--empty';
+  const span = document.createElement('span');
+  span.className = 'row__empty-text';
+  span.textContent = text;
+  li.append(span);
+  return li;
 }
 
 /* -- 6. meta + load/refresh ------------------------------------------------------- */
