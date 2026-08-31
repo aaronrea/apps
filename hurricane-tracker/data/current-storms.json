@@ -1,29 +1,49 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-08-31T12:39:48.642Z",
-  "checkedAt": "2026-08-31T12:39:48.642Z",
-  "totalActive": 2,
-  "inRegionCount": 0,
+  "updated": "2026-08-31T15:28:18.950Z",
+  "checkedAt": "2026-08-31T15:28:18.950Z",
+  "totalActive": 3,
+  "inRegionCount": 1,
   "storms": [
+    {
+      "id": "al052026",
+      "binNumber": "AT5",
+      "name": "Five",
+      "classification": "PC",
+      "intensity": 30,
+      "pressure": 1013,
+      "lat": 27.8,
+      "lon": -91,
+      "movementDir": 285,
+      "movementSpeed": 5,
+      "lastUpdate": "2026-08-31T15:00:00.000Z",
+      "inRegion": true,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT5.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT5.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at5.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL052026_001adv_CONE.kmz"
+      }
+    },
     {
       "id": "ep112026",
       "binNumber": "EP1",
       "name": "Karina",
       "classification": "HU",
-      "intensity": 125,
-      "pressure": 942,
-      "lat": 17.2,
-      "lon": -124.4,
+      "intensity": 120,
+      "pressure": 950,
+      "lat": 17.4,
+      "lon": -125.1,
       "movementDir": 275,
       "movementSpeed": 9,
-      "lastUpdate": "2026-08-31T09:00:00.000Z",
+      "lastUpdate": "2026-08-31T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_016adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_017adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +51,19 @@
       "binNumber": "CP4",
       "name": "Lowell",
       "classification": "TS",
-      "intensity": 50,
-      "pressure": 997,
-      "lat": 13,
-      "lon": -144.2,
-      "movementDir": 270,
-      "movementSpeed": 12,
-      "lastUpdate": "2026-08-31T09:00:00.000Z",
+      "intensity": 55,
+      "pressure": 995,
+      "lat": 12.8,
+      "lon": -145.7,
+      "movementDir": 260,
+      "movementSpeed": 14,
+      "lastUpdate": "2026-08-31T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_015adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_016adv_CONE.kmz"
       }
     }
   ]
