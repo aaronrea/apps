@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-08-31T15:28:18.950Z",
-  "checkedAt": "2026-08-31T15:28:18.950Z",
+  "updated": "2026-08-31T18:33:16.808Z",
+  "checkedAt": "2026-08-31T18:33:16.808Z",
   "totalActive": 3,
   "inRegionCount": 1,
   "storms": [
@@ -10,20 +10,20 @@
       "id": "al052026",
       "binNumber": "AT5",
       "name": "Five",
-      "classification": "PC",
+      "classification": "TD",
       "intensity": 30,
-      "pressure": 1013,
-      "lat": 27.8,
-      "lon": -91,
+      "pressure": 1012,
+      "lat": 28,
+      "lon": -90.8,
       "movementDir": 285,
       "movementSpeed": 5,
-      "lastUpdate": "2026-08-31T15:00:00.000Z",
+      "lastUpdate": "2026-08-31T18:00:00.000Z",
       "inRegion": true,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL052026_001adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL052026_001Aadv_CONE.kmz"
       }
     },
     {
