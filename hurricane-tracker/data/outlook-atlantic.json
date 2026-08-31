@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-08-31T04:30:41.970Z",
-  "issued": "2026-08-31T04:26:25.000Z",
-  "checkedAt": "2026-08-31T04:30:41.970Z",
+  "updated": "2026-08-31T06:52:52.346Z",
+  "issued": "2026-08-31T06:50:05.000Z",
+  "checkedAt": "2026-08-31T06:52:52.346Z",
   "totalAreas": 2,
   "inRegionCount": 2,
   "areas": [
@@ -12,7 +12,7 @@
       "area": "Northern Gulf of America",
       "descriptor": "AL97",
       "binNumber": "AL97",
-      "text": "An area of low pressure located over the northern Gulf of America, about 125 miles south of the coast of southeastern Louisiana, continues to become better defined, and the associated shower and thunderstorm activity is gradually increasing. Continued gradual development is expected as the low moves slowly west-northwestward, and a short-lived tropical depression or tropical storm is likely to form before the system reaches the Upper Texas or southwestern Louisiana coasts on Tuesday or Tuesday night. Interests along the southwest Louisiana and Upper Texas coasts should monitor the progress of this system, as tropical storm watches or warnings could be required for portions of the area later tonight or Monday morning. Regardless of development, this system is expected to bring locally heavy rainfall to portions of the Upper Texas and southwestern Louisiana coasts during the next several days. An Air Force Reserve reconnaissance aircraft is scheduled to investigate the low-pressure area on Monday morning.",
+      "text": "An area of low pressure over the northern Gulf of America, located more than 100 miles south of the coast of southern Louisiana continues to produce a small but concentrated area of showers and thunderstorms. Earlier satellite wind data indicated that the circulation has not become much better defined from yesterday while producing winds of 30 to 35 mph. Regardless, additional development is anticipated as the low moves slowly west-northwestward, and a short-lived tropical depression or tropical storm is likely to form before the system reaches the Upper Texas or southwestern Louisiana coasts by tonight or Tuesday morning. Interests along the southwest Louisiana and Upper Texas coasts should monitor the progress of this system, as tropical storm watches or warnings could be required for portions of the area later today. Regardless of development, this system is expected to bring locally heavy rainfall to portions of the Upper Texas and southwestern Louisiana coasts during the next several days. An Air Force Reserve reconnaissance aircraft is scheduled to investigate the system later this morning. Additional information on this system, including gale warnings, can be found in High Seas Forecasts issued by the National Weather Service.",
       "formationChance48h": {
         "category": "high",
         "percent": "70 percent"
@@ -33,7 +33,7 @@
       "area": "Near Puerto Rico and the Virgin Islands",
       "descriptor": "Remnants of Dolly",
       "binNumber": null,
-      "text": "A strong tropical wave, the remnants of Tropical Storm Dolly, is producing an area of showers and thunderstorms from Puerto Rico eastward across the Virgin Islands and the northern Leeward Islands. Satellite data and surface observations indicate that there are no signs of a closed surface circulation, and redevelopment is unlikely during the next day or two while the wave moves westward to west-northwestward at about 25 mph. The system could bring locally heavy rains and gusty winds to portions of the Leeward Islands, the Virgin Islands, Puerto Rico, and Hispaniola over the next couple of days. Conditions may become more conducive for redevelopment by the middle of the week as the system reaches the southeastern Gulf of America.",
+      "text": "The remnants of Tropical Storm Dolly, a surface trough of low pressure, continues to produce an area of showers and thunderstorms from Hispaniola eastward to the northern Leeward Islands. Strong upper-level winds are expected to prevent redevelopment of this system over the next day or two while it moves quickly westward to west-northwestward at 20 to 25 mph. Conditions could become more conducive for redevelopment by the middle of the week as the system reaches the southern Bahamas or Florida Straits. Regardless, the system could bring locally heavy rains and gusty winds to portions of the Leeward Islands, the Virgin Islands, Puerto Rico, and Hispaniola over the next couple of days. && High Seas Forecasts issued by the National Weather Service can be found under AWIPS header NFDHSFAT1, WMO header FZNT01 KWBC, and online at ocean.weather.gov/shtml/NFDHSFAT1.php",
       "formationChance48h": {
         "category": "low",
         "percent": "near 0 percent"
@@ -44,7 +44,8 @@
       },
       "inRegion": true,
       "matchedKeywords": [
-        "gulf",
+        "florida",
+        "bahamas",
         "leeward"
       ]
     }
