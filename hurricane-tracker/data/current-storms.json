@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-08-30T23:29:17.133Z",
-  "checkedAt": "2026-08-30T23:29:17.133Z",
+  "updated": "2026-08-31T01:03:55.910Z",
+  "checkedAt": "2026-08-31T01:03:55.910Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP1",
       "name": "Karina",
       "classification": "HU",
-      "intensity": 80,
-      "pressure": 978,
+      "intensity": 110,
+      "pressure": 955,
       "lat": 17.2,
-      "lon": -123.2,
+      "lon": -123.4,
       "movementDir": 270,
       "movementSpeed": 9,
-      "lastUpdate": "2026-08-30T21:00:00.000Z",
+      "lastUpdate": "2026-08-31T00:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_013adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_014adv_CONE.kmz"
       }
     },
     {
