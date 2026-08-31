@@ -6,9 +6,20 @@ name: Fetch storms
 # the page just reads the committed files.
 on:
   schedule:
-    - cron: '15 * * * *'   # hourly — NHC itself only updates every ~6 hours,
-                            # so most runs are a no-op commit-wise; this just
-                            # keeps the page within an hour of whenever it does.
+    # NHC issues these on fixed clocks, not "every ~6 hours": routine
+    # advisories at 5/11/5/11 AM/PM ET, and the Tropical Weather Outlook
+    # (plus intermediate advisories, when a system is close enough to land to
+    # need them) at 2/8/2/8 AM/PM ET. Interleaved, that's every 3 hours on
+    # the ET clock — 2, 5, 8, 11, 2, 5, 8, 11 — which in EDT (UTC-4, what's
+    # in effect for nearly all of hurricane season) lands on the hour in UTC:
+    # 00, 03, 06, 09, 12, 15, 18, 21. The 20-minute offset is a buffer for
+    # NHC's own publish lag, not a guess at their schedule.
+    #
+    # This drifts an hour off true local time during EST (roughly Nov-Mar,
+    # so only the November tail of hurricane season) — same tradeoff the
+    # gas-prices workflow makes for its ET cron times, not worth two
+    # seasonal cron entries for four weeks a year.
+    - cron: '20 */3 * * *'
   workflow_dispatch:
 
 permissions:

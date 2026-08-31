@@ -87,13 +87,17 @@ mapping, and the outlook parser against the real captured fixture.
 
 ## The schedule
 
-`.github/workflows/hurricane-tracker.yml` runs the fetcher hourly, runs the
-tests, and commits the two `data/*.json` files **only when something
-changed**. NHC itself only updates `CurrentStorms.json` roughly every 6
-hours (more often near landfall), so most hourly runs are no-ops — that's
-the point: the page is never more than an hour behind whenever NHC does
-publish something new. It needs `contents: write` and can be run on demand
-from the Actions tab.
+`.github/workflows/hurricane-tracker.yml` runs the fetcher every 3 hours,
+runs the tests, and commits the two `data/*.json` files **only when
+something changed**. That cadence isn't arbitrary — NHC issues routine
+advisories at 5/11/5/11 AM/PM ET and the Tropical Weather Outlook (plus
+intermediate advisories, when a system is close enough to land to need
+them) at 2/8/2/8 AM/PM ET. Interleaved, both products land on the same
+every-3-hour clock, so the workflow's cron is set to match it (in EDT —
+see the comment in the workflow for the small, accepted drift during the
+EST tail of hurricane season) rather than just polling often enough to
+probably not miss anything. It needs `contents: write` and can be run on
+demand from the Actions tab.
 
 ## Known rough edges
 
