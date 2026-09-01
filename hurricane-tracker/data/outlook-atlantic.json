@@ -1,30 +1,10 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-08-31T21:24:47.951Z",
-  "issued": "2026-08-31T21:23:35.000Z",
-  "checkedAt": "2026-08-31T21:24:47.951Z",
-  "totalAreas": 1,
-  "inRegionCount": 1,
-  "areas": [
-    {
-      "id": "outlook-1",
-      "area": "Near Hispaniola",
-      "descriptor": "Remnants of Dolly",
-      "binNumber": null,
-      "text": "A surface trough of low pressure (the remnants of Tropical Storm Dolly) is producing disorganized showers and thunderstorms near and over portions of Hispaniola, Turks and Caicos, and the southeastern Bahamas. Significant development of this system is no longer expected while it moves west-northwestward at 15 to 20 mph over the southwestern Atlantic. Regardless, the system could bring locally heavy rains and gusty winds to portions of these areas during the next couple of days. && Public Advisories on Tropical Depression Five are issued under WMO header WTNT35 KNHC and under AWIPS header MIATCPAT5. Forecast/Advisories on Tropical Depression Five are issued under WMO header WTNT25 KNHC and under AWIPS header MIATCMAT5.",
-      "formationChance48h": {
-        "category": "low",
-        "percent": "near 0 percent"
-      },
-      "formationChance7d": {
-        "category": "low",
-        "percent": "near 0 percent"
-      },
-      "inRegion": true,
-      "matchedKeywords": [
-        "bahamas"
-      ]
-    }
-  ]
+  "updated": "2026-09-01T01:12:49.800Z",
+  "issued": "2026-09-01T01:09:41.000Z",
+  "checkedAt": "2026-09-01T01:12:49.800Z",
+  "totalAreas": 0,
+  "inRegionCount": 0,
+  "areas": []
 }

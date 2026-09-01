@@ -1,29 +1,29 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-08-31T21:24:47.951Z",
-  "checkedAt": "2026-08-31T21:24:47.951Z",
+  "updated": "2026-09-01T01:12:49.800Z",
+  "checkedAt": "2026-09-01T01:12:49.800Z",
   "totalActive": 3,
   "inRegionCount": 1,
   "storms": [
     {
       "id": "al052026",
       "binNumber": "AT5",
-      "name": "Five",
-      "classification": "TD",
-      "intensity": 30,
-      "pressure": 1011,
-      "lat": 28.2,
-      "lon": -91.5,
+      "name": "Edouard",
+      "classification": "TS",
+      "intensity": 35,
+      "pressure": 1010,
+      "lat": 28.4,
+      "lon": -91.6,
       "movementDir": 300,
       "movementSpeed": 6,
-      "lastUpdate": "2026-08-31T21:00:00.000Z",
+      "lastUpdate": "2026-09-01T00:00:00.000Z",
       "inRegion": true,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL052026_002adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL052026_002Aadv_CONE.kmz"
       }
     },
     {
