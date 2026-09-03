@@ -12,7 +12,7 @@
  * Bump CACHE when shell files change, so the old cache is dropped on activate.
  * ------------------------------------------------------------------------- */
 
-const CACHE = 'pump-shell-v1';
+const CACHE = 'pump-shell-v2';
 
 // Relative to the worker's own location, so this survives being served from a
 // GitHub Pages subpath (username.github.io/<repo>/gas-prices/).

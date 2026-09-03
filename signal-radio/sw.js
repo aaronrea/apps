@@ -11,7 +11,7 @@
  * Bump CACHE when shell files change, so the old cache is dropped on activate.
  * ------------------------------------------------------------------------- */
 
-const CACHE = 'signal-shell-v2';
+const CACHE = 'signal-shell-v3';
 
 // Relative to the worker's own location, so this survives being served from a
 // GitHub Pages subpath (username.github.io/<repo>/signal-radio/).
