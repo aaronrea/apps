@@ -18,7 +18,7 @@
  * logos are still good.
  * ------------------------------------------------------------------------- */
 
-const SHELL_CACHE = 'slate-shell-v1';
+const SHELL_CACHE = 'slate-shell-v2';
 const LOGO_CACHE = 'slate-logos-v1';
 const KEEP = [SHELL_CACHE, LOGO_CACHE];
 

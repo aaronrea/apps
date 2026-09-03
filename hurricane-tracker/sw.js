@@ -13,7 +13,7 @@
  * Bump CACHE when shell files change, so the old cache is dropped on activate.
  * ------------------------------------------------------------------------- */
 
-const CACHE = 'cone-shell-v1';
+const CACHE = 'cone-shell-v2';
 
 // Relative to the worker's own location, so this survives being served from a
 // GitHub Pages subpath (username.github.io/<repo>/hurricane-tracker/).
