@@ -1,49 +1,29 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-03T16:28:21.354Z",
-  "checkedAt": "2026-09-03T16:28:21.354Z",
-  "totalActive": 4,
+  "updated": "2026-09-03T21:04:34.537Z",
+  "checkedAt": "2026-09-03T21:04:34.537Z",
+  "totalActive": 3,
   "inRegionCount": 0,
   "storms": [
-    {
-      "id": "al052026",
-      "binNumber": "AT5",
-      "name": "Edouard",
-      "classification": "PTC",
-      "intensity": 20,
-      "pressure": 1012,
-      "lat": 32.5,
-      "lon": -96.5,
-      "movementDir": 300,
-      "movementSpeed": 5,
-      "lastUpdate": "2026-09-03T09:00:00.000Z",
-      "inRegion": false,
-      "links": {
-        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT5.shtml",
-        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT5.shtml",
-        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at5.shtml",
-        "trackConeKmz": null
-      }
-    },
     {
       "id": "ep112026",
       "binNumber": "EP1",
       "name": "Karina",
       "classification": "HU",
-      "intensity": 100,
-      "pressure": 961,
+      "intensity": 90,
+      "pressure": 969,
       "lat": 19.8,
-      "lon": -136.7,
-      "movementDir": 280,
-      "movementSpeed": 12,
-      "lastUpdate": "2026-09-03T15:00:00.000Z",
+      "lon": -137.6,
+      "movementDir": 275,
+      "movementSpeed": 10,
+      "lastUpdate": "2026-09-03T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_029adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_030adv_CONE.kmz"
       }
     },
     {
@@ -53,17 +33,17 @@
       "classification": "HU",
       "intensity": 80,
       "pressure": 976,
-      "lat": 19.2,
-      "lon": -114.9,
-      "movementDir": 290,
+      "lat": 19.3,
+      "lon": -115.5,
+      "movementDir": 300,
       "movementSpeed": 10,
-      "lastUpdate": "2026-09-03T15:00:00.000Z",
+      "lastUpdate": "2026-09-03T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_010adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_011adv_CONE.kmz"
       }
     },
     {
@@ -73,17 +53,17 @@
       "classification": "HU",
       "intensity": 120,
       "pressure": 945,
-      "lat": 13.5,
-      "lon": -157.2,
-      "movementDir": 270,
+      "lat": 13.6,
+      "lon": -158.1,
+      "movementDir": 275,
       "movementSpeed": 10,
-      "lastUpdate": "2026-09-03T15:00:00.000Z",
+      "lastUpdate": "2026-09-03T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_029adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_030adv_CONE.kmz"
       }
     }
   ]
