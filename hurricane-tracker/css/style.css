@@ -58,9 +58,16 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .topbar__title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.topbar__row {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -81,6 +88,14 @@ html, body {
 }
 .back:hover { color: var(--accent); }
 .back svg { width: 18px; height: 18px; }
+
+.topbar__source {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+}
+.topbar__source:hover { color: var(--accent); text-decoration: underline; }
 
 .wordmark {
   margin: 0;

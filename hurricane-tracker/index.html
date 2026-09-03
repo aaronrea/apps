@@ -24,10 +24,13 @@
 
     <header class="topbar">
       <div class="topbar__title">
-        <a class="back" href="../" aria-label="All apps">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-        </a>
-        <h1 class="wordmark">Cone</h1>
+        <div class="topbar__row">
+          <a class="back" href="../" aria-label="All apps">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </a>
+          <h1 class="wordmark">Cone</h1>
+        </div>
+        <a class="topbar__source" href="https://www.nhc.noaa.gov/" target="_blank" rel="noopener">NHC.gov ↗</a>
       </div>
       <span id="status" class="status status--idle" role="status" aria-live="polite">loading</span>
     </header>
@@ -78,8 +81,8 @@
         disturbances that don't have a full advisory yet. This page keeps only what could plausibly reach
         Tampa/the Gulf Coast, Texas, Florida, the Bahamas, or Honduras/the western Caribbean — a bounding box
         for storms with a known position, plus a keyword match on the outlook text for invests that don't have
-        one yet. A GitHub Action re-fetches both roughly every hour; NHC itself only updates every ~6 hours
-        (more often near landfall).
+        one yet. A GitHub Action re-fetches both every 3 hours, matching NHC's own advisory and outlook
+        clock (more often near landfall, when NHC itself switches to 3-hourly intermediate advisories).
       </p>
     </section>
 
