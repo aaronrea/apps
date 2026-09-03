@@ -60,6 +60,28 @@ html, body {
   justify-content: space-between;
 }
 
+.topbar__title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  margin-left: -6px;
+  border-radius: 8px;
+  color: var(--muted);
+  -webkit-tap-highlight-color: transparent;
+}
+.back:hover { color: var(--accent); }
+.back svg { width: 18px; height: 18px; }
+
 .wordmark {
   margin: 0;
   font-size: 20px;
