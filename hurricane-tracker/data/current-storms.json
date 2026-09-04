@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-03T23:18:06.826Z",
-  "checkedAt": "2026-09-03T23:18:06.826Z",
+  "updated": "2026-09-04T04:37:59.097Z",
+  "checkedAt": "2026-09-04T04:37:59.097Z",
   "totalActive": 3,
   "inRegionCount": 0,
   "storms": [
@@ -13,17 +13,17 @@
       "classification": "HU",
       "intensity": 90,
       "pressure": 969,
-      "lat": 19.8,
-      "lon": -137.6,
-      "movementDir": 275,
-      "movementSpeed": 10,
-      "lastUpdate": "2026-09-03T21:00:00.000Z",
+      "lat": 20.1,
+      "lon": -138.4,
+      "movementDir": 285,
+      "movementSpeed": 9,
+      "lastUpdate": "2026-09-04T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_030adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_031adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "EP3",
       "name": "Marie",
       "classification": "HU",
-      "intensity": 80,
-      "pressure": 976,
-      "lat": 19.3,
-      "lon": -115.5,
-      "movementDir": 300,
-      "movementSpeed": 10,
-      "lastUpdate": "2026-09-03T21:00:00.000Z",
+      "intensity": 85,
+      "pressure": 972,
+      "lat": 19.6,
+      "lon": -116.3,
+      "movementDir": 295,
+      "movementSpeed": 9,
+      "lastUpdate": "2026-09-04T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_011adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_012adv_CONE.kmz"
       }
     },
     {
@@ -51,19 +51,19 @@
       "binNumber": "CP4",
       "name": "Lowell",
       "classification": "HU",
-      "intensity": 120,
-      "pressure": 945,
-      "lat": 13.6,
-      "lon": -158.1,
-      "movementDir": 275,
-      "movementSpeed": 10,
-      "lastUpdate": "2026-09-03T21:00:00.000Z",
+      "intensity": 115,
+      "pressure": 943,
+      "lat": 13.5,
+      "lon": -158.9,
+      "movementDir": 270,
+      "movementSpeed": 9,
+      "lastUpdate": "2026-09-04T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_030adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_031adv_CONE.kmz"
       }
     }
   ]
