@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-05T04:33:35.855Z",
-  "checkedAt": "2026-09-05T04:33:35.855Z",
+  "updated": "2026-09-05T10:39:03.311Z",
+  "checkedAt": "2026-09-05T10:39:03.311Z",
   "totalActive": 3,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP3",
       "name": "Marie",
       "classification": "HU",
-      "intensity": 85,
-      "pressure": 967,
-      "lat": 20.8,
-      "lon": -119,
-      "movementDir": 305,
+      "intensity": 80,
+      "pressure": 970,
+      "lat": 21.4,
+      "lon": -119.7,
+      "movementDir": 315,
       "movementSpeed": 8,
-      "lastUpdate": "2026-09-05T03:00:00.000Z",
+      "lastUpdate": "2026-09-05T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_016adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_017adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "CP4",
       "name": "Lowell",
       "classification": "HU",
-      "intensity": 140,
-      "pressure": 922,
+      "intensity": 135,
+      "pressure": 925,
       "lat": 13.3,
-      "lon": -161.4,
+      "lon": -161.9,
       "movementDir": 275,
       "movementSpeed": 7,
-      "lastUpdate": "2026-09-05T03:00:00.000Z",
+      "lastUpdate": "2026-09-05T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_036adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_037adv_CONE.kmz"
       }
     },
     {
@@ -51,19 +51,19 @@
       "binNumber": "CP5",
       "name": "Karina",
       "classification": "HU",
-      "intensity": 70,
-      "pressure": 982,
-      "lat": 20.7,
-      "lon": -141.9,
-      "movementDir": 280,
-      "movementSpeed": 9,
-      "lastUpdate": "2026-09-05T03:00:00.000Z",
+      "intensity": 65,
+      "pressure": 984,
+      "lat": 21.4,
+      "lon": -142.5,
+      "movementDir": 305,
+      "movementSpeed": 8,
+      "lastUpdate": "2026-09-05T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_035adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP112026_036adv_CONE.kmz"
       }
     }
   ]
