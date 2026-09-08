@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-08T04:41:19.781Z",
-  "checkedAt": "2026-09-08T04:41:19.781Z",
+  "updated": "2026-09-08T11:23:03.597Z",
+  "checkedAt": "2026-09-08T11:23:03.597Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP3",
       "name": "Marie",
       "classification": "TS",
-      "intensity": 45,
-      "pressure": 994,
-      "lat": 25.1,
-      "lon": -125.9,
-      "movementDir": 290,
+      "intensity": 40,
+      "pressure": 996,
+      "lat": 25.5,
+      "lon": -126.6,
+      "movementDir": 300,
       "movementSpeed": 8,
-      "lastUpdate": "2026-09-08T03:00:00.000Z",
+      "lastUpdate": "2026-09-08T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_028adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP132026_029adv_CONE.kmz"
       }
     },
     {
@@ -32,18 +32,18 @@
       "name": "Lowell",
       "classification": "HU",
       "intensity": 95,
-      "pressure": 956,
-      "lat": 20.3,
-      "lon": -161.3,
-      "movementDir": 25,
+      "pressure": 963,
+      "lat": 21.9,
+      "lon": -160.8,
+      "movementDir": 20,
       "movementSpeed": 18,
-      "lastUpdate": "2026-09-08T03:00:00.000Z",
+      "lastUpdate": "2026-09-08T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_048adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_049adv_CONE.kmz"
       }
     }
   ]
