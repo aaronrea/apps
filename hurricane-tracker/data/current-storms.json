@@ -1,29 +1,49 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-09T16:41:03.356Z",
-  "checkedAt": "2026-09-09T16:41:03.356Z",
-  "totalActive": 1,
+  "updated": "2026-09-09T20:58:02.733Z",
+  "checkedAt": "2026-09-09T20:58:02.733Z",
+  "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
+    {
+      "id": "ep142026",
+      "binNumber": "EP4",
+      "name": "Fourteen-E",
+      "classification": "TD",
+      "intensity": 30,
+      "pressure": 1006,
+      "lat": 15.7,
+      "lon": -115.2,
+      "movementDir": 285,
+      "movementSpeed": 9,
+      "lastUpdate": "2026-09-09T21:00:00.000Z",
+      "inRegion": false,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP4.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP4.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep4.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_001adv_CONE.kmz"
+      }
+    },
     {
       "id": "ep122026",
       "binNumber": "CP4",
       "name": "Lowell",
       "classification": "TS",
       "intensity": 50,
-      "pressure": 985,
-      "lat": 28.1,
-      "lon": -162.3,
-      "movementDir": 330,
-      "movementSpeed": 13,
-      "lastUpdate": "2026-09-09T15:00:00.000Z",
+      "pressure": 987,
+      "lat": 28.9,
+      "lon": -163.7,
+      "movementDir": 310,
+      "movementSpeed": 14,
+      "lastUpdate": "2026-09-09T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_054adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_055adv_CONE.kmz"
       }
     }
   ]
