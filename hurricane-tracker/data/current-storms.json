@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-08T23:25:00.639Z",
-  "checkedAt": "2026-09-08T23:25:00.639Z",
+  "updated": "2026-09-09T04:46:32.083Z",
+  "checkedAt": "2026-09-09T04:46:32.083Z",
   "totalActive": 1,
   "inRegionCount": 0,
   "storms": [
@@ -10,20 +10,20 @@
       "id": "ep122026",
       "binNumber": "CP4",
       "name": "Lowell",
-      "classification": "HU",
-      "intensity": 65,
-      "pressure": 979,
-      "lat": 25.1,
-      "lon": -160.8,
+      "classification": "TS",
+      "intensity": 60,
+      "pressure": 978,
+      "lat": 26.2,
+      "lon": -161.1,
       "movementDir": 355,
       "movementSpeed": 15,
-      "lastUpdate": "2026-09-08T21:00:00.000Z",
+      "lastUpdate": "2026-09-09T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_051adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_052adv_CONE.kmz"
       }
     }
   ]
