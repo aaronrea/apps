@@ -5,25 +5,25 @@
     "stale": "this run could not fetch; price is the last one we did see, at 'observed'",
     "unavailable": "no price has ever been fetched from this source"
   },
-  "updated": "2026-09-09T00:05:26.647Z",
+  "updated": "2026-09-09T15:04:50.446Z",
   "stations": {
     "wawa": {
       "price": 4.199,
-      "observed": "2026-09-09T00:05:26.647Z",
+      "observed": "2026-09-09T15:04:50.446Z",
       "status": "ok",
       "source": "https://www.wawa.com/locations/5185",
       "note": null
     },
     "costco": {
-      "price": 3.759,
-      "observed": "2026-09-09T00:05:26.647Z",
+      "price": 3.799,
+      "observed": "2026-09-09T15:04:50.446Z",
       "status": "ok",
       "source": "https://www.costco.com/w/-/fl/bradenton/1364",
       "note": null
     },
     "racetrac": {
       "price": 4.19,
-      "observed": "2026-09-09T00:05:26.647Z",
+      "observed": "2026-09-09T15:04:50.446Z",
       "status": "ok",
       "source": "https://www.racetrac.com/locations/florida/bradenton/lena",
       "note": null
