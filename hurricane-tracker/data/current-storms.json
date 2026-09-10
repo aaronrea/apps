@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-09T23:17:40.257Z",
-  "checkedAt": "2026-09-09T23:17:40.257Z",
+  "updated": "2026-09-10T04:46:51.000Z",
+  "checkedAt": "2026-09-10T04:46:51.000Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -13,17 +13,17 @@
       "classification": "TD",
       "intensity": 30,
       "pressure": 1006,
-      "lat": 15.7,
-      "lon": -115.2,
+      "lat": 16.4,
+      "lon": -116.6,
       "movementDir": 285,
-      "movementSpeed": 9,
-      "lastUpdate": "2026-09-09T21:00:00.000Z",
+      "movementSpeed": 12,
+      "lastUpdate": "2026-09-10T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_001adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_002adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "CP4",
       "name": "Lowell",
       "classification": "TS",
-      "intensity": 50,
-      "pressure": 987,
-      "lat": 28.9,
-      "lon": -163.7,
-      "movementDir": 310,
+      "intensity": 45,
+      "pressure": 991,
+      "lat": 29.2,
+      "lon": -165.1,
+      "movementDir": 280,
       "movementSpeed": 14,
-      "lastUpdate": "2026-09-09T21:00:00.000Z",
+      "lastUpdate": "2026-09-10T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_055adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP122026_056adv_CONE.kmz"
       }
     }
   ]
