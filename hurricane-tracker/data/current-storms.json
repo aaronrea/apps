@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-12T10:50:41.863Z",
-  "checkedAt": "2026-09-12T10:50:41.863Z",
+  "updated": "2026-09-12T15:34:14.292Z",
+  "checkedAt": "2026-09-12T15:34:14.292Z",
   "totalActive": 1,
   "inRegionCount": 0,
   "storms": [
@@ -13,17 +13,17 @@
       "classification": "TS",
       "intensity": 50,
       "pressure": 999,
-      "lat": 17.1,
-      "lon": -127.4,
+      "lat": 17.3,
+      "lon": -128.3,
       "movementDir": 285,
-      "movementSpeed": 9,
-      "lastUpdate": "2026-09-12T09:00:00.000Z",
+      "movementSpeed": 10,
+      "lastUpdate": "2026-09-12T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_011adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_012adv_CONE.kmz"
       }
     }
   ]
