@@ -8,12 +8,21 @@ Stations:
 | Station | Where | Host | Stream | Wired? |
 | --- | --- | --- | --- | --- |
 | 101X | KROX-FM 101.5, Austin TX | StreamGuys (Waterloo Media) | **HLS** `.m3u8` | yes |
-| The Bone | WHPT 102.5, Tampa FL | StreamGuys (Cox Media Group) | MP3 128k | yes |
+| 98 Rock | WXTB 97.9, Clearwater/Tampa FL — **Buccaneers** flagship | revma (iHeart) | AAC ~64k | yes |
+| The Bone | WHPT 102.5, Tampa FL — **Lightning** flagship | StreamGuys (Cox Media Group) | MP3 128k | yes |
 | The Zone | KZNE 1150 / K229DK 93.7, College Station TX — Texas A&M football | SecureNet Systems (SoCast site) | HE-AAC 32k | yes |
 | DEF CON | SomaFM | SomaFM | MP3 128k | yes |
 
-All four are static, tokenless URLs — no session endpoint, no CORS problem,
-nothing to refresh. They live in `STREAM_URLS` at the top of `js/adapters.js`.
+All five URLs are static and need no token fetch of our own — no session
+endpoint, no CORS problem, nothing to refresh. (98 Rock's redirects to a
+short-lived edge URL, but the browser follows that itself.) They live in
+`STREAM_URLS` at the top of `js/adapters.js`.
+
+**Which station has which game.** The Bone is the Lightning's official
+flagship, not the Buccaneers' — Bucs football is on 98 Rock, which has been the
+Buccaneers Radio Network flagship since 2017. The Zone carries Texas A&M. All
+three air the games on their normal station stream; there is no separate
+sports feed to find.
 
 ⚠️ **101X is HLS-only.** iOS Safari plays `.m3u8` natively in `<audio>`, so the
 iPhone is fine, but **desktop Chrome will not play 101X** without hls.js. That
@@ -25,7 +34,7 @@ three are plain progressive streams and play anywhere.
 ```
 index.html        markup + the single <audio> element
 css/style.css     dark theme
-js/adapters.js    the three station adapters (getStreamUrl TODOs live here)
+js/adapters.js    the station adapters + the STREAM_URLS map
 js/app.js         everything else, readable top to bottom
 manifest.json     PWA manifest (start_url "." / scope "." — subpath-safe)
 sw.js             service worker: cache-first shell, network-only audio
@@ -73,6 +82,15 @@ actually true, for whoever has to re-sniff these when one breaks:
   `https://waterloo.streamguys1.com/krox-fm/playlist.m3u8`.
   There *is* a stale `KROXFMAAC.aac` StreamTheWorld URL still in the page
   markup — it 404s on every mount variant. Ignore it.
+- **98 Rock — iHeart, and the mount is not guessable.** Every
+  `playerservices.streamtheworld.com` spelling of the call letters
+  (`WXTBFM.mp3`, `WXTBFMAAC.aac`, `/pls/WXTBFM.pls`) 404s. iHeart is on revma
+  now, and its own API hands the mounts over without a key:
+  `us.api.iheart.com/api/v2/content/liveStations?callLetters=WXTB-FM` returns
+  station id 697 and four stream URLs. We use the secure shoutcast one,
+  `https://stream.revma.ihrhls.com/zc697` — a 302 to a tokenised
+  `cloud.revma.ihrhls.com` URL that `<audio>` follows on its own, serving
+  progressive `audio/aac`. Keep the redirector, never the resolved location.
 - **The Bone — Cox was right, Audacy was wrong.** Again StreamGuys, no
   StreamTheWorld. The page sets `window.sgStationId = "tam1025"`, and
   `player.streamguys.com/cmg/tam1025/sgplayer/config.json` lists the mounts:
