@@ -39,21 +39,26 @@ fetching happens in GitHub Actions, which commits `data/prices.json`; the page
 only ever reads that file. Moving the fetch into the page would not simplify
 it — it would break it.
 
-Verified live on 2026-08-09, and this is what each adapter actually keys on:
+Verified live on 2026-08-09 (7-Eleven re-verified 2026-09-13), and this is
+what each adapter actually keys on:
 
 | Station | Source | Shape |
 | --- | --- | --- |
 | Wawa | Store page | `__NEXT_DATA__` → `fuelTypes[]` → `category: "Unleaded"` |
 | Costco | `AjaxGetGasPricesService` | `{"<id>":{"regular":"3.699"}}` |
 | RaceTrac | Store page | Server-rendered price chip, keyed on the `Regular` label |
-| 7-Eleven | Store page | `fuelData.grades[]` → `abbr: "RUL"` → `price_label` |
+| 7-Eleven | `/api/v5/stores/search` | `results[]` → `id: 38565` → `fuel_data.grades[]` → `abbr: "RUL"` → `price_label` |
 
-All four publish. 7-Eleven's is easy to miss: its JSON is escape-encoded
-inside a script string, so it is spelled `\"price\":` in the raw bytes and a
-naive search for `"price":` finds nothing. It is also the only source that
-publishes **when it last saw the price** (`last_updated`), so that adapter
-reports the real observation time rather than the time CI happened to run —
-a price stamped this morning ages from this morning.
+All four publish. 7-Eleven's store page turned into a Next.js app shell at
+some point after 2026-08-09 (re-verified 2026-09-13): the server HTML now carries only
+`<meta>` tags, and the browser fetches the store record from the site's own
+proxy, `POST /api/v5/stores/search`, with the store's coordinates. The adapter
+calls that endpoint directly, with a tight radius, and matches on the store
+**id** rather than list position. No token is needed; the page itself sends an
+empty one for anonymous visitors. It is also the only source that publishes
+**when it last saw the price** (`last_updated`), so that adapter reports the
+real observation time rather than the time CI happened to run — a price
+stamped this morning ages from this morning.
 
 Both Wawa (Incapsula) and Costco (Akamai) sit behind bot protection that
 rejects a share of requests at random, so those adapters retry and send a
