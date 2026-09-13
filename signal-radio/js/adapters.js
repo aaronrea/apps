@@ -8,11 +8,13 @@
  * getStreamUrl() is async and MUST be safe to call again at any time. It's
  * called on every play and again on every retry.
  *
- * All four stations turned out to have a static, tokenless URL, so every
- * adapter is just a lookup in STREAM_URLS below. That's not guaranteed to
- * stay true: if one starts handing back a short-lived tokenised URL, replace
- * that station's resolveStream() call with the fetch that resolves it and
- * don't cache the result — the async signature is already there for it.
+ * Every station has a static URL that never has to be resolved by hand, so
+ * every adapter is just a lookup in STREAM_URLS below. 98 Rock's is a
+ * redirector to a tokenised edge URL, but the browser follows that itself, so
+ * it's still a constant here. That's not guaranteed to hold: if a station
+ * starts handing back a short-lived tokenised URL *that we* have to fetch,
+ * replace that station's resolveStream() call with the fetch that resolves it
+ * and don't cache the result — the async signature is already there for it.
  * ------------------------------------------------------------------------- */
 
 const STREAM_URLS = {
@@ -31,9 +33,33 @@ const STREAM_URLS = {
   // is exactly the right thing — nothing to cache, nothing to expire.
   '101x': 'https://waterloo.streamguys1.com/krox-fm/playlist.m3u8',
 
-  // The Bone — WHPT 102.5, Tampa FL. Cox Media Group was right and Audacy
-  // was wrong: no StreamTheWorld anywhere, it's StreamGuys like 101X. The
-  // page sets window.sgStationId = "tam1025", and
+  // 98 Rock — WXTB 97.9, Clearwater/Tampa FL. THE BUCS STATION: WXTB has been
+  // the flagship of the Buccaneers Radio Network since 2017 (it took over from
+  // sister station WFUS), and the game airs on the ordinary station stream —
+  // no separate sports feed, no in-market blackout on the radio call.
+  //
+  // iHeart, so neither StreamGuys nor StreamTheWorld: it's revma. The mount is
+  // not guessable from the call letters — WXTBFM.mp3 and friends all 404 on
+  // playerservices.streamtheworld.com. Ask iHeart's own API instead:
+  //   us.api.iheart.com/api/v2/content/liveStations?callLetters=WXTB-FM
+  // which returns station id 697 and the four stream URLs below it.
+  //
+  // Taking secure_shoutcast_stream. It's a 302 to a short-lived tokenised
+  // cloud.revma.ihrhls.com URL, but the redirect is followed by <audio> and
+  // the URL we hold is the static one, so a fresh token is minted on every
+  // play and every retry — exactly what this adapter shape already does.
+  // Serves audio/aac (~64k) progressively, so unlike 101X it needs no hls.js
+  // and plays on desktop. The HLS twin is …/zc697/hls.m3u8 if it's ever wanted.
+  '98rock': 'https://stream.revma.ihrhls.com/zc697',
+
+  // The Bone — WHPT 102.5, Tampa FL. THE BOLTS STATION, and not the Bucs one:
+  // Cox Media Group's deal with the Lightning makes this the official flagship
+  // of the Lightning Audio Network (Dave Mishkin on the call), which is why
+  // it's still here. Bucs football is on 98 Rock above.
+  //
+  // Cox Media Group was right and Audacy was wrong: no StreamTheWorld
+  // anywhere, it's StreamGuys like 101X. The page sets
+  // window.sgStationId = "tam1025", and
   // player.streamguys.com/cmg/tam1025/sgplayer/config.json lists the mounts.
   //
   // Two live mounts: -mp3 at 128k and -aac at 49k. Taking the MP3 — it's the
@@ -79,9 +105,21 @@ const STATIONS = [
     }
   },
   {
+    id: '98rock',
+    name: '98 Rock',
+    sub: 'WXTB 97.9 · Tampa, FL — Bucs',
+    badge: 'iHeart',
+    async getStreamUrl() {
+      // Static URL. It 302s to a tokenised revma edge URL that expires, so
+      // never cache the resolved location — hand back the redirector and let
+      // the browser take a fresh token on every play and every retry.
+      return resolveStream(this.id);
+    }
+  },
+  {
     id: 'the-bone',
     name: 'The Bone',
-    sub: 'WHPT 102.5 · Tampa, FL',
+    sub: 'WHPT 102.5 · Tampa, FL — Bolts',
     badge: 'StreamGuys',
     async getStreamUrl() {
       return resolveStream(this.id);

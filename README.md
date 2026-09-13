@@ -5,7 +5,7 @@ they're all served from the same GitHub Pages site.
 
 | App | Directory | What it is |
 | --- | --- | --- |
-| Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, The Bone, The Zone, DEF CON) |
+| Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, 98 Rock, The Bone, The Zone, DEF CON) |
 | Pump | [`gas-prices/`](gas-prices/) | Regular unleaded at four nearby stations, already compared |
 | Slate | [`sports-schedule/`](sports-schedule/) | Today and the next 7 days for the Aggies, Bucs and Lightning |
 | Cone | [`hurricane-tracker/`](hurricane-tracker/) | Active NHC storms and invests, filtered to Tampa, Texas and the western Caribbean |
