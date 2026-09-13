@@ -35,12 +35,17 @@
  *   RaceTrac  Prices are server-rendered into the store page as price chips:
  *             <span ...price-chip__label">Regular 87</span>
  *             <span ...price-chip__value">$3.769</span>
- *   7-Eleven  Publishes daily, in the store page's own payload, as
- *             fuelData.grades[] with { abbr: "RUL", name: "Regular",
- *             price_label: "$3.799" } plus a real `last_updated` stamp.
- *             The JSON is escape-encoded inside a script string, so it does
- *             not turn up in a naive search for `"price":` — it is spelled
- *             \"price\": in the raw bytes.
+ *   7-Eleven  (re-verified 2026-09-13) The store page is now a Next.js app
+ *             shell: the server HTML carries only <meta> tags and the store
+ *             data is fetched in the browser from the site's own proxy,
+ *             POST /api/v5/stores/search with { lat, lon, radius, limit }.
+ *             That returns { results: [ { id: 38565, fuel_data: { grades:
+ *             [{ abbr: "RUL", name: "Regular", price: 4059,
+ *             price_label: "$4.059" }, ...], last_updated: "..." } } ] }.
+ *             No auth needed: the page sends an empty `token` for anonymous
+ *             visitors and so do we. The earlier adapter scraped the same
+ *             fuelData out of the server-rendered page, which stopped
+ *             carrying it at some point after 2026-08-09.
  * ------------------------------------------------------------------------- */
 
 import { readFile, writeFile } from 'node:fs/promises';
@@ -60,11 +65,18 @@ const RETRIES = 3;
 
 /* -- fetch helpers -------------------------------------------------------- */
 
-async function get(url, { headers = {}, accept = 'text/html,application/xhtml+xml,*/*;q=0.8' } = {}) {
+async function get(url, {
+  headers = {},
+  accept = 'text/html,application/xhtml+xml,*/*;q=0.8',
+  method = 'GET',
+  body = undefined
+} = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
     const res = await fetch(url, {
+      method,
+      body,
       signal: controller.signal,
       redirect: 'follow',
       headers: {
@@ -159,18 +171,48 @@ async function fetchRaceTrac() {
  * so this adapter reports that instead of the fetch time — a price stamped
  * this morning should age from this morning, not from whenever CI happened to
  * run. */
+const SEVEN_ELEVEN = {
+  id: 38565,
+  page: 'https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565',
+  /* The store's own coordinates, as the search API reports them. The search
+   * is a radius around a point, so we centre it on the store and keep the
+   * radius tight; the result is then matched on the store id, never on
+   * position in the list, so a new store opening next door cannot swap in. */
+  lat: 27.43277,
+  lon: -82.424352
+};
+
 async function fetchSevenEleven() {
-  const url = 'https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565';
-  const raw = await withRetry(() => get(url));
+  const url = 'https://www.7-eleven.com/api/v5/stores/search';
+  const body = await withRetry(() => get(url, {
+    method: 'POST',
+    accept: 'application/json, text/plain, */*',
+    headers: {
+      'Content-Type': 'application/json',
+      Referer: SEVEN_ELEVEN.page
+    },
+    body: JSON.stringify({
+      token: '',
+      lat: SEVEN_ELEVEN.lat,
+      lon: SEVEN_ELEVEN.lon,
+      radius: 2,
+      limit: 5,
+      currentLat: SEVEN_ELEVEN.lat,
+      currentLon: SEVEN_ELEVEN.lon,
+      selectedFeatures: []
+    })
+  }));
 
-  /* The payload is JSON embedded in a script string, so every quote arrives
-   * backslash-escaped. Unescape first, then parse it like the JSON it is. */
-  const html = raw.replace(/\\"/g, '"');
+  const json = JSON.parse(body);
+  const results = Array.isArray(json.results) ? json.results : [];
+  const store = results.find((r) => Number(r.id) === SEVEN_ELEVEN.id);
+  if (!store) {
+    throw new Error(`7-eleven: store ${SEVEN_ELEVEN.id} not in search results (saw ${results.map((r) => r.id).join(', ') || 'none'})`);
+  }
 
-  const m = html.match(/"fuelData"\s*:\s*\{\s*"grades"\s*:\s*(\[.*?\])\s*,\s*"last_updated"\s*:\s*"([^"]*)"/s);
-  if (!m) throw new Error('7-eleven: no fuelData.grades block in page payload');
+  const grades = store.fuel_data && Array.isArray(store.fuel_data.grades) ? store.fuel_data.grades : [];
+  if (!grades.length) throw new Error('7-eleven: store has no fuel_data.grades');
 
-  const grades = JSON.parse(m[0].slice(m[0].indexOf('[' ), m[0].lastIndexOf(']') + 1));
   const regular = grades.find((g) => g.abbr === 'RUL') || grades.find((g) => /^regular$/i.test(g.name || ''));
   if (!regular) {
     throw new Error(`7-eleven: no Regular grade (saw ${grades.map((g) => g.abbr).join(', ')})`);
@@ -185,9 +227,9 @@ async function fetchSevenEleven() {
 
   /* "2026-08-09 12:12:05 -04:00" — not quite ISO 8601; Date can read it once
    * the space before the offset is squared away. */
-  const observed = parseLooseDate(m[2]);
+  const observed = parseLooseDate(store.fuel_data.last_updated);
 
-  return { price, source: url, observed };
+  return { price, source: SEVEN_ELEVEN.page, observed };
 }
 
 function parseLooseDate(text) {
