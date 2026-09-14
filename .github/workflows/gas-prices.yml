@@ -7,10 +7,20 @@ on:
   schedule:
     # Bradenton is UTC-4 in summer, UTC-5 in winter. Three times a day is
     # plenty for prices that move once a day, and it keeps the app inside the
-    # 12-hour staleness window for all of the waking hours that matter.
-    - cron: '10 11 * * *'   # ~7am ET
-    - cron: '10 17 * * *'   # ~1pm ET
-    - cron: '05 22 * * *'   # TEMP: moved up for testing SHA-pin fix, revert to '10 23 * * *' (~7pm ET) after
+    # 12-hour staleness window for all of the waking hours that matter — in
+    # theory. In practice GitHub queues scheduled runs behind everyone else's
+    # workflows, and it queues hardest at "round" minutes on the hour — :00,
+    # :05, :10, :15 — which is exactly what these three used to be. Checked
+    # against actual commit timestamps on 2026-09-13/14, the ~7am slot was
+    # landing around 11am ET, ~4 hours late, which is why a pump-time check
+    # at 8-9am was seeing the previous night's run and nothing fresher.
+    #
+    # Fix: off-hour minutes (GitHub's own advice for reducing queue delay),
+    # and the morning run moved earlier than it needs to be so a multi-hour
+    # delay still lands it well before breakfast instead of after lunch.
+    - cron: '37 7 * * *'    # ~3:37am ET — early buffer; lands by ~7-8am even a few hours late
+    - cron: '37 16 * * *'   # ~12:37pm ET
+    - cron: '37 22 * * *'   # ~6:37pm ET
   workflow_dispatch:
 
 permissions:
