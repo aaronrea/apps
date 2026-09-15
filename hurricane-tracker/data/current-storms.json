@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-15T17:02:17.451Z",
-  "checkedAt": "2026-09-15T17:02:17.451Z",
+  "updated": "2026-09-15T21:23:48.629Z",
+  "checkedAt": "2026-09-15T21:23:48.629Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP5",
       "name": "Fifteen-E",
       "classification": "TD",
-      "intensity": 30,
-      "pressure": 1005,
-      "lat": 16.1,
-      "lon": -123.9,
-      "movementDir": 260,
+      "intensity": 25,
+      "pressure": 1006,
+      "lat": 15.7,
+      "lon": -125,
+      "movementDir": 255,
       "movementSpeed": 12,
-      "lastUpdate": "2026-09-15T15:00:00.000Z",
+      "lastUpdate": "2026-09-15T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_008adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_009adv_CONE.kmz"
       }
     },
     {
