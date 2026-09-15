@@ -3,36 +3,43 @@
  * Cone — storm + outlook fetcher
  *
  * Runs in GitHub Actions (see .github/workflows/hurricane-tracker.yml) and
- * rewrites hurricane-tracker/data/current-storms.json and
- * hurricane-tracker/data/outlook-atlantic.json. Node built-ins only.
+ * rewrites hurricane-tracker/data/current-storms.json,
+ * hurricane-tracker/data/outlook-atlantic.json and
+ * hurricane-tracker/data/outlook-pacific.json. Node built-ins only.
  *
  * WHY THIS IS SERVER-SIDE
  * NHC does not send CORS headers, so a browser fetch() from a GitHub Pages
  * origin is made and then thrown away unread. The fetch happens here, in CI,
  * and the committed JSON is what the page reads.
  *
- * TWO INDEPENDENT SOURCES, ISOLATED
- * CurrentStorms.json (named systems + designated invests) and the Atlantic
+ * THREE INDEPENDENT SOURCES, ISOLATED
+ * CurrentStorms.json (named systems + designated invests), the Atlantic
  * Tropical Weather Outlook (prose on disturbances that don't have a
- * CurrentStorms entry yet) are unrelated NHC products. One going down, or
- * changing shape, must not take out the other — each is fetched and written
- * independently, and a failure on one carries its *previous* committed file
- * forward rather than blanking it.
+ * CurrentStorms entry yet) and the eastern Pacific outlook (the same, for
+ * the other side of Central America) are unrelated NHC products. One going
+ * down, or changing shape, must not take out the others — each is fetched
+ * and written independently, and a failure on one carries its *previous*
+ * committed file forward rather than blanking it.
  * ------------------------------------------------------------------------- */
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { isInRegionBox } from '../js/filter.js';
+import {
+  isInRegionBox, stormBasin, isPacificSide, crossoverReason,
+  matchRegionKeywords, matchPacificKeywords
+} from '../js/filter.js';
 import { htmlToText, parseOutlook } from '../js/outlook.js';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(HERE, '..', 'data');
 const STORMS_FILE = join(DATA_DIR, 'current-storms.json');
 const OUTLOOK_FILE = join(DATA_DIR, 'outlook-atlantic.json');
+const PACIFIC_FILE = join(DATA_DIR, 'outlook-pacific.json');
 
 const CURRENT_STORMS_URL = 'https://www.nhc.noaa.gov/CurrentStorms.json';
 const OUTLOOK_RSS_URL = 'https://www.nhc.noaa.gov/index-at.xml';
+const PACIFIC_RSS_URL = 'https://www.nhc.noaa.gov/index-ep.xml';
 
 const TIMEOUT_MS = 20000;
 const RETRIES = 3;
@@ -87,11 +94,13 @@ function toNumberOrNull(v) {
   return Number.isFinite(n) ? n : null;
 }
 
+/* NHC's units: `intensity` is knots, `movementSpeed` is mph (it matches the
+ * "moving W at 12 mph" line of the public advisory). */
 function shapeStorm(raw) {
-  const lat = typeof raw.latitudeNumeric === 'number' ? raw.latitudeNumeric : toNumberOrNull(raw.latitudeNumeric);
-  const lon = typeof raw.longitudeNumeric === 'number' ? raw.longitudeNumeric : toNumberOrNull(raw.longitudeNumeric);
+  const lat = toNumberOrNull(raw.latitudeNumeric);
+  const lon = toNumberOrNull(raw.longitudeNumeric);
 
-  return {
+  const storm = {
     id: raw.id || null,
     binNumber: raw.binNumber || null,
     name: raw.name || raw.binNumber || 'Unnamed system',
@@ -102,8 +111,23 @@ function shapeStorm(raw) {
     lon,
     movementDir: toNumberOrNull(raw.movementDir),
     movementSpeed: toNumberOrNull(raw.movementSpeed),
-    lastUpdate: raw.lastUpdate || null,
-    inRegion: isInRegionBox(lat, lon),
+    lastUpdate: raw.lastUpdate || null
+  };
+
+  /* A Pacific-side storm can sit inside REGION_BOX (its west edge is east of
+   * Acapulco) without being anywhere near the Gulf. It's on the other coast:
+   * out of `inRegion`, and onto the crossover watch instead if it isn't
+   * simply heading west. */
+  const pacificSide = isPacificSide(storm);
+  const reason = crossoverReason(storm);
+
+  return {
+    ...storm,
+    basin: stormBasin(storm),
+    inRegion: isInRegionBox(lat, lon) && !pacificSide,
+    pacificSide,
+    crossoverWatch: reason !== null,
+    crossoverReason: reason,
     links: {
       publicAdvisory: raw.publicAdvisory?.url || null,
       forecastDiscussion: raw.forecastDiscussion?.url || null,
@@ -120,16 +144,40 @@ async function fetchCurrentStorms() {
   return active.map(shapeStorm);
 }
 
-/* -- Atlantic outlook RSS ----------------------------------------------------- */
+/* -- outlook RSS (both basins) --------------------------------------------------- */
 
-async function fetchOutlookAreas() {
-  const xml = await withRetry(() => get(OUTLOOK_RSS_URL, 'application/rss+xml,text/xml,*/*;q=0.8'));
+async function fetchOutlookAreas(url, matcher) {
+  const xml = await withRetry(() => get(url, 'application/rss+xml,text/xml,*/*;q=0.8'));
   const match = xml.match(/<item>[\s\S]*?<description>\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*<\/description>[\s\S]*?<\/item>/);
   if (!match) throw new Error('outlook RSS: no <item><description> CDATA block found');
 
   const pubDateMatch = xml.match(/<pubDate>([^<]+)<\/pubDate>/);
   const text = htmlToText(match[1]);
-  return { areas: parseOutlook(text), issued: pubDateMatch ? new Date(pubDateMatch[1]).toISOString() : null };
+  return { areas: parseOutlook(text, matcher), issued: pubDateMatch ? new Date(pubDateMatch[1]).toISOString() : null };
+}
+
+/* -- write helpers --------------------------------------------------------------- */
+
+async function writeJson(path, payload) {
+  await writeFile(path, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+}
+
+/* One source, one try/catch: on failure the previous committed file is
+ * carried forward with ok:false and the error, never blanked. Returns 1 on
+ * failure so main() can tally. */
+async function updateSource({ label, file, fetch: fetchIt, empty, now }) {
+  const prev = await readJsonIfExists(file);
+  try {
+    const { summary, ...fresh } = await fetchIt();
+    await writeJson(file, { ok: true, error: null, updated: now, checkedAt: now, ...fresh });
+    console.log(`${label}: ${summary}`);
+    return 0;
+  } catch (err) {
+    console.error(`${label}: FAILED — ${err.message}`);
+    const carried = prev || { updated: null, ...empty };
+    await writeJson(file, { ...carried, ok: false, error: err.message, checkedAt: now });
+    return 1;
+  }
 }
 
 /* -- main --------------------------------------------------------------------- */
@@ -139,64 +187,44 @@ async function main() {
   const now = new Date().toISOString();
   let failures = 0;
 
-  /* storms */
-  const prevStorms = await readJsonIfExists(STORMS_FILE);
-  try {
-    const storms = await fetchCurrentStorms();
-    const inRegionCount = storms.filter((s) => s.inRegion).length;
-    await writeFile(STORMS_FILE, `${JSON.stringify({
-      ok: true,
-      error: null,
-      updated: now,
-      checkedAt: now,
-      totalActive: storms.length,
-      inRegionCount,
-      storms
-    }, null, 2)}\n`, 'utf8');
-    console.log(`storms: ${storms.length} active (${inRegionCount} in region)`);
-  } catch (err) {
-    failures += 1;
-    console.error(`storms: FAILED — ${err.message}`);
-    const carried = prevStorms || {
-      updated: null, totalActive: 0, inRegionCount: 0, storms: []
-    };
-    await writeFile(STORMS_FILE, `${JSON.stringify({
-      ...carried,
-      ok: false,
-      error: err.message,
-      checkedAt: now
-    }, null, 2)}\n`, 'utf8');
-  }
+  failures += await updateSource({
+    label: 'storms',
+    file: STORMS_FILE,
+    now,
+    empty: { totalActive: 0, inRegionCount: 0, crossoverWatchCount: 0, storms: [] },
+    fetch: async () => {
+      const storms = await fetchCurrentStorms();
+      const inRegionCount = storms.filter((s) => s.inRegion).length;
+      const crossoverWatchCount = storms.filter((s) => s.crossoverWatch).length;
+      return {
+        totalActive: storms.length,
+        inRegionCount,
+        crossoverWatchCount,
+        storms,
+        summary: `${storms.length} active (${inRegionCount} in region, ${crossoverWatchCount} on Pacific crossover watch)`
+      };
+    }
+  });
 
-  /* outlook */
-  const prevOutlook = await readJsonIfExists(OUTLOOK_FILE);
-  try {
-    const { areas, issued } = await fetchOutlookAreas();
-    const inRegionCount = areas.filter((a) => a.inRegion).length;
-    await writeFile(OUTLOOK_FILE, `${JSON.stringify({
-      ok: true,
-      error: null,
-      updated: now,
-      issued,
-      checkedAt: now,
-      totalAreas: areas.length,
-      inRegionCount,
-      areas
-    }, null, 2)}\n`, 'utf8');
-    console.log(`outlook: ${areas.length} disturbance(s) (${inRegionCount} in region)`);
-  } catch (err) {
-    failures += 1;
-    console.error(`outlook: FAILED — ${err.message}`);
-    const carried = prevOutlook || {
-      updated: null, issued: null, totalAreas: 0, inRegionCount: 0, areas: []
-    };
-    await writeFile(OUTLOOK_FILE, `${JSON.stringify({
-      ...carried,
-      ok: false,
-      error: err.message,
-      checkedAt: now
-    }, null, 2)}\n`, 'utf8');
-  }
+  const outlookSource = (label, url, matcher, noun) => ({
+    label,
+    now,
+    empty: { issued: null, totalAreas: 0, inRegionCount: 0, areas: [] },
+    fetch: async () => {
+      const { areas, issued } = await fetchOutlookAreas(url, matcher);
+      const inRegionCount = areas.filter((a) => a.inRegion).length;
+      return {
+        issued,
+        totalAreas: areas.length,
+        inRegionCount,
+        areas,
+        summary: `${areas.length} disturbance(s) (${inRegionCount} ${noun})`
+      };
+    }
+  });
+
+  failures += await updateSource({ file: OUTLOOK_FILE, ...outlookSource('outlook', OUTLOOK_RSS_URL, matchRegionKeywords, 'in region') });
+  failures += await updateSource({ file: PACIFIC_FILE, ...outlookSource('pacific', PACIFIC_RSS_URL, matchPacificKeywords, 'near Central America') });
 
   if (failures > 0) process.exitCode = 1;
 }

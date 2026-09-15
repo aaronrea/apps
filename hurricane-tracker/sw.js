@@ -13,7 +13,7 @@
  * Bump CACHE when shell files change, so the old cache is dropped on activate.
  * ------------------------------------------------------------------------- */
 
-const CACHE = 'cone-shell-v2';
+const CACHE = 'cone-shell-v3';
 
 // Relative to the worker's own location, so this survives being served from a
 // GitHub Pages subpath (username.github.io/<repo>/hurricane-tracker/).
@@ -51,7 +51,9 @@ self.addEventListener('activate', (event) => {
 });
 
 function isData(url) {
-  return url.pathname.endsWith('/data/current-storms.json') || url.pathname.endsWith('/data/outlook-atlantic.json');
+  return url.pathname.endsWith('/data/current-storms.json')
+    || url.pathname.endsWith('/data/outlook-atlantic.json')
+    || url.pathname.endsWith('/data/outlook-pacific.json');
 }
 
 self.addEventListener('fetch', (event) => {

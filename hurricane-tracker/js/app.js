@@ -7,18 +7,19 @@
  *   3. banner (the verdict)
  *   4. storm cards
  *   5. outlook cards
- *   6. meta + load/refresh
- *   7. service worker
+ *   6. Pacific side (crossover watch)
+ *   7. meta + load/refresh
+ *   8. service worker
  *
  * Region filtering already happened server-side (scripts/fetch-storms.mjs) —
- * every storm/area here already carries `inRegion`. This file only turns
- * already-decided data into DOM; classification/formation-chance labels and
- * tones come from js/filter.js so the vocabulary can't drift between here and
- * the fetcher.
+ * every storm/area here already carries `inRegion`, and every storm
+ * `crossoverWatch`. This file only turns already-decided data into DOM;
+ * classification/formation-chance labels and tones come from js/filter.js so
+ * the vocabulary can't drift between here and the fetcher.
  * ------------------------------------------------------------------------- */
 
-import { classificationInfo, formationTone } from './filter.js';
-import { fmtAge, localizeGulf } from './format.js';
+import { classificationInfo, formationTone, gyreNote } from './filter.js';
+import { compassPoint, fmtAge, localizeGulf } from './format.js';
 import { loadAll } from './store.js';
 
 const els = {
@@ -30,13 +31,16 @@ const els = {
   storms: document.getElementById('storms'),
   outlookNote: document.getElementById('outlook-note'),
   outlook: document.getElementById('outlook'),
+  pacificNote: document.getElementById('pacific-note'),
+  pacific: document.getElementById('pacific'),
   stormsUpdated: document.getElementById('storms-updated'),
   outlookUpdated: document.getElementById('outlook-updated'),
+  pacificUpdated: document.getElementById('pacific-updated'),
   refresh: document.getElementById('refresh'),
   dataError: document.getElementById('data-error')
 };
 
-const state = { storms: null, outlook: null };
+const state = { storms: null, outlook: null, pacific: null };
 
 /* -- 2. status --------------------------------------------------------------- */
 
@@ -57,10 +61,22 @@ function formationRank(area) {
   return Math.max(a, b);
 }
 
-function computeBanner({ inStorms, inAreas, bothFailed }) {
-  if (bothFailed) {
-    return { tone: 'unknown', badge: '📡', headline: 'Could not load storm data', detail: 'Both data sources failed to load — check your connection and refresh.' };
+function pacificDetail({ watchStorms, pacificAreas }) {
+  if (watchStorms.length > 0) {
+    const s = watchStorms[0];
+    const more = watchStorms.length + pacificAreas.length - 1;
+    return `${s.name} is on the Pacific side of Mexico/Central America, ${s.crossoverReason}${more > 0 ? ` (+${more} more below)` : ''}.`;
   }
+  const n = pacificAreas.length;
+  return `${n} eastern Pacific disturbance${n === 1 ? '' : 's'} near Central America could cross toward the Gulf.`;
+}
+
+function computeBanner({ inStorms, inAreas, watchStorms, pacificAreas, allFailed }) {
+  if (allFailed) {
+    return { tone: 'unknown', badge: '📡', headline: 'Could not load storm data', detail: 'All data sources failed to load — check your connection and refresh.' };
+  }
+
+  const gyre = gyreNote({ inAreas, pacificAreas, watchStorms });
 
   if (inStorms.length > 0) {
     const worst = inStorms[0];
@@ -72,7 +88,7 @@ function computeBanner({ inStorms, inAreas, bothFailed }) {
         ? `Tropical storm activity: ${worst.name}`
         : `Tracking ${worst.name} near your regions`;
     const detail = inStorms.length > 1 ? `+${inStorms.length - 1} more system(s) below` : null;
-    return { tone: info.tone, badge, headline, detail };
+    return { tone: info.tone, badge, headline, detail: joinDetail(detail, gyre) };
   }
 
   if (inAreas.length > 0) {
@@ -85,7 +101,16 @@ function computeBanner({ inStorms, inAreas, bothFailed }) {
         ? 'Development possible in your regions'
         : 'Low-chance disturbance being watched';
     const detail = sorted.length > 1 ? `+${sorted.length - 1} more area(s) below` : null;
-    return { tone, badge: '🌊', headline, detail };
+    return { tone, badge: '🌊', headline, detail: joinDetail(detail, gyre) };
+  }
+
+  if (watchStorms.length > 0 || pacificAreas.length > 0) {
+    return {
+      tone: 'info',
+      badge: '👀',
+      headline: 'Quiet here, watching the Pacific side',
+      detail: joinDetail(pacificDetail({ watchStorms, pacificAreas }), gyre)
+    };
   }
 
   return {
@@ -94,6 +119,11 @@ function computeBanner({ inStorms, inAreas, bothFailed }) {
     headline: 'All quiet in your regions',
     detail: 'No active systems or outlook areas near Tampa, Texas, Florida, the Bahamas, or Honduras/the western Caribbean right now.'
   };
+}
+
+function joinDetail(...parts) {
+  const kept = parts.filter(Boolean);
+  return kept.length ? kept.join(' ') : null;
 }
 
 function renderBanner(banner) {
@@ -155,6 +185,58 @@ function capitalize(s) {
   return s ? s[0].toUpperCase() + s.slice(1) : s;
 }
 
+/* -- 6. Pacific side ------------------------------------------------------------
+ * Eastern Pacific systems on the Acapulco-to-Central-America coast that aren't
+ * simply heading west, and eastern Pacific outlook areas near that coast.
+ * Nothing here is in the regions yet, so the tones are capped: a hurricane
+ * on the Pacific coast is a warning, everything else is "watching". */
+
+const PACIFIC_OUTLOOK_URL = 'https://www.nhc.noaa.gov/text/MIATWOEP.shtml';
+
+function capTone(tone) {
+  return tone === 'bad' ? 'warn' : tone === 'warn' ? 'info' : tone;
+}
+
+function renderPacific(watchStorms, pacificAreas, pacificSideCount, allPacificAreas) {
+  const noteParts = [];
+  if (pacificSideCount) noteParts.push(`${watchStorms.length} of ${pacificSideCount} on the Pacific coast`);
+  if (allPacificAreas.length) noteParts.push(`${pacificAreas.length} of ${allPacificAreas.length} disturbance(s) noted`);
+  els.pacificNote.textContent = noteParts.join(' · ');
+
+  if (watchStorms.length === 0 && pacificAreas.length === 0) {
+    els.pacific.replaceChildren(emptyRow('Nothing on the Pacific side of Central America heading this way.'));
+    return;
+  }
+
+  const stormRows = [...watchStorms]
+    .sort((a, b) => classificationInfo(b.classification).rank - classificationInfo(a.classification).rank)
+    .map(renderPacificStormRow);
+  const areaRows = [...pacificAreas]
+    .sort((a, b) => formationRank(b) - formationRank(a))
+    .map(renderPacificAreaRow);
+
+  els.pacific.replaceChildren(...stormRows, ...areaRows);
+}
+
+function renderPacificStormRow(storm) {
+  const info = classificationInfo(storm.classification);
+  const href = storm.links?.publicAdvisory || storm.links?.forecastDiscussion || null;
+  const heading = compassPoint(storm.movementDir);
+  const motion = typeof storm.movementSpeed === 'number' && heading ? `${heading} at ${storm.movementSpeed} mph` : null;
+  const meta = [info.label, storm.crossoverReason, motion].filter(Boolean).join(' · ');
+  return rowEl({ tone: capTone(info.tone), name: storm.name, meta, href });
+}
+
+function renderPacificAreaRow(area) {
+  const chance = area.formationChance7d || area.formationChance48h;
+  const tone = capTone(formationTone(chance?.category));
+  const meta = [
+    chance ? `${capitalize(chance.category)} chance · ${chance.percent}` : 'Formation chance unknown',
+    area.motion ? `moving ${area.motion}` : null
+  ].filter(Boolean).join(' · ');
+  return rowEl({ tone, name: localizeGulf(area.area), meta, href: PACIFIC_OUTLOOK_URL });
+}
+
 /* -- shared row -------------------------------------------------------------- */
 
 /* One line: name, then the likelihood/severity that answers "how worried
@@ -196,15 +278,16 @@ function emptyRow(text) {
   return li;
 }
 
-/* -- 6. meta + load/refresh ------------------------------------------------------- */
+/* -- 7. meta + load/refresh ------------------------------------------------------- */
 
 function renderMeta() {
-  const { storms, outlook } = state;
+  const { storms, outlook, pacific } = state;
 
   els.stormsUpdated.textContent = `Storms ${metaText(storms)}`;
   els.outlookUpdated.textContent = `Outlook ${metaText(outlook)}`;
+  els.pacificUpdated.textContent = `Pacific ${metaText(pacific)}`;
 
-  const errors = [storms?.error, outlook?.error].filter(Boolean);
+  const errors = [storms?.error, outlook?.error, pacific?.error].filter(Boolean);
   els.dataError.textContent = errors.length ? errors.join(' · ') : '';
   els.dataError.classList.toggle('is-hidden', errors.length === 0);
 }
@@ -218,21 +301,30 @@ function metaText(source) {
 async function refresh() {
   setStatus('loading', 'loading');
 
-  const { storms, outlook } = await loadAll();
+  const { storms, outlook, pacific } = await loadAll();
   state.storms = storms;
   state.outlook = outlook;
+  state.pacific = pacific;
 
-  const inStorms = (storms.storms || []).filter((s) => s.inRegion);
+  const allStorms = storms.storms || [];
+  const inStorms = allStorms.filter((s) => s.inRegion);
   const inAreas = (outlook.areas || []).filter((a) => a.inRegion);
-  const bothFailed = !!storms.loadFailed && !!outlook.loadFailed;
+  const watchStorms = allStorms.filter((s) => s.crossoverWatch);
+  const pacificSideCount = allStorms.filter((s) => s.pacificSide).length;
+  const allPacificAreas = pacific.areas || [];
+  const pacificAreas = allPacificAreas.filter((a) => a.inRegion);
 
-  renderBanner(computeBanner({ inStorms, inAreas, bothFailed }));
-  renderStorms(inStorms, storms.storms || []);
+  const sources = [storms, outlook, pacific];
+  const allFailed = sources.every((s) => s.loadFailed);
+
+  renderBanner(computeBanner({ inStorms, inAreas, watchStorms, pacificAreas, allFailed }));
+  renderStorms(inStorms, allStorms);
   renderOutlook(inAreas, outlook.areas || []);
+  renderPacific(watchStorms, pacificAreas, pacificSideCount, allPacificAreas);
   renderMeta();
 
-  if (bothFailed) setStatus('error', 'offline');
-  else if (storms.loadFailed || outlook.loadFailed || storms.stale || outlook.stale) setStatus('warn', 'partial');
+  if (allFailed) setStatus('error', 'offline');
+  else if (sources.some((s) => s.loadFailed || s.stale)) setStatus('warn', 'partial');
   else setStatus('ok', 'ready');
 }
 
@@ -246,7 +338,7 @@ document.addEventListener('visibilitychange', () => {
 
 refresh();
 
-/* -- 7. service worker -------------------------------------------------------------- */
+/* -- 8. service worker -------------------------------------------------------------- */
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

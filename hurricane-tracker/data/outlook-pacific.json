@@ -1,0 +1,65 @@
+{
+  "ok": true,
+  "error": null,
+  "updated": "2026-09-15T20:56:41.218Z",
+  "checkedAt": "2026-09-15T20:56:41.218Z",
+  "issued": "2026-09-15T20:48:17.000Z",
+  "totalAreas": 3,
+  "inRegionCount": 0,
+  "areas": [
+    {
+      "id": "outlook-1",
+      "area": "Southwest of Southwestern Mexico",
+      "descriptor": null,
+      "binNumber": null,
+      "text": "An area of low pressure could form well offshore of southwestern Mexico by the end of the week. Environmental conditions appear conducive for some gradual development by the weekend, and this system could become a tropical depression early next week while it moves slowly northwestward.",
+      "motion": "northwestward",
+      "formationChance48h": {
+        "category": "low",
+        "percent": "near 0 percent"
+      },
+      "formationChance7d": {
+        "category": "medium",
+        "percent": "40 percent"
+      },
+      "inRegion": false,
+      "matchedKeywords": []
+    },
+    {
+      "id": "outlook-2",
+      "area": "Gulf of California",
+      "descriptor": null,
+      "binNumber": null,
+      "text": "A small area of low pressure has formed over the southern Gulf of California accompanied by disorganized showers and thunderstorms. While this system has only a slight chance of formation before it moves inland tomorrow over the state of Sonora, periods of heavy rain and isolated flooding are possible over that state during the next couple of days.",
+      "motion": null,
+      "formationChance48h": {
+        "category": "low",
+        "percent": "10 percent"
+      },
+      "formationChance7d": {
+        "category": "low",
+        "percent": "10 percent"
+      },
+      "inRegion": false,
+      "matchedKeywords": []
+    },
+    {
+      "id": "outlook-3",
+      "area": "Western Portion of the Eastern Pacific",
+      "descriptor": null,
+      "binNumber": null,
+      "text": "An area of low pressure could form over the western portion of the eastern Pacific this weekend. Some gradual development of this system is possible early next week as it moves westward at 10 to 15 mph.",
+      "motion": "westward",
+      "formationChance48h": {
+        "category": "low",
+        "percent": "near 0 percent"
+      },
+      "formationChance7d": {
+        "category": "low",
+        "percent": "20 percent"
+      },
+      "inRegion": false,
+      "matchedKeywords": []
+    }
+  ]
+}

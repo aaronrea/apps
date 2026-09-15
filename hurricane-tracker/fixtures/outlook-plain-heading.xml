@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:georss="http://www.georss.org/georss"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:nhc="https://www.nhc.noaa.gov">
+  <channel>
+    <pubDate>Tue, 15 Sep 2026 19:56:12 GMT</pubDate>
+    <title>NHC Atlantic</title>
+    <description>Active tropical cyclones in the Atlantic, Caribbean, and the Gulf of America</description>
+    <link>https://www.nhc.noaa.gov/</link>
+    <copyright>none</copyright>
+    <managingEditor>nhcwebmaster@noaa.gov (NHC Webmaster)</managingEditor>
+    <language>en-us</language>
+    <webMaster>nhcwebmaster@noaa.gov (NHC Webmaster)</webMaster>
+    <image>
+      <url>https://www.nhc.noaa.gov/gifs/xml_logo_nhc.gif</url>
+      <link>https://www.nhc.noaa.gov/</link>
+      <title>NHC Atlantic</title>
+      <description>NOAA logo</description>
+      <width>95</width>
+      <height>45</height>
+    </image>
+    <item>
+      <title>Atlantic Tropical Weather Outlook</title>
+      <description>
+      <![CDATA[000<br />ABNT20 KNHC 151751<br />TWOAT <br /><br />Tropical Weather Outlook<br />NWS National Hurricane Center Miami FL<br />Issued by the NWS Weather Prediction Center College Park MD<br />200 PM EDT Tue Sep 15 2026<br /><br />For the North Atlantic...Caribbean Sea and the Gulf of America:<br /><br />Central Subtropical Atlantic:<br />A trough of low pressure located about 800 miles east-southeast of <br />Bermuda continues to produce disorganized showers and <br />thunderstorms. Environmental conditions are forecast to become <br />more conducive for development in a couple of days, and a tropical <br />depression could form late this week as the system moves slowly <br />westward to west-northwestward over the subtropical Atlantic.<br />* Formation chance through 48 hours...low...near 0 percent.<br />* Formation chance through 7 days...medium...40 percent.<br /><br />$$<br />Forecaster Jackson/Blake]]>
+      </description>
+      <pubDate>Tue, 15 Sep 2026 17:51:53 GMT</pubDate>
+      <link>https://www.nhc.noaa.gov/gtwo.php?basin=atlc</link>
+      <guid>https://www.nhc.noaa.gov/gtwo.php?basin=atlc&amp;202609151751</guid>
+      <author>nhcwebmaster@noaa.gov (NHC Webmaster)</author>
+    </item>
+    <item>
+      <title>There are no tropical cyclones at this time.</title>
+      <description>No tropical cyclones as of Tue, 15 Sep 2026 19:56:12 GMT</description>
+      <pubDate>Thu, 17 Sep 2026 05:51:53 GMT</pubDate>
+      <link>https://www.nhc.noaa.gov/</link>
+      <guid>https://www.nhc.noaa.gov/</guid>
+      <author>nhcwebmaster@noaa.gov (NHC Webmaster)</author>
+    </item>
+  </channel>
+</rss>

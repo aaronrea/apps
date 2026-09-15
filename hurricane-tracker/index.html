@@ -60,12 +60,25 @@
       <ul id="outlook" class="rows"></ul>
     </section>
 
+    <!-- Pacific side: the late-season back door. Eastern Pacific systems on
+         the Acapulco-to-Central-America coast that aren't simply heading
+         west, plus eastern Pacific outlook areas near that coast. Not a
+         threat to the regions yet — a heads-up that one could cross. -->
+    <section aria-label="Pacific side crossover watch">
+      <div class="section-head">
+        <p class="section-label">Pacific side</p>
+        <p id="pacific-note" class="section-note"></p>
+      </div>
+      <ul id="pacific" class="rows"></ul>
+    </section>
+
     <!-- Meta -->
     <section class="meta" aria-label="Data freshness">
       <div class="meta__row">
         <div class="meta__timestamps">
           <p id="storms-updated" class="meta__line">Storms —</p>
           <p id="outlook-updated" class="meta__line">Outlook —</p>
+          <p id="pacific-updated" class="meta__line">Pacific —</p>
         </div>
         <button id="refresh" class="btn btn--small" type="button">Refresh</button>
       </div>
@@ -81,7 +94,12 @@
         disturbances that don't have a full advisory yet. This page keeps only what could plausibly reach
         Tampa/the Gulf Coast, Texas, Florida, the Bahamas, or Honduras/the western Caribbean — a bounding box
         for storms with a known position, plus a keyword match on the outlook text for invests that don't have
-        one yet. A GitHub Action re-fetches both every 3 hours, matching NHC's own advisory and outlook
+        one yet. Late in the season the Gulf's storms tend to come out of the western Caribbean or from
+        the Pacific side of Central America, so the page also keeps an eye on the
+        <a href="https://www.nhc.noaa.gov/text/MIATWOEP.shtml" target="_blank" rel="noopener">eastern Pacific outlook</a>
+        and flags any eastern Pacific system between Acapulco and Central America that isn't simply
+        heading west — the setup that turned a Pacific depression into Hermine (2010) and fed Milton (2024).
+        A GitHub Action re-fetches all three every 3 hours, matching NHC's own advisory and outlook
         clock (more often near landfall, when NHC itself switches to 3-hourly intermediate advisories).
       </p>
     </section>
