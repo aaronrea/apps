@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-15T11:47:39.234Z",
-  "checkedAt": "2026-09-15T11:47:39.234Z",
+  "updated": "2026-09-15T17:02:17.451Z",
+  "checkedAt": "2026-09-15T17:02:17.451Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -14,36 +14,36 @@
       "intensity": 30,
       "pressure": 1005,
       "lat": 16.1,
-      "lon": -122.6,
+      "lon": -123.9,
       "movementDir": 260,
-      "movementSpeed": 10,
-      "lastUpdate": "2026-09-15T09:00:00.000Z",
+      "movementSpeed": 12,
+      "lastUpdate": "2026-09-15T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_007adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_008adv_CONE.kmz"
       }
     },
     {
       "id": "ep142026",
       "binNumber": "CP1",
       "name": "Norbert",
-      "classification": "TD",
+      "classification": "PTC",
       "intensity": 30,
-      "pressure": 1006,
-      "lat": 20.3,
-      "lon": -141.7,
+      "pressure": 1007,
+      "lat": 20.5,
+      "lon": -143.1,
       "movementDir": 280,
-      "movementSpeed": 14,
-      "lastUpdate": "2026-09-15T09:00:00.000Z",
+      "movementSpeed": 13,
+      "lastUpdate": "2026-09-15T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_023adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_024adv_CONE.kmz"
       }
     }
   ]
