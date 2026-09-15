@@ -1,31 +1,11 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-15T04:57:41.263Z",
-  "checkedAt": "2026-09-15T04:57:41.263Z",
+  "updated": "2026-09-15T11:47:39.234Z",
+  "checkedAt": "2026-09-15T11:47:39.234Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
-    {
-      "id": "ep142026",
-      "binNumber": "EP4",
-      "name": "Norbert",
-      "classification": "TD",
-      "intensity": 30,
-      "pressure": 1006,
-      "lat": 20.2,
-      "lon": -140.5,
-      "movementDir": 285,
-      "movementSpeed": 15,
-      "lastUpdate": "2026-09-15T03:00:00.000Z",
-      "inRegion": false,
-      "links": {
-        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP4.shtml",
-        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP4.shtml",
-        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_022adv_CONE.kmz"
-      }
-    },
     {
       "id": "ep152026",
       "binNumber": "EP5",
@@ -33,17 +13,37 @@
       "classification": "TD",
       "intensity": 30,
       "pressure": 1005,
-      "lat": 16.5,
-      "lon": -121.6,
+      "lat": 16.1,
+      "lon": -122.6,
       "movementDir": 260,
       "movementSpeed": 10,
-      "lastUpdate": "2026-09-15T03:00:00.000Z",
+      "lastUpdate": "2026-09-15T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_006adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_007adv_CONE.kmz"
+      }
+    },
+    {
+      "id": "ep142026",
+      "binNumber": "CP1",
+      "name": "Norbert",
+      "classification": "TD",
+      "intensity": 30,
+      "pressure": 1006,
+      "lat": 20.3,
+      "lon": -141.7,
+      "movementDir": 280,
+      "movementSpeed": 14,
+      "lastUpdate": "2026-09-15T09:00:00.000Z",
+      "inRegion": false,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP1.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP1.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp1.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_023adv_CONE.kmz"
       }
     }
   ]
