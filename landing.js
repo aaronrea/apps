@@ -22,7 +22,7 @@ import { classificationInfo, formationTone } from './hurricane-tracker/js/filter
 import { fmtAge as coneAge, localizeGulf } from './hurricane-tracker/js/format.js';
 
 import { STATIONS as PUMP_STATIONS, THRESHOLD_PCT } from './gas-prices/js/stations.js';
-import { evaluate, money, fmtCentsAbs, fmtAge as pumpAge } from './gas-prices/js/compare.js';
+import { evaluate, money, fmtCentsAbs, fmtCents, fmtPctNear, fmtAge as pumpAge } from './gas-prices/js/compare.js';
 import { readOverrides, mergePrices } from './gas-prices/js/store.js';
 
 import { TEAMS, HORIZON_DAYS } from './sports-schedule/js/teams.js';
@@ -131,6 +131,10 @@ async function renderPump() {
   } catch (error) {
     el('pump-head').textContent = 'Could not load prices';
     el('pump-sub').textContent = error.message;
+    const empty = document.createElement('li');
+    empty.className = 'drop__empty';
+    empty.textContent = 'No prices to show';
+    el('pump-list').replaceChildren(empty);
     return;
   }
 
@@ -159,6 +163,52 @@ async function renderPump() {
     'preferred-ok': 'good',
     'costco-run': 'warn'
   }[result.verdict.key] || 'none');
+
+  renderPumpList(result);
+}
+
+/* All four stations, cheapest first, in the order compare.js already sorted
+ * them — the same list the app shows, minus the editing. */
+function renderPumpList(result) {
+  const rows = result.rows.map((row) => {
+    const li = document.createElement('li');
+    li.className = 'drop__row';
+    li.dataset.tone = row.tone;
+
+    const main = document.createElement('span');
+    main.className = 'drop__main';
+    main.textContent = `${row.station.icon} ${row.station.name}`;
+    const tags = [];
+    if (row.cheapest) tags.push('cheapest');
+    if (row.manual) tags.push('typed');
+    if (row.status === 'stale') tags.push('stale');
+    if (tags.length) {
+      const tag = document.createElement('span');
+      tag.className = 'drop__tag';
+      tag.textContent = tags.join(' · ');
+      main.append(tag);
+    }
+
+    const aside = document.createElement('span');
+    aside.className = 'drop__aside';
+    const price = document.createElement('b');
+    price.textContent = money(row.price);
+    aside.append(price);
+    if (row.station.role !== 'benchmark' && row.pct !== null) {
+      const delta = document.createElement('small');
+      delta.textContent = `${fmtPctNear(row.pct, result.threshold)} · ${fmtCents(row.cents)}`;
+      aside.append(delta);
+    } else if (row.price === null) {
+      const delta = document.createElement('small');
+      delta.textContent = 'no price';
+      aside.append(delta);
+    }
+
+    li.append(main, aside);
+    return li;
+  });
+
+  el('pump-list').replaceChildren(...rows);
 }
 
 /* -- 4. Slate ------------------------------------------------------------- */
@@ -256,7 +306,7 @@ function renderSlateWeek(games, highlighted) {
   const nodes = [];
   for (const day of days) {
     const label = document.createElement('li');
-    label.className = 'week__day';
+    label.className = 'drop__label';
     label.textContent = dayLabel(day.key, todayKey);
     nodes.push(label);
     for (const game of day.games) nodes.push(weekRow(game));
@@ -264,7 +314,7 @@ function renderSlateWeek(games, highlighted) {
 
   if (!nodes.length) {
     const empty = document.createElement('li');
-    empty.className = 'week__empty';
+    empty.className = 'drop__empty';
     empty.textContent = next && next.game !== highlighted
       ? `Nothing else this week · next up ${dayLabel(next.key, todayKey)}`
       : 'Nothing else this week';
@@ -276,8 +326,8 @@ function renderSlateWeek(games, highlighted) {
 
 function weekRow(game) {
   const li = document.createElement('li');
-  li.className = 'week__game';
-  li.style.setProperty('--team', game.accent);
+  li.className = 'drop__row';
+  li.style.setProperty('--edge', game.accent);
   if (game.state === 'in') li.classList.add('is-live');
 
   const team = TEAMS.find((t) => t.id === game.teamId) || { label: game.team.name };
@@ -285,11 +335,11 @@ function weekRow(game) {
   const rank = game.opponent.rank ? `#${game.opponent.rank} ` : '';
 
   const match = document.createElement('span');
-  match.className = 'week__match';
+  match.className = 'drop__main';
   match.textContent = `${team.label} ${sep} ${rank}${game.opponent.name}`;
 
   const when = document.createElement('span');
-  when.className = 'week__when';
+  when.className = 'drop__aside';
   const score = scoreLine(game);
   const status = statusLine(game, TZ);
   when.textContent = game.state === 'in'
@@ -302,26 +352,27 @@ function weekRow(game) {
   return li;
 }
 
-/* Open / closed is remembered, so a week left open stays open. */
-const SLATE_OPEN_KEY = 'landing.slate.open';
+/* -- disclosure ----------------------------------------------------------- */
+/* A highlight row that drops a list down under it. Open / closed is
+ * remembered per card, so a list left open stays open. */
 
-function setupSlateToggle() {
-  const toggle = el('slate-toggle');
-  const week = el('slate-week');
+function setupToggle(toggleId, listId, storageKey) {
+  const toggle = el(toggleId);
+  const list = el(listId);
 
   const apply = (open) => {
     toggle.setAttribute('aria-expanded', String(open));
-    week.classList.toggle('is-hidden', !open);
+    list.classList.toggle('is-hidden', !open);
   };
 
   let open = false;
-  try { open = localStorage.getItem(SLATE_OPEN_KEY) === '1'; } catch (err) { /* private mode */ }
+  try { open = localStorage.getItem(storageKey) === '1'; } catch (err) { /* private mode */ }
   apply(open);
 
   toggle.addEventListener('click', () => {
     open = !open;
     apply(open);
-    try { localStorage.setItem(SLATE_OPEN_KEY, open ? '1' : '0'); } catch (err) { /* private mode */ }
+    try { localStorage.setItem(storageKey, open ? '1' : '0'); } catch (err) { /* private mode */ }
   });
 }
 
@@ -344,7 +395,7 @@ async function renderSlate() {
       el('slate-sub').textContent = 'Nothing cached yet';
       el('slate-crest').append('?');
       const empty = document.createElement('li');
-      empty.className = 'week__empty';
+      empty.className = 'drop__empty';
       empty.textContent = 'No schedule to show';
       el('slate-week').replaceChildren(empty);
     } else {
@@ -540,7 +591,8 @@ function setupSignal() {
 /* -- go ------------------------------------------------------------------- */
 
 setupSignal();
-setupSlateToggle();
+setupToggle('pump-toggle', 'pump-list', 'landing.pump.open');
+setupToggle('slate-toggle', 'slate-week', 'landing.slate.open');
 renderCone();
 renderPump();
 renderSlate();
