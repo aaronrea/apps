@@ -183,7 +183,9 @@
     }
     .hl--button[aria-expanded="true"] .chev { transform: rotate(180deg); }
 
-    .week {
+    /* The dropped-down list under a highlight: Slate's week, Pump's stations.
+     * Each row's left edge carries its colour — a team, or a price tone. */
+    .drop {
       list-style: none;
       margin: 12px 0 0;
       padding: 8px 0 0;
@@ -192,27 +194,33 @@
       flex-direction: column;
       gap: 2px;
     }
-    .week__day {
+    .drop__label {
       margin: 8px 0 2px;
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
     }
-    .week__day:first-child { margin-top: 2px; }
-    .week__game {
+    .drop__label:first-child { margin-top: 2px; }
+    .drop__row {
       display: flex;
       align-items: center;
       gap: 10px;
       padding: 7px 0 7px 10px;
-      border-left: 3px solid var(--team, var(--line));
+      border-left: 3px solid var(--edge, var(--line));
       font-size: 14px;
     }
-    .week__game.is-live { border-left-color: var(--ok); }
-    .week__match { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .week__when { flex: none; color: var(--muted); font-variant-numeric: tabular-nums; }
-    .week__game.is-live .week__when { color: var(--ok); }
-    .week__empty { padding: 6px 0; font-size: 13px; color: var(--muted); }
+    .drop__row.is-live { --edge: var(--ok); }
+    .drop__row[data-tone="good"]      { --edge: var(--ok); }
+    .drop__row[data-tone="bad"]       { --edge: var(--bad); }
+    .drop__row[data-tone="benchmark"] { --edge: var(--pump); }
+    .drop__main { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .drop__tag { margin-left: 6px; font-size: 11px; color: var(--muted); }
+    .drop__aside { flex: none; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; line-height: 1.2; }
+    .drop__aside b { display: block; color: var(--text); font-weight: 600; }
+    .drop__aside small { font-size: 12px; }
+    .drop__row.is-live .drop__aside { color: var(--ok); }
+    .drop__empty { padding: 6px 0; font-size: 13px; color: var(--muted); }
 
     /* -- Signal: the player is the card ----------------------------------- */
 
@@ -275,18 +283,22 @@
         <p id="signal-sub" class="player__sub">Pick a station</p>
       </li>
 
-      <li>
-        <a class="app" id="pump" href="./gas-prices/" style="--app: var(--pump)" data-tone="none">
-          <div class="app__row"><span class="app__name">Pump</span></div>
-          <div class="hl">
-            <span id="pump-price" class="hl__big">—</span>
-            <div class="hl__text">
-              <p id="pump-head" class="hl__head">Loading prices…</p>
-              <p id="pump-sub" class="hl__sub">Regular unleaded, four stations</p>
-            </div>
-          </div>
-          <p id="pump-meta" class="meta"></p>
-        </a>
+      <!-- Pump: collapsible. Tapping the highlight drops all four stations,
+           cheapest first, down under it. -->
+      <li class="app" id="pump" style="--app: var(--pump)" data-tone="none">
+        <div class="app__row">
+          <a class="app__name" href="./gas-prices/">Pump</a>
+        </div>
+        <button id="pump-toggle" class="hl hl--button" type="button" aria-expanded="false" aria-controls="pump-list">
+          <span id="pump-price" class="hl__big">—</span>
+          <span class="hl__text">
+            <span id="pump-head" class="hl__head">Loading prices…</span>
+            <span id="pump-sub" class="hl__sub">Regular unleaded, four stations</span>
+          </span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+        </button>
+        <ol id="pump-list" class="drop is-hidden"></ol>
+        <p id="pump-meta" class="meta"></p>
       </li>
 
       <!-- Slate: collapsible. The highlight row is a button that drops the
@@ -303,7 +315,7 @@
           </span>
           <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
         </button>
-        <ol id="slate-week" class="week is-hidden"></ol>
+        <ol id="slate-week" class="drop is-hidden"></ol>
         <p id="slate-meta" class="meta"></p>
       </li>
 

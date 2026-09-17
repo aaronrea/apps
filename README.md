@@ -19,8 +19,8 @@ can never disagree with the app it opens.
 | Card | Shows | Where it comes from |
 | --- | --- | --- |
 | Signal | A station dropdown and a play button — the card *is* a player | `signal-radio/js/adapters.js`, loaded as a classic script for its `STATIONS` |
-| Pump | Cheapest price and station, coloured by the go / no-go verdict | `gas-prices/data/prices.json`, the file the workflow commits, plus any price typed into the app (same origin, same `localStorage`) |
-| Slate | The followed team's logo, the matchup, and the next kick / puck drop | ESPN, fetched directly, as the app does; the app's `localStorage` cache paints first |
+| Pump | Cheapest price and station, coloured by the go / no-go verdict; tap to drop down all four stations | `gas-prices/data/prices.json`, the file the workflow commits, plus any price typed into the app (same origin, same `localStorage`) |
+| Slate | The followed team's logo, the matchup, and the next kick / puck drop; tap to drop down the rest of the week | ESPN, fetched directly, as the app does; the app's `localStorage` cache paints first |
 | Cone | Count of systems in the watched regions, coloured by the worst one | `hurricane-tracker/data/*.json`, the files the workflow commits |
 
 Cards load independently, so a dead ESPN never blanks the storm count. Signal

@@ -15,12 +15,24 @@ on:
     # landing around 11am ET, ~4 hours late, which is why a pump-time check
     # at 8-9am was seeing the previous night's run and nothing fresher.
     #
-    # Fix: off-hour minutes (GitHub's own advice for reducing queue delay),
-    # and the morning run moved earlier than it needs to be so a multi-hour
-    # delay still lands it well before breakfast instead of after lunch.
-    - cron: '37 7 * * *'    # ~3:37am ET — early buffer; lands by ~7-8am even a few hours late
-    - cron: '37 16 * * *'   # ~12:37pm ET
-    - cron: '37 22 * * *'   # ~6:37pm ET
+    # Fix, round one: off-hour minutes (GitHub's own advice for reducing
+    # queue delay), and the morning run moved earlier than it needs to be so
+    # a multi-hour delay still lands it well before breakfast.
+    #
+    # Fix, round two (2026-09-17). Checked against the run history for
+    # 09-11..09-17: the 07:37 UTC slot never fired at all — not late, dropped,
+    # every single day — while the other two landed 1.5-3.5 hours late.
+    # The storm workflow next door tells the same story: 8 slots a day, 4
+    # runs. GitHub doesn't just delay schedules under load, it drops them,
+    # and roughly half of what's asked for is what arrives. So the morning
+    # gap was structural: one slot, always dropped, and prices sat 15+ hours
+    # stale until the afternoon run. The answer is not a better minute but
+    # more slots — every 2 hours — so that losing half of them still leaves
+    # a run every ~4 hours, and the three morning slots (06:43, 08:43,
+    # 10:43 UTC = 2:43, 4:43, 6:43am ET) give the commute several chances
+    # to get a fresh number. Public repo, so Actions minutes are free, and
+    # a dozen page fetches a day per station is nothing.
+    - cron: '43 */2 * * *'
   workflow_dispatch:
 
 permissions:
