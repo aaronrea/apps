@@ -1,10 +1,28 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-14T12:53:10.905Z",
-  "issued": "2026-09-14T12:50:06.000Z",
-  "checkedAt": "2026-09-14T12:53:10.905Z",
-  "totalAreas": 0,
+  "updated": "2026-09-17T11:45:27.750Z",
+  "issued": "2026-09-17T11:40:05.000Z",
+  "checkedAt": "2026-09-17T11:45:27.750Z",
+  "totalAreas": 1,
   "inRegionCount": 0,
-  "areas": []
+  "areas": [
+    {
+      "id": "outlook-1",
+      "area": "Central Subtropical Atlantic",
+      "descriptor": "AL98",
+      "binNumber": "AL98",
+      "text": "Showers and thunderstorms have become a little better organized over the past day in association with a small area of low pressure located a few hundred miles east of Bermuda. Environmental conditions could support some additional gradual development over the next few days while the system moves slowly westward today, and then possibly turns southward on Friday over the subtropical Atlantic.",
+      "formationChance48h": {
+        "category": "medium",
+        "percent": "40 percent"
+      },
+      "formationChance7d": {
+        "category": "medium",
+        "percent": "40 percent"
+      },
+      "inRegion": false,
+      "matchedKeywords": []
+    }
+  ]
 }

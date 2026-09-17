@@ -1,50 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-14T12:53:10.905Z",
-  "checkedAt": "2026-09-14T12:53:10.905Z",
-  "totalActive": 2,
+  "updated": "2026-09-17T11:45:27.750Z",
+  "checkedAt": "2026-09-17T11:45:27.750Z",
+  "totalActive": 0,
   "inRegionCount": 0,
-  "storms": [
-    {
-      "id": "ep142026",
-      "binNumber": "EP4",
-      "name": "Norbert",
-      "classification": "TS",
-      "intensity": 35,
-      "pressure": 1005,
-      "lat": 19.3,
-      "lon": -136.4,
-      "movementDir": 280,
-      "movementSpeed": 13,
-      "lastUpdate": "2026-09-14T09:00:00.000Z",
-      "inRegion": false,
-      "links": {
-        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP4.shtml",
-        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP4.shtml",
-        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP142026_019adv_CONE.kmz"
-      }
-    },
-    {
-      "id": "ep152026",
-      "binNumber": "EP5",
-      "name": "Fifteen-E",
-      "classification": "TD",
-      "intensity": 30,
-      "pressure": 1006,
-      "lat": 16.5,
-      "lon": -118.9,
-      "movementDir": 255,
-      "movementSpeed": 9,
-      "lastUpdate": "2026-09-14T09:00:00.000Z",
-      "inRegion": false,
-      "links": {
-        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP5.shtml",
-        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP5.shtml",
-        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_003adv_CONE.kmz"
-      }
-    }
-  ]
+  "storms": []
 }
