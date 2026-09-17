@@ -10,8 +10,25 @@ they're all served from the same GitHub Pages site.
 | Slate | [`sports-schedule/`](sports-schedule/) | Today and the next 7 days for the Aggies, Bucs and Lightning |
 | Cone | [`hurricane-tracker/`](hurricane-tracker/) | Active NHC storms and invests, filtered to Tampa, Texas and the western Caribbean |
 
-The root `index.html` is a plain landing page linking to each app — add a list
-item there when you add a sibling app.
+The root `index.html` is the landing page: one card per app, each carrying
+that app's highlight so the answer is usually on this screen already.
+`landing.js` fills the cards, and it invents nothing — it imports the same
+modules the apps use (`compare.js`, `filter.js`, `schedule.js`, …) so a card
+can never disagree with the app it opens.
+
+| Card | Shows | Where it comes from |
+| --- | --- | --- |
+| Signal | A station dropdown and a play button — the card *is* a player | `signal-radio/js/adapters.js`, loaded as a classic script for its `STATIONS` |
+| Pump | Cheapest price and station, coloured by the go / no-go verdict | `gas-prices/data/prices.json`, the file the workflow commits, plus any price typed into the app (same origin, same `localStorage`) |
+| Slate | The followed team's logo, the matchup, and the next kick / puck drop | ESPN, fetched directly, as the app does; the app's `localStorage` cache paints first |
+| Cone | Count of systems in the watched regions, coloured by the worst one | `hurricane-tracker/data/*.json`, the files the workflow commits |
+
+Cards load independently, so a dead ESPN never blanks the storm count. Signal
+playback stops when you navigate away from the page — there is no shell
+holding the `<audio>` element across pages — and 101X is HLS-only, so it plays
+on iOS but not desktop Chrome, exactly as in the app.
+
+When you add a sibling app, add a card here too.
 
 No build step, no dependencies, no backend. Everything is vanilla
 HTML/CSS/JS and every path in every app is **relative**, because GitHub Pages

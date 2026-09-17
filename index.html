@@ -6,38 +6,199 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b0b0d">
   <style>
-    :root { color-scheme: dark; }
+    :root {
+      color-scheme: dark;
+      --bg: #0b0b0d;
+      --surface: #141417;
+      --surface-hi: #1c1c21;
+      --line: #26262c;
+      --text: #f2f2f4;
+      --muted: #8b8b96;
+
+      /* One accent per app, lifted from each app's own stylesheet so the
+       * landing card is recognisably the same thing as the app it opens. */
+      --signal: #ff7a1a;
+      --pump: #4da3ff;
+      --slate: #a78bfa;
+      --cone: #2dd4bf;
+
+      /* The shared tone ladder the apps use for their own verdict banners. */
+      --ok: #3ddc84;    --ok-dim: rgba(61, 220, 132, 0.12);
+      --warn: #ffc857;  --warn-dim: rgba(255, 200, 87, 0.12);
+      --bad: #ff5c5c;   --bad-dim: rgba(255, 92, 92, 0.12);
+      --info: #4da3ff;  --info-dim: rgba(77, 163, 255, 0.12);
+
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    .is-hidden { display: none !important; }
+
     body {
       margin: 0;
       min-height: 100vh;
-      background: #0b0b0d;
-      color: #f2f2f4;
-      font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
       display: flex;
       justify-content: center;
-      padding: calc(env(safe-area-inset-top) + 48px) 20px calc(env(safe-area-inset-bottom) + 48px);
+      padding: calc(env(safe-area-inset-top) + 40px) 16px calc(env(safe-area-inset-bottom) + 40px);
     }
-    main { width: 100%; max-width: 460px; }
+    main { width: 100%; max-width: 480px; }
     h1 {
       margin: 0 0 4px;
       font-size: 20px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
     }
-    p.lede { margin: 0 0 28px; color: #8b8b96; font-size: 14px; }
-    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-    a.app {
+    p.lede { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    button, select { font: inherit; color: inherit; }
+
+    /* -- card ------------------------------------------------------------ */
+
+    .app {
       display: block;
-      padding: 16px;
-      background: #141417;
-      border: 1px solid #26262c;
-      border-radius: 14px;
+      padding: 14px 16px 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       text-decoration: none;
       color: inherit;
+      transition: border-color 160ms, background-color 160ms;
     }
-    a.app:hover { border-color: #ff7a1a; }
-    .name { font-size: 17px; font-weight: 600; color: #ff7a1a; }
-    .sub { display: block; margin-top: 2px; font-size: 13px; color: #8b8b96; }
+    a.app:hover { border-color: var(--app); }
+
+    /* Tone tints the whole card, the same way the apps tint their banners:
+     * the colour is the verdict, readable before a single word is. */
+    .app[data-tone="good"] { border-color: var(--ok);   background: var(--ok-dim); }
+    .app[data-tone="warn"] { border-color: var(--warn); background: var(--warn-dim); }
+    .app[data-tone="bad"]  { border-color: var(--bad);  background: var(--bad-dim); }
+    .app[data-tone="info"] { border-color: var(--info); background: var(--info-dim); }
+
+    .app__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .app__name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--app);
+      text-decoration: none;
+    }
+    .app__name::after { content: " ›"; color: var(--muted); font-weight: 400; }
+
+    /* Status pill, borrowed from the apps' top bars. */
+    .pill {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .pill::before {
+      content: "";
+      display: inline-block;
+      width: 6px; height: 6px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      vertical-align: 1px;
+    }
+    .pill--loading { color: var(--warn); border-color: rgba(255, 200, 87, 0.35); }
+    .pill--live    { color: var(--ok);   border-color: rgba(61, 220, 132, 0.35); }
+    .pill--paused  { color: var(--signal); border-color: rgba(255, 122, 26, 0.35); }
+    .pill--error   { color: var(--bad);  border-color: rgba(255, 92, 92, 0.4); }
+    .pill--live::before { animation: blink 1.1s ease-in-out infinite; }
+    @keyframes blink { 50% { opacity: 0.25; } }
+
+    /* The highlight: one big thing, one line under it, one line of fine print. */
+    .hl { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+    .hl__big {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+      flex: none;
+    }
+    .hl__text { min-width: 0; flex: 1; }
+    .hl__head { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.3; }
+    .hl__sub {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .meta { margin: 8px 0 0; font-size: 12px; color: var(--muted); }
+
+    /* -- Slate: the team's own logo on a light chip, as in the app ------- */
+
+    .crest {
+      flex: none;
+      width: 44px; height: 44px;
+      border-radius: 11px;
+      background: #f4f4f6;
+      border: 1px solid #e2e2e8;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #2a2a30;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .crest img { width: 34px; height: 34px; object-fit: contain; display: block; }
+    .crest--text img { display: none; }
+    #slate.is-live { border-color: var(--ok); }
+    .live-text { color: var(--ok); }
+
+    /* -- Signal: the player is the card ----------------------------------- */
+
+    .player { display: flex; align-items: center; gap: 12px; }
+    .player__select {
+      flex: 1;
+      min-width: 0;
+      height: 48px;
+      padding: 0 40px 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-hi)
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238b8b96' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E")
+        no-repeat right 10px center / 22px;
+      font-size: 17px;
+      font-weight: 600;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .player__select:focus { outline: none; border-color: var(--signal); }
+    .play {
+      flex: none;
+      width: 52px; height: 52px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--signal);
+      color: #14100c;
+      box-shadow: 0 6px 22px rgba(255, 122, 26, 0.28);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .play:active { transform: scale(0.94); }
+    .play svg { width: 26px; height: 26px; fill: currentColor; }
+    .player__sub { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -45,31 +206,74 @@
     <h1>apps</h1>
     <p class="lede">Small personal web apps, one per directory.</p>
     <ul>
+
+      <!-- Signal: a working player. The card is a <li>, not an <a>, because a
+           <select> and a <button> cannot live inside a link. -->
+      <li class="app" id="signal" style="--app: var(--signal)" data-tone="none">
+        <div class="app__row">
+          <a class="app__name" href="./signal-radio/">Signal</a>
+          <span id="signal-status" class="pill" role="status" aria-live="polite">idle</span>
+        </div>
+        <div class="player">
+          <select id="signal-station" class="player__select" aria-label="Station"></select>
+          <button id="signal-play" class="play" type="button" aria-label="Play">
+            <svg id="signal-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7L8 5z"/></svg>
+            <svg id="signal-icon-pause" viewBox="0 0 24 24" aria-hidden="true" class="is-hidden"><path d="M7 5h3.5v14H7V5zm6.5 0H17v14h-3.5V5z"/></svg>
+          </button>
+        </div>
+        <p id="signal-sub" class="player__sub">Pick a station</p>
+      </li>
+
       <li>
-        <a class="app" href="./signal-radio/">
-          <span class="name">Signal</span>
-          <span class="sub">Personal internet radio — 101X, 98 Rock, The Bone, The Zone, DEF CON</span>
+        <a class="app" id="pump" href="./gas-prices/" style="--app: var(--pump)" data-tone="none">
+          <div class="app__row"><span class="app__name">Pump</span></div>
+          <div class="hl">
+            <span id="pump-price" class="hl__big">—</span>
+            <div class="hl__text">
+              <p id="pump-head" class="hl__head">Loading prices…</p>
+              <p id="pump-sub" class="hl__sub">Regular unleaded, four stations</p>
+            </div>
+          </div>
+          <p id="pump-meta" class="meta"></p>
         </a>
       </li>
+
       <li>
-        <a class="app" href="./gas-prices/">
-          <span class="name">Pump</span>
-          <span class="sub">Regular unleaded at four nearby stations, already compared</span>
+        <a class="app" id="slate" href="./sports-schedule/" style="--app: var(--slate)">
+          <div class="app__row"><span class="app__name">Slate</span></div>
+          <div class="hl">
+            <span id="slate-crest" class="crest crest--text"><img alt="" decoding="async"></span>
+            <div class="hl__text">
+              <p id="slate-head" class="hl__head">Loading schedule…</p>
+              <p id="slate-sub" class="hl__sub">Aggies, Bucs, Lightning</p>
+            </div>
+          </div>
+          <p id="slate-meta" class="meta"></p>
         </a>
       </li>
+
       <li>
-        <a class="app" href="./sports-schedule/">
-          <span class="name">Slate</span>
-          <span class="sub">Today and the next 7 days — Aggies, Bucs, Lightning</span>
+        <a class="app" id="cone" href="./hurricane-tracker/" style="--app: var(--cone)" data-tone="none">
+          <div class="app__row"><span class="app__name">Cone</span></div>
+          <div class="hl">
+            <span id="cone-count" class="hl__big">—</span>
+            <div class="hl__text">
+              <p id="cone-head" class="hl__head">Loading storms…</p>
+              <p id="cone-sub" class="hl__sub">Tampa, Texas and the western Caribbean</p>
+            </div>
+          </div>
+          <p id="cone-meta" class="meta"></p>
         </a>
       </li>
-      <li>
-        <a class="app" href="./hurricane-tracker/">
-          <span class="name">Cone</span>
-          <span class="sub">Active NHC storms filtered to Tampa, Texas and the western Caribbean</span>
-        </a>
-      </li>
+
     </ul>
   </main>
+
+  <!-- The one audio element for the Signal card; its src is swapped per station. -->
+  <audio id="signal-audio" preload="none" playsinline crossorigin="anonymous"></audio>
+
+  <!-- Classic script: defines the STATIONS global that landing.js reads. -->
+  <script src="./signal-radio/js/adapters.js"></script>
+  <script type="module" src="./landing.js"></script>
 </body>
 </html>
