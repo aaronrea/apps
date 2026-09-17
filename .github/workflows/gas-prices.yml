@@ -7,10 +7,32 @@ on:
   schedule:
     # Bradenton is UTC-4 in summer, UTC-5 in winter. Three times a day is
     # plenty for prices that move once a day, and it keeps the app inside the
-    # 12-hour staleness window for all of the waking hours that matter.
-    - cron: '10 11 * * *'   # ~7am ET
-    - cron: '10 17 * * *'   # ~1pm ET
-    - cron: '05 22 * * *'   # TEMP: moved up for testing SHA-pin fix, revert to '10 23 * * *' (~7pm ET) after
+    # 12-hour staleness window for all of the waking hours that matter — in
+    # theory. In practice GitHub queues scheduled runs behind everyone else's
+    # workflows, and it queues hardest at "round" minutes on the hour — :00,
+    # :05, :10, :15 — which is exactly what these three used to be. Checked
+    # against actual commit timestamps on 2026-09-13/14, the ~7am slot was
+    # landing around 11am ET, ~4 hours late, which is why a pump-time check
+    # at 8-9am was seeing the previous night's run and nothing fresher.
+    #
+    # Fix, round one: off-hour minutes (GitHub's own advice for reducing
+    # queue delay), and the morning run moved earlier than it needs to be so
+    # a multi-hour delay still lands it well before breakfast.
+    #
+    # Fix, round two (2026-09-17). Checked against the run history for
+    # 09-11..09-17: the 07:37 UTC slot never fired at all — not late, dropped,
+    # every single day — while the other two landed 1.5-3.5 hours late.
+    # The storm workflow next door tells the same story: 8 slots a day, 4
+    # runs. GitHub doesn't just delay schedules under load, it drops them,
+    # and roughly half of what's asked for is what arrives. So the morning
+    # gap was structural: one slot, always dropped, and prices sat 15+ hours
+    # stale until the afternoon run. The answer is not a better minute but
+    # more slots — every 2 hours — so that losing half of them still leaves
+    # a run every ~4 hours, and the three morning slots (06:43, 08:43,
+    # 10:43 UTC = 2:43, 4:43, 6:43am ET) give the commute several chances
+    # to get a fresh number. Public repo, so Actions minutes are free, and
+    # a dozen page fetches a day per station is nothing.
+    - cron: '43 */2 * * *'
   workflow_dispatch:
 
 permissions:

@@ -1,26 +1,26 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-15T20:56:41.218Z",
-  "checkedAt": "2026-09-15T20:56:41.218Z",
-  "issued": "2026-09-15T20:48:17.000Z",
+  "updated": "2026-09-17T18:01:59.184Z",
+  "checkedAt": "2026-09-17T18:01:59.184Z",
+  "issued": "2026-09-17T18:01:34.000Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
     {
       "id": "outlook-1",
       "area": "Central Subtropical Atlantic",
-      "descriptor": null,
-      "binNumber": null,
-      "text": "A trough of low pressure located about 800 miles east-southeast of Bermuda continues to produce disorganized showers and thunderstorms. Environmental conditions are forecast to become more conducive for development in a couple of days, and a tropical depression could form late this week as the system moves slowly westward to west-northwestward over the subtropical Atlantic.",
+      "descriptor": "AL98",
+      "binNumber": "AL98",
+      "text": "Showers and thunderstorms associated with a low pressure area located a few hundred miles east of Bermuda have become less organized over the past several hours. Environmental conditions appear marginally conducive for development over the next couple of days as the system moves slowly westward and southward over the subtropical Atlantic.",
       "motion": "westward",
       "formationChance48h": {
         "category": "low",
-        "percent": "near 0 percent"
+        "percent": "20 percent"
       },
       "formationChance7d": {
-        "category": "medium",
-        "percent": "40 percent"
+        "category": "low",
+        "percent": "30 percent"
       },
       "inRegion": false,
       "matchedKeywords": []

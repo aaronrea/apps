@@ -140,13 +140,29 @@ actually being cheapest, and the override merge.
 
 ## The schedule
 
-`.github/workflows/gas-prices.yml` runs the fetcher at roughly 7am, 1pm and
-7pm ET, runs the tests, and commits `data/prices.json` **only when it
-changed**. It needs `contents: write`. It can also be run on demand from the
-Actions tab.
+`.github/workflows/gas-prices.yml` runs the fetcher roughly three times a
+day — nominally ~3:37am, ~12:37pm and ~6:37pm ET — checks the comparison
+logic, and commits `data/prices.json` **only when it changed** (which, since
+a successful fetch always refreshes `observed` even when the price itself
+didn't move, means most successful runs commit something). It needs
+`contents: write`. It can also be run on demand from the Actions tab.
+
+The off-hour minutes and the early morning run are deliberate: GitHub queues
+scheduled workflows hardest at round minutes on the hour, and the original
+`:05`/`:10` schedule was landing 2-4 hours late — checked against actual
+commit timestamps, the ~7am slot was arriving around 11am ET. That meant a
+pump-time check at 8-9am was reading the previous night's data, already past
+the 12-hour staleness cutoff. The morning run now targets 3:37am specifically
+so a multi-hour delay still lands it before breakfast instead of after it.
 
 ## Known rough edges
 
+- **Scheduled workflows are best-effort, not on-time.** GitHub can queue a
+  cron trigger for hours under load, worse at popular minutes. Off-hour
+  minutes and a padded morning run reduce this; they don't eliminate it. If
+  the app is stale first thing in the morning again, check how late the
+  `~3:37am ET` run actually landed in the Actions tab before assuming the
+  fetcher itself broke.
 - **The bot walls are the fragile part.** Wawa and Costco 403 a fraction of
   requests; the retries handle the usual case, but a run that fails entirely
   leaves everything stale (visibly so) and fails the job.
