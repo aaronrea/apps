@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-17T18:01:59.184Z",
-  "checkedAt": "2026-09-17T18:01:59.184Z",
-  "issued": "2026-09-17T18:01:20.000Z",
+  "updated": "2026-09-17T18:02:27.819Z",
+  "checkedAt": "2026-09-17T18:02:27.819Z",
+  "issued": "2026-09-17T18:01:34.000Z",
   "totalAreas": 3,
   "inRegionCount": 1,
   "areas": [
@@ -31,7 +31,7 @@
       "descriptor": "Former TD15-E",
       "binNumber": null,
       "text": "Showers and thunderstorms continue in association with the remnants of Tropical Depression Fifteen-E. Environmental conditions appear only marginally conducive for some development of this system as it moves gradually westward, remaining east-southeast of the Hawaiian Islands.",
-      "motion": null,
+      "motion": "westward",
       "formationChance48h": {
         "category": "low",
         "percent": "10 percent"
@@ -49,7 +49,7 @@
       "descriptor": null,
       "binNumber": null,
       "text": "Disorganized showers and thunderstorms continue with a tropical wave located several hundred miles south of southern Mexico. Environmental conditions remain conducive for gradual development of this system, and a tropical depression is likely to form late this weekend or early next week while it moves gradually northwestward and then northward off the coast of southwestern Mexico.",
-      "motion": null,
+      "motion": "northwestward",
       "formationChance48h": {
         "category": "low",
         "percent": "near 0 percent"

@@ -171,6 +171,7 @@ check('motion: northward', outlookMotion('as it moves slowly northward'), 'north
 check('motion: west-northwestward', outlookMotion('the low moves slowly west-northwestward'), 'west-northwestward');
 check('motion: drifting', outlookMotion('while the system drifts northeastward'), 'northeastward');
 check('motion: none', outlookMotion('is expected to remain nearly stationary'), null);
+check('motion: any -ly adverb', outlookMotion('while it moves gradually northwestward and then northward'), 'northwestward');
 
 /* -- classification ----------------------------------------------------------- */
 

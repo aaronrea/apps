@@ -113,7 +113,7 @@ const BIN_RE = /^[A-Z]{2}\d{2}$/;
  * northeastward", "moves west-northwestward at 10 to 15 mph". Captured as a
  * plain phrase for display: a Pacific-side disturbance "moving northward" is
  * the crossover hint, and there is no position or vector to compute it from. */
-const MOTION_RE = /\b(?:moves?|moving|drifts?|drifting|meanders?|meandering)\s+(?:slowly\s+|generally\s+|little\s+|erratically\s+)?((?:north|south|east|west)(?:-?(?:north|south|east|west)){0,2}ward)/i;
+const MOTION_RE = /\b(?:moves?|moving|drifts?|drifting|meanders?|meandering)\s+(?:\w+ly\s+|little\s+)?((?:north|south|east|west)(?:-?(?:north|south|east|west)){0,2}ward)/i;
 
 export function outlookMotion(text) {
   const m = (text || '').match(MOTION_RE);
