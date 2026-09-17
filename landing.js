@@ -197,6 +197,7 @@ function renderSlateGame(games, fetchedAt, fromCache) {
     el('slate-sub').textContent = 'No games on the books for any team';
     crest.classList.add('crest--text');
     crest.replaceChildren(img, '—');
+    renderSlateWeek(games, null);
     return;
   }
 
@@ -237,6 +238,91 @@ function renderSlateGame(games, fetchedAt, fromCache) {
   card.classList.toggle('is-live', game.state === 'in');
   card.style.borderColor = game.state === 'in' ? '' : game.accent;
   el('slate-meta').textContent = `${game.league} · updated ${slateAge(fetchedAt)}${fromCache ? ' (cached)' : ''}`;
+
+  renderSlateWeek(games, game);
+}
+
+/* The rest of the week, under the highlight, grouped by day the way the app
+ * does it. The highlighted game is left out — it is already on screen. */
+function renderSlateWeek(games, highlighted) {
+  const list = el('slate-week');
+  const now = new Date();
+  const { todayKey, today, upcoming, next } = bucket(games, now, { timeZone: TZ, days: HORIZON_DAYS });
+
+  const days = [{ key: todayKey, games: today }, ...upcoming]
+    .map((day) => ({ key: day.key, games: day.games.filter((g) => g !== highlighted) }))
+    .filter((day) => day.games.length);
+
+  const nodes = [];
+  for (const day of days) {
+    const label = document.createElement('li');
+    label.className = 'week__day';
+    label.textContent = dayLabel(day.key, todayKey);
+    nodes.push(label);
+    for (const game of day.games) nodes.push(weekRow(game));
+  }
+
+  if (!nodes.length) {
+    const empty = document.createElement('li');
+    empty.className = 'week__empty';
+    empty.textContent = next && next.game !== highlighted
+      ? `Nothing else this week · next up ${dayLabel(next.key, todayKey)}`
+      : 'Nothing else this week';
+    nodes.push(empty);
+  }
+
+  list.replaceChildren(...nodes);
+}
+
+function weekRow(game) {
+  const li = document.createElement('li');
+  li.className = 'week__game';
+  li.style.setProperty('--team', game.accent);
+  if (game.state === 'in') li.classList.add('is-live');
+
+  const team = TEAMS.find((t) => t.id === game.teamId) || { label: game.team.name };
+  const sep = game.neutral || game.home ? 'vs' : '@';
+  const rank = game.opponent.rank ? `#${game.opponent.rank} ` : '';
+
+  const match = document.createElement('span');
+  match.className = 'week__match';
+  match.textContent = `${team.label} ${sep} ${rank}${game.opponent.name}`;
+
+  const when = document.createElement('span');
+  when.className = 'week__when';
+  const score = scoreLine(game);
+  const status = statusLine(game, TZ);
+  when.textContent = game.state === 'in'
+    ? `LIVE ${score ? score.text : ''}`.trim()
+    : game.state === 'post'
+      ? (score ? `${score.result} ${score.text}` : 'Final')
+      : status.text;
+
+  li.append(match, when);
+  return li;
+}
+
+/* Open / closed is remembered, so a week left open stays open. */
+const SLATE_OPEN_KEY = 'landing.slate.open';
+
+function setupSlateToggle() {
+  const toggle = el('slate-toggle');
+  const week = el('slate-week');
+
+  const apply = (open) => {
+    toggle.setAttribute('aria-expanded', String(open));
+    week.classList.toggle('is-hidden', !open);
+  };
+
+  let open = false;
+  try { open = localStorage.getItem(SLATE_OPEN_KEY) === '1'; } catch (err) { /* private mode */ }
+  apply(open);
+
+  toggle.addEventListener('click', () => {
+    open = !open;
+    apply(open);
+    try { localStorage.setItem(SLATE_OPEN_KEY, open ? '1' : '0'); } catch (err) { /* private mode */ }
+  });
 }
 
 async function renderSlate() {
@@ -449,6 +535,7 @@ function setupSignal() {
 /* -- go ------------------------------------------------------------------- */
 
 setupSignal();
+setupSlateToggle();
 renderCone();
 renderPump();
 renderSlate();

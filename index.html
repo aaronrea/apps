@@ -163,6 +163,57 @@
     #slate.is-live { border-color: var(--ok); }
     .live-text { color: var(--ok); }
 
+    /* The highlight row doubles as the disclosure button for the week. */
+    .hl--button {
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hl--button .hl__text { display: block; }
+    .hl--button .hl__head, .hl--button .hl__sub { display: block; }
+    .chev {
+      flex: none;
+      width: 22px; height: 22px;
+      color: var(--muted);
+      transition: transform 160ms;
+    }
+    .hl--button[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
+    .week {
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 8px 0 0;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .week__day {
+      margin: 8px 0 2px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .week__day:first-child { margin-top: 2px; }
+    .week__game {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0 7px 10px;
+      border-left: 3px solid var(--team, var(--line));
+      font-size: 14px;
+    }
+    .week__game.is-live { border-left-color: var(--ok); }
+    .week__match { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .week__when { flex: none; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .week__game.is-live .week__when { color: var(--ok); }
+    .week__empty { padding: 6px 0; font-size: 13px; color: var(--muted); }
+
     /* -- Signal: the player is the card ----------------------------------- */
 
     .player { display: flex; align-items: center; gap: 12px; }
@@ -238,18 +289,22 @@
         </a>
       </li>
 
-      <li>
-        <a class="app" id="slate" href="./sports-schedule/" style="--app: var(--slate)">
-          <div class="app__row"><span class="app__name">Slate</span></div>
-          <div class="hl">
-            <span id="slate-crest" class="crest crest--text"><img alt="" decoding="async"></span>
-            <div class="hl__text">
-              <p id="slate-head" class="hl__head">Loading schedule…</p>
-              <p id="slate-sub" class="hl__sub">Aggies, Bucs, Lightning</p>
-            </div>
-          </div>
-          <p id="slate-meta" class="meta"></p>
-        </a>
+      <!-- Slate: collapsible. The highlight row is a button that drops the
+           rest of the week down under it; the name is the link to the app. -->
+      <li class="app" id="slate" style="--app: var(--slate)">
+        <div class="app__row">
+          <a class="app__name" href="./sports-schedule/">Slate</a>
+        </div>
+        <button id="slate-toggle" class="hl hl--button" type="button" aria-expanded="false" aria-controls="slate-week">
+          <span id="slate-crest" class="crest crest--text"><img alt="" decoding="async"></span>
+          <span class="hl__text">
+            <span id="slate-head" class="hl__head">Loading schedule…</span>
+            <span id="slate-sub" class="hl__sub">Aggies, Bucs, Lightning</span>
+          </span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.4 8.6 12 13.2l4.6-4.6L18 10l-6 6-6-6z"/></svg>
+        </button>
+        <ol id="slate-week" class="week is-hidden"></ol>
+        <p id="slate-meta" class="meta"></p>
       </li>
 
       <li>
