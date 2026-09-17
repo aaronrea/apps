@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-17T17:02:12.933Z",
-  "issued": "2026-09-17T17:00:57.000Z",
-  "checkedAt": "2026-09-17T17:02:12.933Z",
+  "updated": "2026-09-17T21:25:01.764Z",
+  "issued": "2026-09-17T21:20:30.000Z",
+  "checkedAt": "2026-09-17T21:25:01.764Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
@@ -12,14 +12,14 @@
       "area": "Central Subtropical Atlantic",
       "descriptor": "AL98",
       "binNumber": "AL98",
-      "text": "Showers and thunderstorms associated with a low pressure area located about 350 miles east of Bermuda have changed little in organization during the past several hours. Environmental conditions could support gradual development of the system during the next day or two, and a tropical depression could form during that time. The system is forecast to move slowly today, and then possibly turn southward on Friday over the subtropical Atlantic. By Sunday, environmental conditions are forecast to become less favorable for development.",
+      "text": "Showers and thunderstorms associated with a low pressure area located a few hundred miles east of Bermuda have become less organized over the past several hours. Environmental conditions appear marginally conducive for development over the next couple of days as the system moves slowly westward and southward over the subtropical Atlantic.",
       "formationChance48h": {
-        "category": "medium",
-        "percent": "40 percent"
+        "category": "low",
+        "percent": "20 percent"
       },
       "formationChance7d": {
-        "category": "medium",
-        "percent": "40 percent"
+        "category": "low",
+        "percent": "30 percent"
       },
       "inRegion": false,
       "matchedKeywords": []
