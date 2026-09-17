@@ -342,6 +342,11 @@ async function renderSlate() {
     if (!cached) {
       el('slate-head').textContent = 'Could not reach ESPN';
       el('slate-sub').textContent = 'Nothing cached yet';
+      el('slate-crest').append('?');
+      const empty = document.createElement('li');
+      empty.className = 'week__empty';
+      empty.textContent = 'No schedule to show';
+      el('slate-week').replaceChildren(empty);
     } else {
       el('slate-meta').textContent += ' · ESPN unreachable';
     }
