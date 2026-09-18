@@ -5,32 +5,32 @@
     "stale": "this run could not fetch; price is the last one we did see, at 'observed'",
     "unavailable": "no price has ever been fetched from this source"
   },
-  "updated": "2026-09-18T19:11:19.674Z",
+  "updated": "2026-09-18T22:47:40.841Z",
   "stations": {
     "wawa": {
-      "price": 4.369,
-      "observed": "2026-09-18T19:11:19.674Z",
+      "price": 4.299,
+      "observed": "2026-09-18T22:47:40.841Z",
       "status": "ok",
       "source": "https://www.wawa.com/locations/5185",
       "note": null
     },
     "costco": {
-      "price": 3.999,
-      "observed": "2026-09-18T19:11:19.674Z",
+      "price": 4.049,
+      "observed": "2026-09-18T22:47:40.841Z",
       "status": "ok",
       "source": "https://www.costco.com/w/-/fl/bradenton/1364",
       "note": null
     },
     "racetrac": {
-      "price": 4.33,
-      "observed": "2026-09-18T19:11:19.674Z",
+      "price": 4.29,
+      "observed": "2026-09-18T22:47:40.841Z",
       "status": "ok",
       "source": "https://www.racetrac.com/locations/florida/bradenton/lena",
       "note": null
     },
     "7-eleven": {
-      "price": 4.319,
-      "observed": "2026-09-18T18:49:03.000Z",
+      "price": 4.299,
+      "observed": "2026-09-18T22:16:04.000Z",
       "status": "ok",
       "source": "https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565",
       "note": null
