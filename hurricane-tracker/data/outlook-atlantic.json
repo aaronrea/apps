@@ -1,25 +1,25 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-18T11:19:42.054Z",
-  "issued": "2026-09-18T11:10:07.000Z",
-  "checkedAt": "2026-09-18T11:19:42.054Z",
+  "updated": "2026-09-18T16:26:57.388Z",
+  "issued": "2026-09-18T16:20:07.000Z",
+  "checkedAt": "2026-09-18T16:26:57.388Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
     {
       "id": "outlook-1",
-      "area": "Central Subtropical Atlantic",
-      "descriptor": "AL98",
-      "binNumber": "AL98",
-      "text": "Showers and thunderstorms associated with an area of low pressure located a few hundred miles east of Bermuda remain disorganized. Development of this system is becoming increasingly unlikely as it drifts westward over the subtropical Atlantic during the next day or so.",
+      "area": "Eastern Subtropical Atlantic",
+      "descriptor": "AL99",
+      "binNumber": "AL99",
+      "text": "Recent satellite imagery indicates that showers and thunderstorms are becoming better organized in association with an area of low pressure located several hundred miles southwest of the Azores. In addition, it appears that a well-defined center is developing. If these current trends continue, a tropical depression could form as soon as later this afternoon. The system is expected to move slowly over the next several days remaining to the southwest of the Azores.",
       "formationChance48h": {
-        "category": "low",
-        "percent": "10 percent"
+        "category": "medium",
+        "percent": "60 percent"
       },
       "formationChance7d": {
-        "category": "low",
-        "percent": "10 percent"
+        "category": "medium",
+        "percent": "60 percent"
       },
       "inRegion": false,
       "matchedKeywords": []
