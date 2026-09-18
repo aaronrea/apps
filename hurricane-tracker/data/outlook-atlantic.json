@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-18T16:26:57.388Z",
-  "issued": "2026-09-18T16:20:07.000Z",
-  "checkedAt": "2026-09-18T16:26:57.388Z",
+  "updated": "2026-09-18T20:56:12.271Z",
+  "issued": "2026-09-18T20:29:51.000Z",
+  "checkedAt": "2026-09-18T20:56:12.271Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
@@ -12,14 +12,14 @@
       "area": "Eastern Subtropical Atlantic",
       "descriptor": "AL99",
       "binNumber": "AL99",
-      "text": "Recent satellite imagery indicates that showers and thunderstorms are becoming better organized in association with an area of low pressure located several hundred miles southwest of the Azores. In addition, it appears that a well-defined center is developing. If these current trends continue, a tropical depression could form as soon as later this afternoon. The system is expected to move slowly over the next several days remaining to the southwest of the Azores.",
+      "text": "Showers and thunderstorms have changed little in organization since this morning in association with an area of low pressure located several hundred miles southwest of the Azores. However, just a small increase in organization is likely to result in the formation of a tropical depression as soon as later today. The system is expected to move slowly over the next couple of days remaining southwest of the Azores, followed by a turn to the southwest by early next week, when environmental conditions are forecast to become less favorable for additional development.",
       "formationChance48h": {
-        "category": "medium",
-        "percent": "60 percent"
+        "category": "high",
+        "percent": "70 percent"
       },
       "formationChance7d": {
-        "category": "medium",
-        "percent": "60 percent"
+        "category": "high",
+        "percent": "70 percent"
       },
       "inRegion": false,
       "matchedKeywords": []
