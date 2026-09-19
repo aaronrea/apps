@@ -135,6 +135,23 @@ export function statusLine(game, timeZone) {
   return { tone: 'pre', text: formatTime(game.start, timeZone, game.timeValid) };
 }
 
+/* "(#10, 2-0)" — everything about where the followed team stands, in one
+ * block after its name. Rank and record are two halves of the same question
+ * ("how are they doing"), so they share a pair of brackets rather than
+ * scattering a superscript in front of the name and a second note behind it.
+ *
+ * Only the three followed teams have a record to show (ESPN only states one on
+ * a team's own schedule), and only Texas A&M is ever ranked, so in practice
+ * this reads "(#10, 2-0)" for the Aggies and "(0-1)" for the other two.
+ * Returns '' when there is neither — nothing renders an empty pair. */
+export function recordBlock(side) {
+  if (!side) return '';
+  const bits = [];
+  if (side.rank) bits.push(`#${side.rank}`);
+  if (side.record) bits.push(side.record);
+  return bits.length ? `(${bits.join(', ')})` : '';
+}
+
 /* "24–17" from the followed team's point of view, plus the W/L/T that a fan
  * actually reads first. Returns null until there is something to show. */
 export function scoreLine(game) {

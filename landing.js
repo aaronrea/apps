@@ -28,7 +28,7 @@ import { readOverrides, mergePrices } from './gas-prices/js/store.js';
 import { TEAMS, HORIZON_DAYS } from './sports-schedule/js/teams.js';
 import { fetchAll } from './sports-schedule/js/espn.js';
 import { readCache, writeCache } from './sports-schedule/js/store.js';
-import { bucket, formatTime, dayLabel, statusLine, scoreLine, fmtAge as slateAge } from './sports-schedule/js/schedule.js';
+import { bucket, formatTime, dayLabel, statusLine, scoreLine, recordBlock, fmtAge as slateAge } from './sports-schedule/js/schedule.js';
 
 /* -- 1. helpers ----------------------------------------------------------- */
 
@@ -269,7 +269,12 @@ function renderSlateGame(games, fetchedAt, fromCache) {
 
   const sep = game.neutral || game.home ? 'vs' : '@';
   const rank = game.opponent.rank ? `#${game.opponent.rank} ` : '';
-  el('slate-head').textContent = `${team.label} ${sep} ${rank}${game.opponent.name}`;
+  /* Rank and record for the followed team, exactly as the app writes it. The
+   * week rows underneath stay bare: they truncate at the card's width, and a
+   * record is not worth losing an opponent's name to. */
+  const standing = recordBlock(game.team);
+  el('slate-head').textContent =
+    `${team.label}${standing ? ` ${standing}` : ''} ${sep} ${rank}${game.opponent.name}`;
 
   const status = statusLine(game, TZ);
   const score = scoreLine(game);
