@@ -1,9 +1,30 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-19T11:03:46.712Z",
-  "checkedAt": "2026-09-19T11:03:46.712Z",
-  "totalActive": 0,
+  "updated": "2026-09-19T15:54:42.237Z",
+  "checkedAt": "2026-09-19T15:54:42.237Z",
+  "totalActive": 1,
   "inRegionCount": 0,
-  "storms": []
+  "storms": [
+    {
+      "id": "al062026",
+      "binNumber": "AT1",
+      "name": "Six",
+      "classification": "TD",
+      "intensity": 30,
+      "pressure": 1009,
+      "lat": 32.6,
+      "lon": -33.6,
+      "movementDir": 360,
+      "movementSpeed": 2,
+      "lastUpdate": "2026-09-19T15:00:00.000Z",
+      "inRegion": false,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT1.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT1.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at1.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_001adv_CONE.kmz"
+      }
+    }
+  ]
 }
