@@ -7,7 +7,7 @@
  *   3. render: today, the week, meta
  *   4. one game card
  *   5. load + refresh
- *   6. service worker
+ *   6. service worker + app updates
  *
  * No dates are computed here and no ESPN shapes are understood here. Bucketing
  * and formatting live in schedule.js where the tests can reach them, and the
@@ -410,12 +410,73 @@ document.addEventListener('visibilitychange', () => {
 paintFromCache();
 refresh();
 
-/* -- 6. service worker ----------------------------------------------------- */
+/* -- 6. service worker + app updates --------------------------------------- */
+
+/* An installed app has no address bar and no pull-to-refresh, and iOS keeps
+ * the page alive for days, so left alone it goes on running the code it was
+ * installed with. Two things stop that: the worker serves the shell
+ * network-first, so any reload lands on the current files, and this asks it to
+ * go looking on launch, whenever the app comes back to the foreground, and
+ * when Refresh is pressed. If something really did change, the worker says so
+ * and the page reloads itself onto it. */
+
+const UPDATE_CHECK_MS = 60 * 1000;    // a glance away and back is not a deploy
+
+let worker = null;
+let lastUpdateCheck = 0;
+let reloading = false;
+
+function checkForAppUpdate() {
+  if (!worker) return;
+
+  const now = Date.now();
+  if (now - lastUpdateCheck < UPDATE_CHECK_MS) return;
+  lastUpdateCheck = now;
+
+  worker.update().catch(() => {});    // sw.js itself
+  if (navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({ type: 'check-update' });
+  }
+}
+
+function applyAppUpdate() {
+  if (reloading) return;
+  reloading = true;
+  location.reload();
+}
 
 if ('serviceWorker' in navigator) {
+  /* Null on a first visit. A controller arriving later is only this worker
+   * claiming a page it was never controlling, not a new version, so that one
+   * must not reload. */
+  const wasControlled = !!navigator.serviceWorker.controller;
+
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(() => {
-      /* No offline shell; the app still works online. Not worth a message. */
-    });
+    navigator.serviceWorker.register('./sw.js')
+      .then((registration) => {
+        worker = registration;
+        /* A launch is the likeliest moment for a deploy to be sitting there
+         * unnoticed: the document came down fresh, but the files around it
+         * may not have. */
+        checkForAppUpdate();
+      })
+      .catch(() => {
+        /* No offline shell; the app still works online. Not worth a message. */
+      });
+  });
+
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'update-ready') applyAppUpdate();
+  });
+
+  /* A replacement worker taking over means the shell it just precached is
+   * newer than the page running right now. */
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (wasControlled) applyAppUpdate();
+  });
+
+  els.refresh.addEventListener('click', checkForAppUpdate);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') checkForAppUpdate();
   });
 }
