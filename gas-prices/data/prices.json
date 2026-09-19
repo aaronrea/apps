@@ -5,11 +5,11 @@
     "stale": "this run could not fetch; price is the last one we did see, at 'observed'",
     "unavailable": "no price has ever been fetched from this source"
   },
-  "updated": "2026-09-19T18:50:56.816Z",
+  "updated": "2026-09-19T22:28:21.400Z",
   "stations": {
     "wawa": {
       "price": 4.289,
-      "observed": "2026-09-19T18:50:56.816Z",
+      "observed": "2026-09-19T22:28:21.400Z",
       "status": "ok",
       "source": "https://www.wawa.com/locations/5185",
       "note": null
@@ -23,14 +23,14 @@
     },
     "racetrac": {
       "price": 4.25,
-      "observed": "2026-09-19T18:50:56.816Z",
+      "observed": "2026-09-19T22:28:21.400Z",
       "status": "ok",
       "source": "https://www.racetrac.com/locations/florida/bradenton/lena",
       "note": null
     },
     "7-eleven": {
       "price": 4.289,
-      "observed": "2026-09-19T16:17:35.000Z",
+      "observed": "2026-09-19T20:21:03.000Z",
       "status": "ok",
       "source": "https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565",
       "note": null
