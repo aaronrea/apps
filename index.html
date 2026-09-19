@@ -4,7 +4,17 @@
   <meta charset="utf-8">
   <title>apps</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Small personal web apps, one per directory.">
   <meta name="theme-color" content="#0b0b0d">
+
+  <!-- iOS home screen. Without an apple-touch-icon Safari saves a letter
+       tile from the title instead, which is just an "a". -->
+  <meta name="apple-mobile-web-app-title" content="apps">
+  <link rel="apple-touch-icon" href="./icons/icon-180.png">
+
+  <!-- Relative, like every other path here, so it works from the Pages subpath. -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png">
   <style>
     :root {
       color-scheme: dark;
