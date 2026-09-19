@@ -1,28 +1,10 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-19T15:54:42.237Z",
-  "issued": "2026-09-19T15:50:05.000Z",
-  "checkedAt": "2026-09-19T15:54:42.237Z",
-  "totalAreas": 1,
+  "updated": "2026-09-19T20:43:47.603Z",
+  "issued": "2026-09-19T20:37:09.000Z",
+  "checkedAt": "2026-09-19T20:43:47.603Z",
+  "totalAreas": 0,
   "inRegionCount": 0,
-  "areas": [
-    {
-      "id": "outlook-1",
-      "area": "Eastern Subtropical Atlantic",
-      "descriptor": "AL99",
-      "binNumber": "AL99",
-      "text": "Showers and thunderstorms have become more concentrated near the center of a low pressure system located several hundred miles southwest of the western Azores since yesterday. A short-lived tropical depression or tropical storm is expected to form later today or tonight while moving north-northeastward at about 5 mph, but remaining well to the southwest of the Azores. Upper-level winds are forecast to become less conducive for development beginning late Sunday.",
-      "formationChance48h": {
-        "category": "high",
-        "percent": "90 percent"
-      },
-      "formationChance7d": {
-        "category": "high",
-        "percent": "90 percent"
-      },
-      "inRegion": false,
-      "matchedKeywords": []
-    }
-  ]
+  "areas": []
 }
