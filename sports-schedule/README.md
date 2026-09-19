@@ -55,6 +55,26 @@ Channels are tagged by kind: TV, streaming, and radio last. Anything ESPN
 marks as a home or away market is labelled `(regional)` — that is the local
 broadcast, and it is the one that may be dark where you are.
 
+## Rank and record
+
+The followed team's name carries one bracketed block — `Texas A&M (#8, 2-0)`,
+`Buccaneers (0-1)`, `Lightning (0-0-0)` — rather than a superscript rank in
+front and a record behind. Both halves answer the same question, so they sit
+together.
+
+The record is `team.recordSummary` from the top of the schedule payload. It is
+the current overall record and comes back identically on all three season
+types, so merging the responses cannot produce two different answers. It only
+exists for the three followed teams: every competitor in this endpoint has
+`records: null`, so an opponent's record is simply not in the data, and the
+opponent keeps a plain `#12` prefix when it is ranked.
+
+The rank is `curatedRank`, which is whichever poll ESPN is leading with —
+the AP poll early in the college season, **the CFP committee's ranking once it
+starts releasing them**. It is per-event, so a game already played keeps the
+ranking it was played under. Outside the top 25 ESPN returns 99, which is read
+as unranked.
+
 ## Logos
 
 The full-colour marks, on a light chip. ESPN also publishes a `dark` cut of

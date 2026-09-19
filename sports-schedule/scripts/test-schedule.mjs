@@ -11,7 +11,7 @@
 
 import {
   dayKey, shiftKey, formatTime, formatDay, dayLabel, fmtAge,
-  bucket, statusLine, scoreLine
+  bucket, statusLine, scoreLine, recordBlock
 } from '../js/schedule.js';
 import { normalize } from '../js/espn.js';
 
@@ -143,6 +143,24 @@ check('scoreLine — in progress has no result',
 check('scoreLine — nil all', scoreLine({ state: 'in', score: { team: 0, opponent: 0 } }),
   { result: null, text: '0–0' });
 
+/* -- the standing block ---------------------------------------------------- */
+
+/* One pair of brackets, never two, and never an empty pair. */
+check('recordBlock — ranked and with a record',
+  recordBlock({ rank: 10, record: '2-0' }), '(#10, 2-0)');
+check('recordBlock — record only, which is every NFL and NHL card',
+  recordBlock({ rank: null, record: '0-1' }), '(0-1)');
+/* A league that counts an overtime loss separately is passed through as-is. */
+check('recordBlock — three-part record',
+  recordBlock({ rank: null, record: '0-0-0' }), '(0-0-0)');
+check('recordBlock — ranked before a game has been played',
+  recordBlock({ rank: 10, record: null }), '(#10)');
+check('recordBlock — neither', recordBlock({ rank: null, record: null }), '');
+/* Opponents carry no record, and a game cached before records existed has no
+ * field at all — both have to come back empty rather than "()" or "(undefined)". */
+check('recordBlock — undefined fields', recordBlock({}), '');
+check('recordBlock — no side at all', recordBlock(null), '');
+
 /* -- normalising ESPN ------------------------------------------------------ */
 
 /* Trimmed to the fields the normaliser reads, in the shape the live API
@@ -150,6 +168,9 @@ check('scoreLine — nil all', scoreLine({ state: 'in', score: { team: 0, oppone
 const team = { id: 'bolts', name: 'Lightning', league: 'NHL', espnId: '20', accent: '#4da3ff' };
 
 const payload = {
+  /* ESPN states the season record here, on the payload's own team, and nowhere
+   * on the competitors — which is why only a followed team can have one. */
+  team: { id: '20', recordSummary: '0-0-0' },
   events: [{
     id: '401891819',
     date: '2026-10-01T23:00Z',
@@ -195,6 +216,27 @@ check('normalize — identity', [normalised.id, normalised.league, normalised.te
 check('normalize — the followed team is "team"', normalised.team.name, 'Lightning');
 check('normalize — the other side is "opponent"', normalised.opponent.name, 'Rangers');
 check('normalize — away game', normalised.home, false);
+/* The record goes on the followed side only: the opponent's is not in this
+ * response, and inventing one from the rank would be a guess. */
+check('normalize — the followed team carries the record',
+  [normalised.team.record, normalised.opponent.record], ['0-0-0', null]);
+
+const noRecord = JSON.parse(JSON.stringify(payload));
+delete noRecord.team.recordSummary;
+check('normalize — no record stated is null, not "undefined"',
+  normalize(noRecord, team)[0].team.record, null);
+const blankRecord = JSON.parse(JSON.stringify(payload));
+blankRecord.team.recordSummary = '  ';
+check('normalize — a blank record is nothing to show',
+  normalize(blankRecord, team)[0].team.record, null);
+
+/* 99 is ESPN's "unranked"; only a real top-25 number is a rank. */
+const ranked = JSON.parse(JSON.stringify(payload));
+ranked.events[0].competitions[0].competitors[1].curatedRank = { current: 10 };
+ranked.events[0].competitions[0].competitors[0].curatedRank = { current: 99 };
+check('normalize — rank, and unranked read as none',
+  [normalize(ranked, team)[0].team.rank, normalize(ranked, team)[0].opponent.rank],
+  [10, null]);
 /* The colour mark, not the white silhouette — and requested at chip size,
  * because ESPN's "500" directory will happily hand back a 4096px file. */
 check('normalize — full-colour logo, not the white silhouette, resized',

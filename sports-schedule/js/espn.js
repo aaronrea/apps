@@ -86,10 +86,23 @@ export async function fetchAll(teams, options = {}) {
  * Pure, so the tests can hand it a fixture. */
 export function normalize(payload, team) {
   const events = payload && Array.isArray(payload.events) ? payload.events : [];
-  return events.map((event) => normalizeEvent(event, team)).filter(Boolean);
+  const record = recordOf(payload);
+  return events.map((event) => normalizeEvent(event, team, record)).filter(Boolean);
 }
 
-function normalizeEvent(event, team) {
+/* The season record, which arrives on the payload's own team rather than on
+ * the competitors — `records` is null on every competitor this endpoint
+ * returns. That is the whole reason only the three followed teams can show
+ * one: their schedule is the only place ESPN states it. Verified 2026-09-19,
+ * it is the same string on all three season types (the current overall record,
+ * "2-0", or "0-0-0" in a league that counts an overtime loss separately), so
+ * merging the responses cannot produce two different answers. */
+function recordOf(payload) {
+  const summary = payload && payload.team && payload.team.recordSummary;
+  return typeof summary === 'string' && summary.trim() ? summary.trim() : null;
+}
+
+function normalizeEvent(event, team, record) {
   const competition = event && event.competitions && event.competitions[0];
   if (!competition || !Array.isArray(competition.competitors)) return null;
 
@@ -116,7 +129,7 @@ function normalizeEvent(event, team) {
     home: mine.homeAway === 'home',
     neutral: competition.neutralSite === true,
 
-    team: sideOf(mine, team.name),
+    team: sideOf(mine, team.name, record),
     opponent: sideOf(theirs),
 
     venue: venueOf(competition),
@@ -133,13 +146,15 @@ function normalizeEvent(event, team) {
   };
 }
 
-function sideOf(competitor, override) {
+function sideOf(competitor, override, record = null) {
   const team = competitor.team || {};
   return {
     name: override || team.shortDisplayName || team.displayName || team.name || 'TBD',
     abbr: team.abbreviation || '',
     logo: logoOf(team),
-    rank: rankOf(competitor)
+    rank: rankOf(competitor),
+    /* Only ever set on the followed side; see recordOf. */
+    record
   };
 }
 
@@ -176,7 +191,11 @@ function thumbnail(href) {
   }
 }
 
-/* Only the AP-style number, and only when there is one. */
+/* Only the number, and only when there is one. `curatedRank` is whichever poll
+ * ESPN is leading with at the time — the AP poll early in the college season,
+ * the CFP committee's ranking once it starts releasing them — and it is
+ * per-event, so a played game keeps the ranking it was played under. Anything
+ * outside the top 25 comes back as 99, which is ESPN's "unranked". */
 function rankOf(competitor) {
   const rank = competitor.curatedRank && competitor.curatedRank.current;
   return typeof rank === 'number' && rank > 0 && rank < 26 ? rank : null;

@@ -242,6 +242,15 @@ button { font: inherit; color: inherit; }
   color: var(--accent);
   vertical-align: 1px;
 }
+/* Rank and record for the followed team. Muted and light: it is context for
+ * the name, never louder than the matchup itself. */
+.matchup__record {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  vertical-align: 1px;
+}
 
 .matchup__sub {
   margin: 3px 0 0;

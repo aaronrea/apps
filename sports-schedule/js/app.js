@@ -19,7 +19,8 @@ import { TEAMS, HORIZON_DAYS } from './teams.js';
 import { fetchAll } from './espn.js';
 import { readCache, writeCache } from './store.js';
 import {
-  bucket, dayLabel, formatDay, formatTime, zoneLabel, statusLine, scoreLine, fmtAge
+  bucket, dayLabel, formatDay, formatTime, zoneLabel, statusLine, scoreLine,
+  recordBlock, fmtAge
 } from './schedule.js';
 
 /* -- 1. elements + state --------------------------------------------------- */
@@ -176,7 +177,7 @@ function matchup(game) {
    * word — it overflows the card instead of wrapping, and a screen reader
    * reads it as a single token. */
   line.append(
-    teamName(game.team),
+    teamName(game.team, recordBlock(game.team)),
     ' ',
     /* "vs" or "@" is the only place home and away is stated, so it carries
      * real weight rather than being punctuation. */
@@ -196,16 +197,27 @@ function matchup(game) {
   return wrap;
 }
 
-function teamName(side) {
+/* The followed team gets its rank and record behind the name in one block; an
+ * opponent has no record to pair a rank with, so its rank stays a prefix, the
+ * way a poll writes it. Passing the block in rather than deriving it here is
+ * what keeps that difference visible at the call site. */
+function teamName(side, block = '') {
   const span = document.createElement('span');
   span.className = 'matchup__team';
-  if (side.rank) {
+  if (side.rank && !block) {
     const rank = document.createElement('span');
     rank.className = 'matchup__rank';
     rank.textContent = `#${side.rank}`;
     span.append(rank, ' ');
   }
   span.append(side.name);
+  if (block) {
+    const note = document.createElement('span');
+    note.className = 'matchup__record';
+    note.textContent = block;
+    /* A real space, so the line can wrap between the name and the block. */
+    span.append(' ', note);
+  }
   return span;
 }
 
