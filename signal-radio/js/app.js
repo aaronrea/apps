@@ -11,7 +11,7 @@
  *   7. MediaSession (lock screen)
  *   8. UI wiring
  *   9. dev: play an arbitrary stream URL
- *  10. service worker
+ *  10. service worker + app updates
  * ------------------------------------------------------------------------- */
 
 /* -- 1. elements + state -------------------------------------------------- */
@@ -406,18 +406,90 @@ els.customUrl.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') loadCustomUrl();
 });
 
-/* -- 10. service worker --------------------------------------------------- */
+/* -- 10. service worker + app updates ------------------------------------- */
 /* Relative path on purpose: GitHub Pages project sites live at
- * /<repo>/signal-radio/, not at the domain root. */
+ * /<repo>/signal-radio/, not at the domain root.
+ *
+ * An installed app has no address bar and no pull-to-refresh, and iOS keeps
+ * the page alive for days, so left alone it goes on running the code it was
+ * installed with. Two things stop that: the worker serves the shell
+ * network-first, so any reload lands on the current files, and this asks it to
+ * go looking on launch and whenever the app comes back to the foreground. The
+ * one thing a reload must never do is cut a stream off mid-song, so an update
+ * that arrives while something is playing waits for the pause. */
+
+const UPDATE_CHECK_MS = 60 * 1000;    // a glance away and back is not a deploy
+
+let worker = null;
+let lastUpdateCheck = 0;
+let updatePending = false;
+let reloading = false;
+
+function checkForAppUpdate() {
+  if (!worker) return;
+
+  const now = Date.now();
+  if (now - lastUpdateCheck < UPDATE_CHECK_MS) return;
+  lastUpdateCheck = now;
+
+  worker.update().catch(() => {});    // sw.js itself
+  if (navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({ type: 'check-update' });
+  }
+}
+
+function applyAppUpdate() {
+  if (reloading) return;
+
+  if (state.status === 'loading' || state.status === 'live') {
+    if (!updatePending) log('update ready — will apply when playback stops');
+    updatePending = true;
+    return;
+  }
+
+  reloading = true;
+  location.reload();
+}
+
+audio.addEventListener('pause', () => {
+  if (updatePending) applyAppUpdate();
+});
 
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) {
     log('service worker not supported');
     return;
   }
+
+  /* Null on a first visit. A controller arriving later is only this worker
+   * claiming a page it was never controlling, not a new version, so that one
+   * must not reload. */
+  const wasControlled = !!navigator.serviceWorker.controller;
+
   navigator.serviceWorker.register('./sw.js')
-    .then((reg) => log('service worker registered (scope ' + reg.scope + ')'))
+    .then((reg) => {
+      worker = reg;
+      log('service worker registered (scope ' + reg.scope + ')');
+      /* A launch is the likeliest moment for a deploy to be sitting there
+       * unnoticed: the document came down fresh, but the files around it may
+       * not have. */
+      checkForAppUpdate();
+    })
     .catch((err) => log('service worker failed: ' + err.message));
+
+  navigator.serviceWorker.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'update-ready') applyAppUpdate();
+  });
+
+  /* A replacement worker taking over means the shell it just precached is
+   * newer than the page running right now. */
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (wasControlled) applyAppUpdate();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') checkForAppUpdate();
+  });
 }
 
 /* -- boot ----------------------------------------------------------------- */
