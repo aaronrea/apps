@@ -30,6 +30,12 @@ on iOS but not desktop Chrome, exactly as in the app.
 
 When you add a sibling app, add a card here too.
 
+The landing page carries its own icon (`icons/`, a 2×2 grid of the four card
+accents on the same dark field the app icons use) and a root `manifest.json`,
+so adding it to a home screen gets the grid instead of a letter tile. The
+manifest is `display: browser` on purpose — the landing page links out to the
+apps, so it should stay in the normal browser window.
+
 No build step, no dependencies, no backend. Everything is vanilla
 HTML/CSS/JS and every path in every app is **relative**, because GitHub Pages
 project sites serve from `https://<user>.github.io/<repo>/`, not from the
