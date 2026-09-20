@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-20T11:28:31.053Z",
-  "checkedAt": "2026-09-20T11:28:31.053Z",
+  "updated": "2026-09-20T16:10:22.152Z",
+  "checkedAt": "2026-09-20T16:10:22.152Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "AT1",
       "name": "Fay",
       "classification": "TS",
-      "intensity": 40,
+      "intensity": 50,
       "pressure": 1004,
-      "lat": 33.7,
-      "lon": -33.1,
-      "movementDir": 20,
-      "movementSpeed": 5,
-      "lastUpdate": "2026-09-20T09:00:00.000Z",
+      "lat": 34.1,
+      "lon": -33,
+      "movementDir": 40,
+      "movementSpeed": 3,
+      "lastUpdate": "2026-09-20T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_004adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_005adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "EP1",
       "name": "Odalys",
       "classification": "TS",
-      "intensity": 35,
-      "pressure": 1005,
-      "lat": 11.4,
-      "lon": -124.5,
-      "movementDir": 305,
-      "movementSpeed": 8,
-      "lastUpdate": "2026-09-20T09:00:00.000Z",
+      "intensity": 40,
+      "pressure": 1003,
+      "lat": 11.1,
+      "lon": -125.5,
+      "movementDir": 285,
+      "movementSpeed": 9,
+      "lastUpdate": "2026-09-20T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP162026_001adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP162026_002adv_CONE.kmz"
       }
     }
   ]
