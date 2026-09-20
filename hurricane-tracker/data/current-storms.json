@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-20T20:51:26.564Z",
-  "checkedAt": "2026-09-20T20:51:26.564Z",
-  "totalActive": 2,
+  "updated": "2026-09-20T23:15:53.252Z",
+  "checkedAt": "2026-09-20T23:15:53.252Z",
+  "totalActive": 3,
   "inRegionCount": 0,
   "storms": [
     {
@@ -44,6 +44,26 @@
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
         "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP162026_003adv_CONE.kmz"
+      }
+    },
+    {
+      "id": "ep172026",
+      "binNumber": "EP2",
+      "name": "Seventeen-E",
+      "classification": "TD",
+      "intensity": 30,
+      "pressure": 1007,
+      "lat": 14.9,
+      "lon": -104.9,
+      "movementDir": 30,
+      "movementSpeed": 8,
+      "lastUpdate": "2026-09-20T21:00:00.000Z",
+      "inRegion": false,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_001adv_CONE.kmz"
       }
     }
   ]
