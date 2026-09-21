@@ -5,6 +5,7 @@
     "stale": "this run could not fetch; price is the last one we did see, at 'observed'",
     "unavailable": "no price has ever been fetched from this source"
   },
+  "_history": "One entry per calendar day (America/New_York), oldest first, holding only prices actually fetched that day — never a stale carry-forward, so a day we could not reach a source has no entry rather than a repeated number. Last 7 days. Drives the direction line in the UI.",
   "updated": "2026-09-21T13:17:47.152Z",
   "stations": {
     "wawa": {
@@ -35,5 +36,62 @@
       "source": "https://www.7-eleven.com/locations/fl/bradenton/11805-sr-70-east-38565",
       "note": null
     }
-  }
+  },
+  "history": [
+    {
+      "date": "2026-09-15",
+      "prices": {
+        "7-eleven": 4.399
+      }
+    },
+    {
+      "date": "2026-09-16",
+      "prices": {
+        "wawa": 4.399,
+        "costco": 3.939,
+        "racetrac": 4.37
+      }
+    },
+    {
+      "date": "2026-09-17",
+      "prices": {
+        "wawa": 4.399,
+        "costco": 3.949,
+        "racetrac": 4.37,
+        "7-eleven": 4.369
+      }
+    },
+    {
+      "date": "2026-09-18",
+      "prices": {
+        "wawa": 4.299,
+        "costco": 4.049,
+        "racetrac": 4.29,
+        "7-eleven": 4.289
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "prices": {
+        "wawa": 4.289,
+        "racetrac": 4.25,
+        "7-eleven": 4.289
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "prices": {
+        "wawa": 4.289,
+        "racetrac": 4.19
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "prices": {
+        "wawa": 4.289,
+        "racetrac": 4.18,
+        "7-eleven": 4.199
+      }
+    }
+  ]
 }

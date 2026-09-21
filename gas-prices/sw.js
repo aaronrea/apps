@@ -29,7 +29,7 @@
  * on activate. Day-to-day code changes no longer need it — rule 1 covers them.
  * ------------------------------------------------------------------------- */
 
-const CACHE = 'pump-shell-v3';
+const CACHE = 'pump-shell-v4';
 
 // Relative to the worker's own location, so this survives being served from a
 // GitHub Pages subpath (username.github.io/<repo>/gas-prices/).
@@ -39,6 +39,7 @@ const SHELL = [
   './css/style.css',
   './js/app.js',
   './js/compare.js',
+  './js/history.js',
   './js/stations.js',
   './js/store.js',
   './manifest.json'

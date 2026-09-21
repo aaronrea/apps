@@ -52,6 +52,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
+import { recordDay, HISTORY_DAYS } from '../js/history.js';
+
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = join(HERE, '..', 'data', 'prices.json');
 
@@ -62,6 +64,12 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) ' +
 
 const TIMEOUT_MS = 20000;
 const RETRIES = 3;
+
+/* Written into the file once so the shape explains itself to anyone opening
+ * data/prices.json without this script next to it. */
+const HISTORY_NOTE = `One entry per calendar day (UTC), oldest first, holding only prices actually `
+  + `fetched that day — never a stale carry-forward, so a day we could not reach a source has no `
+  + `entry rather than a repeated number. Last ${HISTORY_DAYS} days. Drives the direction line in the UI.`;
 
 /* -- fetch helpers -------------------------------------------------------- */
 
@@ -285,17 +293,25 @@ async function main() {
     }
   }
 
+  /* History is folded in from the run we just did, not recomputed: the file is
+   * the only record there is. Later runs on the same day overwrite that day's
+   * entry, so a day settles on the last price actually observed. */
+  const history = recordDay(previous.history, stations, now);
+
   const next = {
     _comment: previous._comment,
     _status_values: previous._status_values,
+    _history: previous._history || HISTORY_NOTE,
     updated: now,
-    stations
+    stations,
+    history
   };
 
   const serialised = `${JSON.stringify(next, null, 2)}\n`;
   await writeFile(DATA_FILE, serialised, 'utf8');
 
-  console.log(`\n${okCount}/${Object.keys(ADAPTERS).length} fetched live; wrote ${DATA_FILE}`);
+  console.log(`\n${okCount}/${Object.keys(ADAPTERS).length} fetched live; `
+    + `${history.length} day(s) of history; wrote ${DATA_FILE}`);
 
   /* A run where nothing at all came back is a failure worth seeing in the
    * Actions log, but the file is still written (everything downgraded to

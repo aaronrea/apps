@@ -16,6 +16,7 @@
 
 import { STATIONS, GRADE, THRESHOLD_PCT } from './stations.js';
 import { evaluate, money, fmtPctNear, fmtCents, fmtAge } from './compare.js';
+import { trendFor, fmtTrend } from './history.js';
 import { load, setOverride, clearOverride, clearAllOverrides, hasOverrides } from './store.js';
 
 /* -- 1. elements + state -------------------------------------------------- */
@@ -34,8 +35,9 @@ const els = {
 };
 
 // prices  — the merged map from store.load()
+// history — the `history` array out of prices.json, or [] before one exists
 // editing — station id whose inline price input is open, or null
-const state = { prices: {}, updated: null, error: null, editing: null };
+const state = { prices: {}, history: [], updated: null, error: null, editing: null };
 
 /* -- 2. status ------------------------------------------------------------ */
 
@@ -140,6 +142,18 @@ function renderRow(row, result) {
     delta.textContent = `${fmtPctNear(row.pct, result.threshold)} · ${fmtCents(row.cents)}`;
   }
   what.append(delta);
+
+  /* Which way it is going, when we have enough history to know. The benchmark
+   * gets one too — it has no delta to show, and Costco moving against the
+   * others is the single most useful thing on the screen when it happens. */
+  const trend = trendFor(state.history, station.id, row);
+  if (trend) {
+    const movement = document.createElement('p');
+    movement.className = `station__trend station__trend--${trend.direction}`;
+    if (trend.turned) movement.classList.add('is-turned');
+    movement.textContent = fmtTrend(trend);
+    what.append(movement);
+  }
 
   li.append(who, what);
 
@@ -290,6 +304,7 @@ async function refresh() {
   const result = await load();
 
   state.prices = result.prices;
+  state.history = (result.published && result.published.history) || [];
   state.updated = result.updated;
   state.error = result.error;
 

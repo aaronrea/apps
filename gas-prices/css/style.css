@@ -265,6 +265,23 @@ button { font: inherit; color: inherit; }
 }
 .station--bad .station__delta { color: var(--bad); }
 
+/* Direction, not verdict. This stays muted and monochrome on purpose: green
+ * and red already mean "fill up here" and "over the line" everywhere else on
+ * this screen, and a price falling is not the same claim as a price being
+ * good. A turn — it was going one way, now it goes the other — is the one
+ * thing here worth looking twice at, so that gets the accent and nothing
+ * else does. */
+.station__trend {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.station__trend.is-turned {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .station__foot {
   grid-column: 1 / -1;
   display: flex;

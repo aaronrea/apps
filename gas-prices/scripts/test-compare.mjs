@@ -16,6 +16,7 @@ import {
   money, fmtPct, fmtPctNear, fmtCents, fmtCentsAbs, fmtAge, isStaleAge, STALE_AFTER_MS
 } from '../js/compare.js';
 import { mergePrices } from '../js/store.js';
+import { recordDay, trendFor, seriesFor, dayOf, daysBetween, fmtTrend, HISTORY_DAYS } from '../js/history.js';
 
 let passed = 0;
 const failures = [];
@@ -381,6 +382,243 @@ check('the live prices fetched on 2026-08-09 land under the line', () => {
   eq(out.rows.filter((r) => r.cheapest).map((r) => r.station.id), ['costco']);
   /* All four within a few cents, so the ranking is what carries the detail. */
   eq(out.rows.map((r) => r.station.id), ['costco', 'racetrac', '7-eleven', 'wawa']);
+});
+
+
+/* -- history: what gets written ------------------------------------------- */
+
+/* A station entry as the fetcher would hand it to recordDay(). */
+function fetched(price, observed, status = 'ok') {
+  return { price, observed, status, source: null, note: null };
+}
+
+check('a run records one entry per day, keyed off the observation time', () => {
+  const out = recordDay([], {
+    wawa: fetched(4.289, '2026-09-21T13:17:47Z'),
+    costco: fetched(4.049, '2026-09-21T13:17:47Z')
+  }, '2026-09-21T13:17:47Z');
+  eq(out, [{ date: '2026-09-21', prices: { wawa: 4.289, costco: 4.049 } }]);
+});
+
+check('a later run the same day overwrites that day rather than appending', () => {
+  const morning = recordDay([], { wawa: fetched(4.289, '2026-09-21T07:37:00Z') }, '2026-09-21T07:37:00Z');
+  const evening = recordDay(morning, { wawa: fetched(4.259, '2026-09-21T22:37:00Z') }, '2026-09-21T22:37:00Z');
+  eq(evening.length, 1, 'still one day: ');
+  eq(evening[0].prices.wawa, 4.259, 'the last price observed that day wins: ');
+});
+
+check('a stale carry-forward is never recorded', () => {
+  /* This is the one rule. A scraper that has been 429ing for three days must
+   * not produce three days of flat history out of the same number. */
+  const out = recordDay([], {
+    costco: fetched(4.049, '2026-09-18T22:47:40Z', 'stale'),
+    wawa: fetched(4.289, '2026-09-21T13:17:47Z')
+  }, '2026-09-21T13:17:47Z');
+  eq(out, [{ date: '2026-09-21', prices: { wawa: 4.289 } }]);
+});
+
+check('an unavailable price is never recorded', () => {
+  const out = recordDay([], {
+    '7-eleven': { price: null, observed: null, status: 'unavailable' }
+  }, '2026-09-21T13:17:47Z');
+  eq(out, []);
+});
+
+check('a source that stamps its own time lands on that day, not the run day', () => {
+  /* 7-Eleven publishes when it last set the price. A price stamped yesterday
+   * is yesterday's number even though we read it today. */
+  const out = recordDay([], {
+    '7-eleven': fetched(4.199, '2026-09-20T23:30:00Z')
+  }, '2026-09-21T13:17:47Z');
+  eq(out[0].date, '2026-09-20');
+});
+
+check('history is capped, oldest dropped first', () => {
+  let history = [];
+  for (let d = 1; d <= HISTORY_DAYS + 3; d += 1) {
+    const day = String(d).padStart(2, '0');
+    history = recordDay(history, { wawa: fetched(4 + d / 1000, `2026-09-${day}T12:00:00Z`) }, `2026-09-${day}T12:00:00Z`);
+  }
+  eq(history.length, HISTORY_DAYS);
+  eq(history[0].date, '2026-09-04', 'oldest kept: ');
+  eq(history[history.length - 1].date, '2026-09-10', 'newest kept: ');
+});
+
+check('history stays sorted oldest first even if days arrive out of order', () => {
+  const out = recordDay(
+    [{ date: '2026-09-20', prices: { wawa: 4.299 } }],
+    { wawa: fetched(4.289, '2026-09-18T12:00:00Z') },
+    '2026-09-18T12:00:00Z'
+  );
+  eq(out.map((e) => e.date), ['2026-09-18', '2026-09-20']);
+});
+
+check('a corrupt history entry is dropped rather than propagated', () => {
+  const out = recordDay(
+    [null, { date: '2026-09-19' }, { prices: { wawa: 4.2 } }, { date: '2026-09-20', prices: { wawa: 'nope', costco: 4.0 } }],
+    {},
+    '2026-09-21T12:00:00Z'
+  );
+  eq(out, [{ date: '2026-09-20', prices: { costco: 4.0 } }]);
+});
+
+/* -- history: what gets read ---------------------------------------------- */
+
+/* The real series out of git for 09-16 .. 09-21. */
+const REAL = [
+  { date: '2026-09-16', prices: { wawa: 4.399, costco: 3.939, racetrac: 4.39, '7-eleven': 4.399 } },
+  { date: '2026-09-17', prices: { wawa: 4.399, costco: 3.939, racetrac: 4.37, '7-eleven': 4.399 } },
+  { date: '2026-09-18', prices: { wawa: 4.369, costco: 3.999, racetrac: 4.36, '7-eleven': 4.369 } },
+  { date: '2026-09-19', prices: { wawa: 4.299, costco: 4.049, racetrac: 4.28, '7-eleven': 4.289 } },
+  { date: '2026-09-20', prices: { wawa: 4.289, racetrac: 4.19, '7-eleven': 4.289 } }
+];
+
+function row(price, observed, status = 'ok') {
+  return { price, observed, status };
+}
+
+check('a falling price reads as down against yesterday', () => {
+  const t = trendFor(REAL, 'racetrac', row(4.18, '2026-09-21T13:17:47Z'));
+  eq(t.direction, 'down');
+  eq(t.days, 1);
+  close(t.cents, -1.0000000000000009, 1e-6);
+  eq(t.since, '2026-09-20');
+  eq(fmtTrend(t), '▼ 1.0¢ since yesterday');
+});
+
+check('an unchanged price reads as flat, not as missing', () => {
+  const t = trendFor(REAL, 'wawa', row(4.289, '2026-09-21T13:17:47Z'));
+  eq(t.direction, 'flat');
+  eq(fmtTrend(t), '▬ flat since yesterday');
+});
+
+check('a stale price gets no trend at all', () => {
+  /* Costco has been carried forward since the 18th. Its price today IS its
+   * price then, so "unchanged" would be a claim we cannot make. */
+  eq(trendFor(REAL, 'costco', row(4.049, '2026-09-18T22:47:40Z', 'stale')), null);
+});
+
+check('a gap in history widens the baseline and says so', () => {
+  /* Costco has no entry on the 20th, so a fresh price today is measured
+   * against the 19th and must not be called "yesterday". */
+  const t = trendFor(REAL, 'costco', row(4.129, '2026-09-21T13:17:47Z'));
+  eq(t.since, '2026-09-19');
+  eq(t.days, 2);
+  eq(t.direction, 'up');
+  eq(fmtTrend(t), '▲ 8.0¢ since Sep 19');
+});
+
+check('a price with no history at all produces nothing', () => {
+  eq(trendFor([], 'wawa', row(4.289, '2026-09-21T13:17:47Z')), null);
+  eq(trendFor(undefined, 'wawa', row(4.289, '2026-09-21T13:17:47Z')), null);
+  eq(trendFor(REAL, 'wawa', row(null, '2026-09-21T13:17:47Z')), null);
+});
+
+check('today\'s own entry is not used as its own baseline', () => {
+  /* The evening run must compare against yesterday, not against the morning
+   * run's record of today. */
+  const history = REAL.concat([{ date: '2026-09-21', prices: { wawa: 4.289 } }]);
+  const t = trendFor(history, 'wawa', row(4.259, '2026-09-21T22:37:00Z'));
+  eq(t.since, '2026-09-20');
+});
+
+/* -- history: the direction change ---------------------------------------- */
+
+check('a reversal is flagged as a turn', () => {
+  /* Costco fell to 3.939, then climbed. That flip is the whole reason this
+   * feature exists. */
+  const history = [
+    { date: '2026-09-16', prices: { costco: 3.999 } },
+    { date: '2026-09-17', prices: { costco: 3.939 } }
+  ];
+  const t = trendFor(history, 'costco', row(3.999, '2026-09-18T12:00:00Z'));
+  eq(t.direction, 'up');
+  eq(t.turned, true);
+  eq(fmtTrend(t), '▲ 6.0¢ since yesterday · turned up');
+});
+
+check('continuing in the same direction is not a turn', () => {
+  const t = trendFor(REAL, 'racetrac', row(4.18, '2026-09-21T13:17:47Z'));
+  eq(t.turned, false, 'racetrac has fallen every day: ');
+});
+
+check('a flat day breaks the comparison rather than counting as a reversal', () => {
+  /* down, then flat, then down is not a turn — and neither is flat, then
+   * down, which would otherwise read as a reversal of nothing. */
+  const flatThenDown = [
+    { date: '2026-09-18', prices: { wawa: 4.299 } },
+    { date: '2026-09-19', prices: { wawa: 4.299 } }
+  ];
+  eq(trendFor(flatThenDown, 'wawa', row(4.279, '2026-09-20T12:00:00Z')).turned, false);
+
+  const downThenFlat = [
+    { date: '2026-09-18', prices: { wawa: 4.319 } },
+    { date: '2026-09-19', prices: { wawa: 4.299 } }
+  ];
+  eq(trendFor(downThenFlat, 'wawa', row(4.299, '2026-09-20T12:00:00Z')).turned, false);
+});
+
+check('a single day of history gives a direction but never a turn', () => {
+  const t = trendFor([{ date: '2026-09-20', prices: { wawa: 4.299 } }], 'wawa', row(4.289, '2026-09-21T12:00:00Z'));
+  eq(t.direction, 'down');
+  eq(t.turned, false, 'nothing to reverse from: ');
+});
+
+/* -- history: date handling ----------------------------------------------- */
+
+check('days are bucketed on the Bradenton calendar, not the UTC one', () => {
+  /* The workflow runs at :43 every two hours. The late-evening slots are the
+   * ones that matter: 00:43 and 02:43 UTC are 8:43pm and 10:43pm ET the night
+   * BEFORE, and filing those under the UTC date would move the day boundary
+   * to 8pm and hand last night's price to tomorrow. */
+  eq(dayOf('2026-09-22T00:43:00Z'), '2026-09-21', 'EDT 8:43pm: ');
+  eq(dayOf('2026-09-22T02:43:00Z'), '2026-09-21', 'EDT 10:43pm: ');
+  eq(dayOf('2026-09-22T03:43:00Z'), '2026-09-21', 'EDT 11:43pm: ');
+  eq(dayOf('2026-09-22T04:43:00Z'), '2026-09-22', 'EDT 12:43am, the real rollover: ');
+
+  /* And the rest of the day, either side of the DST change. */
+  eq(dayOf('2026-09-21T10:43:00Z'), '2026-09-21', 'EDT 6:43am: ');
+  eq(dayOf('2026-09-21T16:43:00Z'), '2026-09-21', 'EDT 12:43pm: ');
+  eq(dayOf('2026-01-22T02:43:00Z'), '2026-01-21', 'EST 9:43pm: ');
+  eq(dayOf('2026-01-22T05:43:00Z'), '2026-01-22', 'EST 12:43am, the real rollover: ');
+});
+
+check('an evening price and the next morning are a day apart, not the same day', () => {
+  /* The regression this guards: under UTC bucketing the 8:43pm run wrote into
+   * tomorrow, so the next morning had today's own entry sitting in history and
+   * compared against it — reporting "flat since yesterday" off a six-hour-old
+   * number from the same price cycle. */
+  const evening = recordDay([], { wawa: fetched(4.289, '2026-09-22T00:43:00Z') }, '2026-09-22T00:43:00Z');
+  eq(evening[0].date, '2026-09-21');
+
+  const t = trendFor(evening, 'wawa', row(4.259, '2026-09-22T10:43:00Z'));
+  eq(t.since, '2026-09-21');
+  eq(t.days, 1, 'the morning is one day after the evening before: ');
+  eq(t.direction, 'down');
+});
+
+check('dayOf and daysBetween reject rubbish instead of inventing a date', () => {
+  eq(dayOf(null), null);
+  eq(dayOf('not a date'), null);
+  eq(daysBetween('2026-09-19', '2026-09-21'), 2);
+  eq(daysBetween('nope', '2026-09-21'), null);
+});
+
+check('daysBetween is unaffected by the daylight-saving change', () => {
+  /* US DST ends 2026-11-01. A naive local-time subtraction gives 1.04 days
+   * here and rounds fine, but the span either side must stay exact. */
+  eq(daysBetween('2026-10-31', '2026-11-01'), 1);
+  eq(daysBetween('2026-10-30', '2026-11-03'), 4);
+});
+
+check('seriesFor skips days where that station has no price', () => {
+  eq(seriesFor(REAL, 'costco').map((p) => p.date),
+    ['2026-09-16', '2026-09-17', '2026-09-18', '2026-09-19']);
+  eq(seriesFor(REAL, 'nonesuch'), []);
+});
+
+check('fmtTrend renders nothing for no trend', () => {
+  eq(fmtTrend(null), '');
 });
 
 /* -- config sanity -------------------------------------------------------- */
