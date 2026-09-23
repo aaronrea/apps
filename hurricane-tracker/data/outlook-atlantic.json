@@ -1,10 +1,28 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-23T11:41:41.021Z",
-  "issued": "2026-09-23T11:40:07.000Z",
-  "checkedAt": "2026-09-23T11:41:41.021Z",
-  "totalAreas": 0,
+  "updated": "2026-09-23T17:05:16.803Z",
+  "issued": "2026-09-23T17:00:10.000Z",
+  "checkedAt": "2026-09-23T17:05:16.803Z",
+  "totalAreas": 1,
   "inRegionCount": 0,
-  "areas": []
+  "areas": [
+    {
+      "id": "outlook-1",
+      "area": "Central Subtropical Atlantic",
+      "descriptor": "Former Tropical Storm Fay",
+      "binNumber": null,
+      "text": "A low pressure system, formerly Tropical Storm Fay, is located about 800 miles southwest of the Azores. Shower activity associated with the low has increased this morning. However, significant re-development of this system is unlikely while it moves generally westward over the next couple of days. By the weekend, increasingly strong upper-level winds should inhibit re-development.",
+      "formationChance48h": {
+        "category": "low",
+        "percent": "20 percent"
+      },
+      "formationChance7d": {
+        "category": "low",
+        "percent": "20 percent"
+      },
+      "inRegion": false,
+      "matchedKeywords": []
+    }
+  ]
 }
