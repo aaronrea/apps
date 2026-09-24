@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-24T04:55:52.622Z",
-  "issued": "2026-09-24T04:43:16.000Z",
-  "checkedAt": "2026-09-24T04:55:52.622Z",
+  "updated": "2026-09-24T11:50:06.749Z",
+  "issued": "2026-09-24T11:49:36.000Z",
+  "checkedAt": "2026-09-24T11:50:06.749Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
@@ -12,14 +12,14 @@
       "area": "Far Eastern Tropical Atlantic",
       "descriptor": "AL90",
       "binNumber": "AL90",
-      "text": "An area of low pressure located a few hundred miles southeast of the Cabo Verde Islands is accompanied by a large area of disorganized showers and thunderstorms. This system could become a short-lived tropical depression on Thursday or Friday while it moves northwestward to northward. However, strong upper-level winds should end the opportunity for development by the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain and flash flooding are possible there by Friday. && Public Advisories on Tropical Depression Fay are issued under WMO header WTNT31 KNHC and under AWIPS header MIATCPAT1. Forecast/Advisories on Tropical Depression Fay are issued under WMO header WTNT21 KNHC and under AWIPS header MIATCMAT1.",
+      "text": "A broad area of low pressure located a few hundred miles south-southeast of the Cabo Verde Islands is producing a large area of disorganized showers and thunderstorms. This system could become a short-lived tropical depression or a tropical storm later today or on Friday while it moves northwestward to northward. Increasing upper-level winds, however, should prevent further development by the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain, and flash flooding are possible over the islands by Friday. && Public Advisories on Tropical Storm Fay are issued under WMO header WTNT31 KNHC and under AWIPS header MIATCPAT1. Forecast/Advisories on Tropical Depression Fay are issued under WMO header WTNT21 KNHC and under AWIPS header MIATCMAT1.",
       "formationChance48h": {
-        "category": "medium",
-        "percent": "60 percent"
+        "category": "high",
+        "percent": "70 percent"
       },
       "formationChance7d": {
-        "category": "medium",
-        "percent": "60 percent"
+        "category": "high",
+        "percent": "70 percent"
       },
       "inRegion": false,
       "matchedKeywords": []
