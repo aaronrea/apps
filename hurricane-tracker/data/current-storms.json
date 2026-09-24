@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-23T21:32:05.383Z",
-  "checkedAt": "2026-09-23T21:32:05.383Z",
+  "updated": "2026-09-24T04:55:52.622Z",
+  "checkedAt": "2026-09-24T04:55:52.622Z",
   "totalActive": 4,
   "inRegionCount": 0,
   "storms": [
@@ -10,20 +10,20 @@
       "id": "al062026",
       "binNumber": "AT1",
       "name": "Fay",
-      "classification": "TD",
-      "intensity": 30,
-      "pressure": 1011,
-      "lat": 30.1,
-      "lon": -39.2,
-      "movementDir": 270,
-      "movementSpeed": 8,
-      "lastUpdate": "2026-09-23T21:00:00.000Z",
+      "classification": "TS",
+      "intensity": 35,
+      "pressure": 1010,
+      "lat": 29.8,
+      "lon": -40,
+      "movementDir": 250,
+      "movementSpeed": 9,
+      "lastUpdate": "2026-09-24T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_015adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_016adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "EP1",
       "name": "Odalys",
       "classification": "HU",
-      "intensity": 70,
-      "pressure": 984,
-      "lat": 15.5,
-      "lon": -127.2,
+      "intensity": 75,
+      "pressure": 978,
+      "lat": 15.6,
+      "lon": -126.7,
       "movementDir": 85,
       "movementSpeed": 7,
-      "lastUpdate": "2026-09-23T21:00:00.000Z",
+      "lastUpdate": "2026-09-24T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP162026_015adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP162026_016adv_CONE.kmz"
       }
     },
     {
@@ -51,19 +51,19 @@
       "binNumber": "EP2",
       "name": "Polo",
       "classification": "HU",
-      "intensity": 125,
-      "pressure": 932,
-      "lat": 15.7,
+      "intensity": 140,
+      "pressure": 923,
+      "lat": 16,
       "lon": -102.4,
-      "movementDir": 310,
-      "movementSpeed": 7,
-      "lastUpdate": "2026-09-23T21:00:00.000Z",
+      "movementDir": 320,
+      "movementSpeed": 6,
+      "lastUpdate": "2026-09-24T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_013adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_014adv_CONE.kmz"
       }
     },
     {
@@ -71,19 +71,19 @@
       "binNumber": "CP2",
       "name": "Nolo",
       "classification": "TS",
-      "intensity": 35,
-      "pressure": 1003,
-      "lat": 14.5,
-      "lon": -155.3,
+      "intensity": 40,
+      "pressure": 1002,
+      "lat": 14.7,
+      "lon": -155.9,
       "movementDir": 285,
       "movementSpeed": 6,
-      "lastUpdate": "2026-09-23T21:00:00.000Z",
+      "lastUpdate": "2026-09-24T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_013adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_014adv_CONE.kmz"
       }
     }
   ]

@@ -1,10 +1,10 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-23T21:32:05.383Z",
-  "issued": "2026-09-23T21:30:43.000Z",
-  "checkedAt": "2026-09-23T21:32:05.383Z",
-  "totalAreas": 2,
+  "updated": "2026-09-24T04:55:52.622Z",
+  "issued": "2026-09-24T04:43:16.000Z",
+  "checkedAt": "2026-09-24T04:55:52.622Z",
+  "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
     {
@@ -12,31 +12,14 @@
       "area": "Far Eastern Tropical Atlantic",
       "descriptor": "AL90",
       "binNumber": "AL90",
-      "text": "An area of low pressure located a couple of hundred miles southwest off the coast of western Africa is gradually becoming better defined, and the associated shower and thunderstorm activity has increased since yesterday. This system could become a short-lived tropical depression on Thursday or Friday while it moves northwestward to northward. However, strong upper-level winds should end the opportunity for development by the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain and flash flooding is possible there by Friday.",
+      "text": "An area of low pressure located a few hundred miles southeast of the Cabo Verde Islands is accompanied by a large area of disorganized showers and thunderstorms. This system could become a short-lived tropical depression on Thursday or Friday while it moves northwestward to northward. However, strong upper-level winds should end the opportunity for development by the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain and flash flooding are possible there by Friday. && Public Advisories on Tropical Depression Fay are issued under WMO header WTNT31 KNHC and under AWIPS header MIATCPAT1. Forecast/Advisories on Tropical Depression Fay are issued under WMO header WTNT21 KNHC and under AWIPS header MIATCMAT1.",
       "formationChance48h": {
         "category": "medium",
-        "percent": "50 percent"
+        "percent": "60 percent"
       },
       "formationChance7d": {
         "category": "medium",
-        "percent": "50 percent"
-      },
-      "inRegion": false,
-      "matchedKeywords": []
-    },
-    {
-      "id": "outlook-2",
-      "area": "Central Subtropical Atlantic",
-      "descriptor": "Former Tropical Storm Fay",
-      "binNumber": null,
-      "text": "Showers and thunderstorms have increased with the remnants of Fay located several hundred miles southwest of the Azores. While environmental conditions are only marginally conducive for development, this system could become a tropical depression again today or tonight if the current thunderstorm activity persists. The system is forecast to move westward during the next couple of days, and by the weekend upper-level winds should inhibit formation chances.",
-      "formationChance48h": {
-        "category": "high",
-        "percent": "70 percent"
-      },
-      "formationChance7d": {
-        "category": "high",
-        "percent": "70 percent"
+        "percent": "60 percent"
       },
       "inRegion": false,
       "matchedKeywords": []
