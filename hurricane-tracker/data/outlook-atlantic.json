@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-24T17:14:13.439Z",
-  "issued": "2026-09-24T17:10:14.000Z",
-  "checkedAt": "2026-09-24T17:14:13.439Z",
+  "updated": "2026-09-24T21:32:57.669Z",
+  "issued": "2026-09-24T21:31:16.000Z",
+  "checkedAt": "2026-09-24T21:32:57.669Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
@@ -12,7 +12,7 @@
       "area": "Far Eastern Tropical Atlantic",
       "descriptor": "AL90",
       "binNumber": "AL90",
-      "text": "A broad area of low pressure located a few hundred miles south-southeast of the Cabo Verde Islands is producing a large area of disorganized showers and thunderstorms. This system could become a short-lived tropical depression or a tropical storm later today or on Friday while it moves northwestward to northward. Increasing upper-level winds, however, should prevent further development by the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain, and flash flooding are possible over the islands by Friday. && Public Advisories on Tropical Storm Fay are issued under WMO header WTNT31 KNHC and under AWIPS header MIATCPAT1. Forecast/Advisories on Tropical Depression Fay are issued under WMO header WTNT21 KNHC and under AWIPS header MIATCMAT1.",
+      "text": "An elongated area of low pressure located a few hundred miles south-southeast of the Cabo Verde Islands is producing a large area of disorganized showers and thunderstorms. This system could become a short-lived tropical depression or tropical storm later today or on Friday while it moves northwestward to northward. Increasing upper-level winds, however, should prevent further development over the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain, and flash flooding are possible over the islands by Friday. Heavy rain and flash flooding could also occur well to the east along the coast of western Africa, particularly in western portions of Senegal, The Gambia, Guinea-Bissau, and southwest portions of Mauritania.",
       "formationChance48h": {
         "category": "high",
         "percent": "70 percent"
