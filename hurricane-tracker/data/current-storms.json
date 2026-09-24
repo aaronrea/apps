@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-24T11:50:06.749Z",
-  "checkedAt": "2026-09-24T11:50:06.749Z",
+  "updated": "2026-09-24T17:14:13.439Z",
+  "checkedAt": "2026-09-24T17:14:13.439Z",
   "totalActive": 4,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "AT1",
       "name": "Fay",
       "classification": "TS",
-      "intensity": 35,
-      "pressure": 1010,
+      "intensity": 45,
+      "pressure": 1005,
       "lat": 29.8,
-      "lon": -40.5,
+      "lon": -41.2,
       "movementDir": 270,
-      "movementSpeed": 7,
-      "lastUpdate": "2026-09-24T09:00:00.000Z",
+      "movementSpeed": 6,
+      "lastUpdate": "2026-09-24T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_017adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_018adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "EP1",
       "name": "Odalys",
       "classification": "HU",
-      "intensity": 75,
-      "pressure": 978,
-      "lat": 16.1,
-      "lon": -126,
+      "intensity": 80,
+      "pressure": 976,
+      "lat": 16.4,
+      "lon": -125.5,
       "movementDir": 60,
-      "movementSpeed": 8,
-      "lastUpdate": "2026-09-24T09:00:00.000Z",
+      "movementSpeed": 7,
+      "lastUpdate": "2026-09-24T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP162026_017adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP162026_018adv_CONE.kmz"
       }
     },
     {
@@ -51,19 +51,19 @@
       "binNumber": "EP2",
       "name": "Polo",
       "classification": "HU",
-      "intensity": 140,
-      "pressure": 924,
-      "lat": 16.7,
-      "lon": -104,
-      "movementDir": 305,
-      "movementSpeed": 9,
-      "lastUpdate": "2026-09-24T12:00:00.000Z",
+      "intensity": 135,
+      "pressure": 928,
+      "lat": 16.8,
+      "lon": -104.4,
+      "movementDir": 295,
+      "movementSpeed": 10,
+      "lastUpdate": "2026-09-24T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_015Aadv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_016adv_CONE.kmz"
       }
     },
     {
@@ -71,19 +71,19 @@
       "binNumber": "CP2",
       "name": "Nolo",
       "classification": "TS",
-      "intensity": 45,
-      "pressure": 999,
+      "intensity": 50,
+      "pressure": 997,
       "lat": 14.9,
-      "lon": -156,
-      "movementDir": 360,
-      "movementSpeed": 2,
-      "lastUpdate": "2026-09-24T09:00:00.000Z",
+      "lon": -156.2,
+      "movementDir": null,
+      "movementSpeed": null,
+      "lastUpdate": "2026-09-24T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_015adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_016adv_CONE.kmz"
       }
     }
   ]
