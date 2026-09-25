@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-24T21:32:57.669Z",
-  "issued": "2026-09-24T21:31:16.000Z",
-  "checkedAt": "2026-09-24T21:32:57.669Z",
+  "updated": "2026-09-25T05:00:57.544Z",
+  "issued": "2026-09-25T04:58:44.000Z",
+  "checkedAt": "2026-09-25T05:00:57.544Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
@@ -12,14 +12,14 @@
       "area": "Far Eastern Tropical Atlantic",
       "descriptor": "AL90",
       "binNumber": "AL90",
-      "text": "An elongated area of low pressure located a few hundred miles south-southeast of the Cabo Verde Islands is producing a large area of disorganized showers and thunderstorms. This system could become a short-lived tropical depression or tropical storm later today or on Friday while it moves northwestward to northward. Increasing upper-level winds, however, should prevent further development over the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain, and flash flooding are possible over the islands by Friday. Heavy rain and flash flooding could also occur well to the east along the coast of western Africa, particularly in western portions of Senegal, The Gambia, Guinea-Bissau, and southwest portions of Mauritania.",
+      "text": "Recent satellite-derived wind data indicates that an area of low pressure located less than 200 miles to the south-southeast of the Cabo Verde Islands is producing winds of 40-45 mph to the north of its center, which is gradually becoming better defined. In addition, the system is producing a large area of showers and thunderstorms that are also showing signs of organization. If these current trends continue, the system is likely to become a short-lived tropical storm as soon as later tonight or on Friday while it moves northwestward to northward. Increasing upper-level winds, however, should prevent further development over the weekend. Interests in the Cabo Verde Islands should monitor the progress of this system as gusty winds, areas of heavy rain, and flash flooding are possible over the islands by Friday. Heavy rain and flash flooding could also occur well to the east along the coast of western Africa, particularly in western portions of Senegal, The Gambia, Guinea-Bissau, and southwest portions of Mauritania.",
       "formationChance48h": {
         "category": "high",
-        "percent": "70 percent"
+        "percent": "80 percent"
       },
       "formationChance7d": {
         "category": "high",
-        "percent": "70 percent"
+        "percent": "80 percent"
       },
       "inRegion": false,
       "matchedKeywords": []
