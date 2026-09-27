@@ -5,11 +5,11 @@
     "stale": "this run could not fetch; price is the last one we did see, at 'observed'",
     "unavailable": "no price has ever been fetched from this source"
   },
-  "updated": "2026-09-27T00:50:36.694Z",
+  "updated": "2026-09-27T08:32:05.459Z",
   "stations": {
     "wawa": {
       "price": 4.419,
-      "observed": "2026-09-27T00:50:36.694Z",
+      "observed": "2026-09-27T08:32:05.459Z",
       "status": "ok",
       "source": "https://www.wawa.com/locations/5185",
       "note": null
@@ -23,7 +23,7 @@
     },
     "racetrac": {
       "price": 4.32,
-      "observed": "2026-09-27T00:50:36.694Z",
+      "observed": "2026-09-27T08:32:05.459Z",
       "status": "ok",
       "source": "https://www.racetrac.com/locations/florida/bradenton/lena",
       "note": null
