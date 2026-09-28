@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-28T05:28:02.880Z",
-  "checkedAt": "2026-09-28T05:28:02.880Z",
+  "updated": "2026-09-28T14:00:58.409Z",
+  "checkedAt": "2026-09-28T14:00:58.409Z",
   "totalActive": 4,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "AT1",
       "name": "Fay",
       "classification": "TD",
-      "intensity": 25,
+      "intensity": 30,
       "pressure": 1012,
-      "lat": 28.5,
-      "lon": -43.8,
-      "movementDir": 190,
-      "movementSpeed": 6,
-      "lastUpdate": "2026-09-28T03:00:00.000Z",
+      "lat": 27.9,
+      "lon": -44.1,
+      "movementDir": 210,
+      "movementSpeed": 7,
+      "lastUpdate": "2026-09-28T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_032adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_033adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "EP2",
       "name": "Polo",
       "classification": "HU",
-      "intensity": 110,
-      "pressure": 951,
-      "lat": 22.8,
-      "lon": -114,
-      "movementDir": 355,
-      "movementSpeed": 12,
-      "lastUpdate": "2026-09-28T03:00:00.000Z",
+      "intensity": 100,
+      "pressure": 958,
+      "lat": 23.9,
+      "lon": -113.7,
+      "movementDir": 20,
+      "movementSpeed": 10,
+      "lastUpdate": "2026-09-28T12:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_030adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_031Aadv_CONE.kmz"
       }
     },
     {
@@ -51,19 +51,19 @@
       "binNumber": "EP3",
       "name": "Rachel",
       "classification": "TS",
-      "intensity": 35,
-      "pressure": 1003,
-      "lat": 12.9,
-      "lon": -99.8,
-      "movementDir": 280,
-      "movementSpeed": 7,
-      "lastUpdate": "2026-09-28T03:00:00.000Z",
+      "intensity": 40,
+      "pressure": 1001,
+      "lat": 13.4,
+      "lon": -100.9,
+      "movementDir": 290,
+      "movementSpeed": 8,
+      "lastUpdate": "2026-09-28T12:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_004adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_005Aadv_CONE.kmz"
       }
     },
     {
@@ -71,19 +71,19 @@
       "binNumber": "CP2",
       "name": "Nolo",
       "classification": "HU",
-      "intensity": 125,
-      "pressure": 939,
-      "lat": 16.3,
-      "lon": -160.3,
-      "movementDir": 285,
+      "intensity": 135,
+      "pressure": 929,
+      "lat": 16.8,
+      "lon": -161.9,
+      "movementDir": 290,
       "movementSpeed": 12,
-      "lastUpdate": "2026-09-28T03:00:00.000Z",
+      "lastUpdate": "2026-09-28T12:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_030adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_031Aadv_CONE.kmz"
       }
     }
   ]

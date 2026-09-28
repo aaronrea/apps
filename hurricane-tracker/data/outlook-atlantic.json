@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-28T05:28:02.880Z",
-  "issued": "2026-09-28T05:26:26.000Z",
-  "checkedAt": "2026-09-28T05:28:02.880Z",
+  "updated": "2026-09-28T14:00:58.409Z",
+  "issued": "2026-09-28T14:00:09.000Z",
+  "checkedAt": "2026-09-28T14:00:58.409Z",
   "totalAreas": 1,
   "inRegionCount": 0,
   "areas": [
@@ -12,14 +12,14 @@
       "area": "Central Subtropical Atlantic",
       "descriptor": "AL91",
       "binNumber": "AL91",
-      "text": "A trough of low pressure located several hundred miles east-northeast of Bermuda is moving quickly northeastward. This system is producing disorganized showers and thunderstorms, and it could become a tropical depression in the next couple of days when it turns eastward and slows down over the central Atlantic. Environmental conditions are expected to become unfavorable for development late this week.",
+      "text": "An area of low pressure located well to the east-northeast of Bermuda is moving quickly eastward. Recent microwave imagery suggests the shower and thunderstorm activity is beginning to show signs of organization, though it is unclear if the system has developed a well-defined circulation given its fast forward motion. While environmental conditions are currently only marginally favorable, this system is now likely to become a tropical depression or storm over the next day or two as it turns east-southeastward and slows down over the central Subtropical Atlantic. Environmental conditions are expected to become unfavorable for further development later this week.",
       "formationChance48h": {
-        "category": "medium",
-        "percent": "50 percent"
+        "category": "high",
+        "percent": "70 percent"
       },
       "formationChance7d": {
-        "category": "medium",
-        "percent": "60 percent"
+        "category": "high",
+        "percent": "80 percent"
       },
       "inRegion": false,
       "matchedKeywords": []
