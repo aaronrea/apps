@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-09-29T01:00:42.144Z",
-  "checkedAt": "2026-09-29T01:00:42.144Z",
+  "updated": "2026-09-29T09:53:13.080Z",
+  "checkedAt": "2026-09-29T09:53:13.080Z",
   "totalActive": 5,
   "inRegionCount": 0,
   "storms": [
@@ -10,20 +10,20 @@
       "id": "al062026",
       "binNumber": "AT1",
       "name": "Fay",
-      "classification": "TD",
-      "intensity": 30,
-      "pressure": 1011,
-      "lat": 26.6,
-      "lon": -45.3,
-      "movementDir": 220,
-      "movementSpeed": 9,
-      "lastUpdate": "2026-09-28T21:00:00.000Z",
+      "classification": "TS",
+      "intensity": 35,
+      "pressure": 1008,
+      "lat": 25,
+      "lon": -46.8,
+      "movementDir": 235,
+      "movementSpeed": 13,
+      "lastUpdate": "2026-09-29T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_035adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL062026_037adv_CONE.kmz"
       }
     },
     {
@@ -32,18 +32,18 @@
       "name": "Hanna",
       "classification": "TS",
       "intensity": 40,
-      "pressure": 1006,
-      "lat": 36.5,
-      "lon": -48.7,
+      "pressure": 1002,
+      "lat": 35.2,
+      "lon": -46.2,
       "movementDir": 115,
-      "movementSpeed": 17,
-      "lastUpdate": "2026-09-28T21:00:00.000Z",
+      "movementSpeed": 15,
+      "lastUpdate": "2026-09-29T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL082026_002adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL082026_004adv_CONE.kmz"
       }
     },
     {
@@ -51,19 +51,19 @@
       "binNumber": "EP2",
       "name": "Polo",
       "classification": "HU",
-      "intensity": 100,
-      "pressure": 963,
-      "lat": 25.5,
-      "lon": -112.8,
+      "intensity": 70,
+      "pressure": 978,
+      "lat": 26.2,
+      "lon": -111.9,
       "movementDir": 40,
-      "movementSpeed": 12,
-      "lastUpdate": "2026-09-29T00:00:00.000Z",
+      "movementSpeed": 10,
+      "lastUpdate": "2026-09-29T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_033Aadv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP172026_035adv_CONE.kmz"
       }
     },
     {
@@ -72,18 +72,18 @@
       "name": "Rachel",
       "classification": "TS",
       "intensity": 50,
-      "pressure": 997,
-      "lat": 14.3,
-      "lon": -102.5,
+      "pressure": 992,
+      "lat": 14.7,
+      "lon": -104.3,
       "movementDir": 300,
-      "movementSpeed": 10,
-      "lastUpdate": "2026-09-29T00:00:00.000Z",
+      "movementSpeed": 12,
+      "lastUpdate": "2026-09-29T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_007Aadv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_009adv_CONE.kmz"
       }
     },
     {
@@ -91,19 +91,19 @@
       "binNumber": "CP2",
       "name": "Nolo",
       "classification": "HU",
-      "intensity": 125,
-      "pressure": 933,
-      "lat": 18.2,
-      "lon": -163.4,
-      "movementDir": 320,
-      "movementSpeed": 12,
-      "lastUpdate": "2026-09-29T00:00:00.000Z",
+      "intensity": 100,
+      "pressure": 958,
+      "lat": 20,
+      "lon": -164.3,
+      "movementDir": 330,
+      "movementSpeed": 15,
+      "lastUpdate": "2026-09-29T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_033Aadv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_035adv_CONE.kmz"
       }
     }
   ]
