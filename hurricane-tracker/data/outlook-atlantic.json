@@ -1,10 +1,28 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-01T10:11:58.847Z",
-  "issued": "2026-10-01T10:10:11.000Z",
-  "checkedAt": "2026-10-01T10:11:58.847Z",
-  "totalAreas": 0,
+  "updated": "2026-10-01T18:26:30.379Z",
+  "issued": "2026-10-01T18:25:40.000Z",
+  "checkedAt": "2026-10-01T18:26:30.379Z",
+  "totalAreas": 1,
   "inRegionCount": 0,
-  "areas": []
+  "areas": [
+    {
+      "id": "outlook-1",
+      "area": "Subtropical Central Atlantic",
+      "descriptor": "Remnants of Fay",
+      "binNumber": null,
+      "text": "A low pressure area associated with the remnants of former Tropical Storm Fay is located several hundred miles southeast of Bermuda. While thunderstorm activity has increased since yesterday, dry air and strong upper-level winds are expected to prevent significant re-development while it moves northwestward, to the east of Bermuda. Any formation chances should end by Sunday due to very strong upper-level winds.",
+      "formationChance48h": {
+        "category": "low",
+        "percent": "10 percent"
+      },
+      "formationChance7d": {
+        "category": "low",
+        "percent": "10 percent"
+      },
+      "inRegion": false,
+      "matchedKeywords": []
+    }
+  ]
 }
