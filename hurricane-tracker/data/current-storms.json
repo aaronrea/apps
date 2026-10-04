@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-04T12:25:23.921Z",
-  "checkedAt": "2026-10-04T12:25:23.921Z",
+  "updated": "2026-10-04T18:39:15.861Z",
+  "checkedAt": "2026-10-04T18:39:15.861Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP3",
       "name": "Rachel",
       "classification": "HU",
-      "intensity": 85,
-      "pressure": 968,
+      "intensity": 90,
+      "pressure": 965,
       "lat": 20.2,
-      "lon": -113.2,
-      "movementDir": 295,
-      "movementSpeed": 5,
-      "lastUpdate": "2026-10-04T09:00:00.000Z",
+      "lon": -113.8,
+      "movementDir": 290,
+      "movementSpeed": 6,
+      "lastUpdate": "2026-10-04T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_029adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_030adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "CP2",
       "name": "Nolo",
       "classification": "HU",
-      "intensity": 95,
+      "intensity": 100,
       "pressure": 963,
-      "lat": 23.6,
-      "lon": -176.7,
+      "lat": 23.8,
+      "lon": -178.5,
       "movementDir": 275,
       "movementSpeed": 18,
-      "lastUpdate": "2026-10-04T09:00:00.000Z",
+      "lastUpdate": "2026-10-04T15:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/HFOTCPCP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/HFOTCDCP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_cp2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_055adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP152026_056adv_CONE.kmz"
       }
     }
   ]
