@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-05T05:45:47.742Z",
-  "checkedAt": "2026-10-05T05:45:47.742Z",
+  "updated": "2026-10-05T14:46:09.772Z",
+  "checkedAt": "2026-10-05T14:46:09.772Z",
   "totalActive": 1,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP3",
       "name": "Rachel",
       "classification": "HU",
-      "intensity": 85,
-      "pressure": 967,
-      "lat": 20.2,
-      "lon": -114.8,
-      "movementDir": 290,
-      "movementSpeed": 7,
-      "lastUpdate": "2026-10-05T03:00:00.000Z",
+      "intensity": 80,
+      "pressure": 970,
+      "lat": 20.4,
+      "lon": -115.6,
+      "movementDir": 280,
+      "movementSpeed": 8,
+      "lastUpdate": "2026-10-05T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_032adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_033adv_CONE.kmz"
       }
     }
   ]
