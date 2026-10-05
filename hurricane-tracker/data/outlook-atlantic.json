@@ -1,10 +1,30 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-05T14:46:09.772Z",
-  "issued": "2026-10-05T14:45:46.000Z",
-  "checkedAt": "2026-10-05T14:46:09.772Z",
-  "totalAreas": 0,
-  "inRegionCount": 0,
-  "areas": []
+  "updated": "2026-10-05T22:02:11.700Z",
+  "issued": "2026-10-05T21:22:30.000Z",
+  "checkedAt": "2026-10-05T22:02:11.700Z",
+  "totalAreas": 1,
+  "inRegionCount": 1,
+  "areas": [
+    {
+      "id": "outlook-1",
+      "area": "Southwestern Gulf of America",
+      "descriptor": "AL92",
+      "binNumber": "AL92",
+      "text": "A trough of low pressure over the southwestern Gulf of America is producing disorganized showers and thunderstorms. Although environmental conditions appear to be marginally conducive, gradual development is becoming more likely, and a tropical depression is expected to form during the middle portion of the week. This system is expected to drift eastward over the next couple of days, before it turns northward. It is too early to determine the specific impacts to the northern Gulf Coast, but interests there should closely monitor the progress of this system.",
+      "formationChance48h": {
+        "category": "medium",
+        "percent": "60 percent"
+      },
+      "formationChance7d": {
+        "category": "high",
+        "percent": "80 percent"
+      },
+      "inRegion": true,
+      "matchedKeywords": [
+        "gulf"
+      ]
+    }
+  ]
 }
