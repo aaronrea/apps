@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-06T06:25:17.770Z",
-  "issued": "2026-10-06T06:20:14.000Z",
-  "checkedAt": "2026-10-06T06:25:17.770Z",
+  "updated": "2026-10-06T15:58:52.335Z",
+  "issued": "2026-10-06T15:50:06.000Z",
+  "checkedAt": "2026-10-06T15:58:52.335Z",
   "totalAreas": 1,
   "inRegionCount": 1,
   "areas": [
@@ -12,18 +12,21 @@
       "area": "Southwestern Gulf of America",
       "descriptor": "AL92",
       "binNumber": "AL92",
-      "text": "A trough of low pressure over the southwestern Gulf of America is producing disorganized showers and thunderstorms. Although environmental conditions appear only marginally conducive for development, a tropical depression is likely to form within the next couple of days. The system is expected to drift east-northeastward through the middle portion of the week before turning northward. It is too early to determine specific impacts to the northern Gulf Coast, but interests there should closely monitor the progress of this system.",
+      "text": "Showers and thunderstorms are showing signs of organization in association with a broad area of low pressure located over the southwestern Gulf of America. Continued development of this system is expected, and a tropical depression is anticipated to form over the next day or so while it drifts eastward. The low pressure area could bring gusty winds and areas of heavy rain to the western portions of the Yucatan Peninsula of Mexico in a couple of days. The disturbance is expected to turn to the north or northeast toward the northern Gulf Coast by the end of the week. It is still too early to determine specific impacts to the northern Gulf Coast, but interests from the Florida Panhandle to Louisiana should closely monitor the progress of this system. The NOAA Gulfstream is scheduled to sample the environment over the Gulf later today and an Air Force reconnaissance aircraft is scheduled to investigate the system tomorrow.",
       "formationChance48h": {
         "category": "high",
-        "percent": "80 percent"
+        "percent": "90 percent"
       },
       "formationChance7d": {
         "category": "high",
-        "percent": "80 percent"
+        "percent": "90 percent"
       },
       "inRegion": true,
       "matchedKeywords": [
-        "gulf"
+        "gulf",
+        "florida",
+        "yucatan",
+        "louisiana"
       ]
     }
   ]
