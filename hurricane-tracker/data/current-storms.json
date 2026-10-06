@@ -1,29 +1,49 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-06T15:58:52.335Z",
-  "checkedAt": "2026-10-06T15:58:52.335Z",
-  "totalActive": 1,
-  "inRegionCount": 0,
+  "updated": "2026-10-06T22:40:17.884Z",
+  "checkedAt": "2026-10-06T22:40:17.884Z",
+  "totalActive": 2,
+  "inRegionCount": 1,
   "storms": [
+    {
+      "id": "al092026",
+      "binNumber": "AT4",
+      "name": "Nine",
+      "classification": "TD",
+      "intensity": 30,
+      "pressure": 1007,
+      "lat": 22.1,
+      "lon": -95.6,
+      "movementDir": 90,
+      "movementSpeed": 5,
+      "lastUpdate": "2026-10-06T21:00:00.000Z",
+      "inRegion": true,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT4.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT4.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at4.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL092026_001adv_CONE.kmz"
+      }
+    },
     {
       "id": "ep182026",
       "binNumber": "EP3",
       "name": "Rachel",
       "classification": "HU",
-      "intensity": 75,
-      "pressure": 977,
+      "intensity": 70,
+      "pressure": 979,
       "lat": 20.5,
-      "lon": -119.5,
+      "lon": -120.1,
       "movementDir": 275,
-      "movementSpeed": 8,
-      "lastUpdate": "2026-10-06T15:00:00.000Z",
+      "movementSpeed": 7,
+      "lastUpdate": "2026-10-06T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_038adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_039adv_CONE.kmz"
       }
     }
   ]
