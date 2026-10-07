@@ -1,33 +1,10 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-06T22:40:17.884Z",
-  "issued": "2026-10-06T22:35:35.000Z",
-  "checkedAt": "2026-10-06T22:40:17.884Z",
-  "totalAreas": 1,
-  "inRegionCount": 1,
-  "areas": [
-    {
-      "id": "outlook-1",
-      "area": "Southwestern Gulf of America",
-      "descriptor": "AL92",
-      "binNumber": "AL92",
-      "text": "Satellite images and surface observations indicate that showers and thunderstorms are becoming better organized while surface pressures are gradually falling. If these trends continue, advisories will likely be issued on this system later today or tonight while it moves slowly eastward. The low pressure area could bring gusty winds and areas of heavy rain to the western portions of the Yucatan Peninsula of Mexico in a couple of days. The disturbance is expected to turn to the north or northeast toward the northern Gulf Coast by the end of the week. It is still too early to determine specific impacts to the northern Gulf Coast, but interests from the Florida Panhandle to Louisiana should closely monitor the progress of this system. The NOAA Gulfstream jet is en route to sample the environment over the Gulf this afternoon and Air Force and NOAA reconnaissance aircraft are scheduled to investigate the system tomorrow.",
-      "formationChance48h": {
-        "category": "high",
-        "percent": "near 100 percent"
-      },
-      "formationChance7d": {
-        "category": "high",
-        "percent": "near 100 percent"
-      },
-      "inRegion": true,
-      "matchedKeywords": [
-        "gulf",
-        "florida",
-        "yucatan",
-        "louisiana"
-      ]
-    }
-  ]
+  "updated": "2026-10-07T06:04:19.996Z",
+  "issued": "2026-10-07T06:01:28.000Z",
+  "checkedAt": "2026-10-07T06:04:19.996Z",
+  "totalAreas": 0,
+  "inRegionCount": 0,
+  "areas": []
 }
