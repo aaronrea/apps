@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-07T20:38:49.545Z",
-  "checkedAt": "2026-10-07T20:38:49.545Z",
+  "updated": "2026-10-08T01:02:02.528Z",
+  "checkedAt": "2026-10-08T01:02:02.528Z",
   "totalActive": 3,
   "inRegionCount": 1,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "AT4",
       "name": "Isaias",
       "classification": "TS",
-      "intensity": 45,
-      "pressure": 997,
-      "lat": 22.6,
-      "lon": -93.4,
-      "movementDir": 70,
+      "intensity": 55,
+      "pressure": 994,
+      "lat": 22.8,
+      "lon": -92.4,
+      "movementDir": 65,
       "movementSpeed": 8,
-      "lastUpdate": "2026-10-07T18:00:00.000Z",
+      "lastUpdate": "2026-10-08T00:00:00.000Z",
       "inRegion": true,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT4.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT4.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at4.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL092026_004Aadv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL092026_005Aadv_CONE.kmz"
       }
     },
     {
@@ -33,37 +33,37 @@
       "classification": "HU",
       "intensity": 70,
       "pressure": 979,
-      "lat": 20.9,
-      "lon": -121.8,
-      "movementDir": 285,
+      "lat": 21.2,
+      "lon": -122.3,
+      "movementDir": 295,
       "movementSpeed": 7,
-      "lastUpdate": "2026-10-07T15:00:00.000Z",
+      "lastUpdate": "2026-10-07T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP3.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP3.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep3.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_042adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP182026_043adv_CONE.kmz"
       }
     },
     {
       "id": "ep202026",
       "binNumber": "EP5",
-      "name": "Twenty-E",
-      "classification": "TD",
-      "intensity": 30,
-      "pressure": 1006,
-      "lat": 14.1,
-      "lon": -100.9,
+      "name": "Simon",
+      "classification": "TS",
+      "intensity": 35,
+      "pressure": 1004,
+      "lat": 15.5,
+      "lon": -101.6,
       "movementDir": 300,
       "movementSpeed": 8,
-      "lastUpdate": "2026-10-07T15:00:00.000Z",
+      "lastUpdate": "2026-10-07T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP202026_001adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP202026_002adv_CONE.kmz"
       }
     }
   ]
