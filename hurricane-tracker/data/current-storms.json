@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-12T00:35:00.468Z",
-  "checkedAt": "2026-10-12T00:35:00.468Z",
+  "updated": "2026-10-12T10:55:28.724Z",
+  "checkedAt": "2026-10-12T10:55:28.724Z",
   "totalActive": 1,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP5",
       "name": "Simon",
       "classification": "HU",
-      "intensity": 110,
-      "pressure": 951,
-      "lat": 19.7,
-      "lon": -105.8,
-      "movementDir": 325,
+      "intensity": 100,
+      "pressure": 958,
+      "lat": 20,
+      "lon": -106.3,
+      "movementDir": 315,
       "movementSpeed": 5,
-      "lastUpdate": "2026-10-12T00:00:00.000Z",
+      "lastUpdate": "2026-10-12T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP202026_018Aadv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP202026_020adv_CONE.kmz"
       }
     }
   ]
