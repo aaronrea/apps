@@ -1,11 +1,31 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-13T10:40:17.461Z",
-  "checkedAt": "2026-10-13T10:40:17.461Z",
-  "totalActive": 1,
-  "inRegionCount": 0,
+  "updated": "2026-10-13T19:19:10.179Z",
+  "checkedAt": "2026-10-13T19:19:10.179Z",
+  "totalActive": 2,
+  "inRegionCount": 1,
   "storms": [
+    {
+      "id": "ep212026",
+      "binNumber": "EP1",
+      "name": "Twenty-One-E",
+      "classification": "TD",
+      "intensity": 30,
+      "pressure": 1006,
+      "lat": 9.8,
+      "lon": -96.5,
+      "movementDir": 305,
+      "movementSpeed": 10,
+      "lastUpdate": "2026-10-13T15:00:00.000Z",
+      "inRegion": true,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP212026_001adv_CONE.kmz"
+      }
+    },
     {
       "id": "ep202026",
       "binNumber": "EP5",
@@ -13,17 +33,17 @@
       "classification": "HU",
       "intensity": 80,
       "pressure": 977,
-      "lat": 20.6,
-      "lon": -107.2,
-      "movementDir": 315,
-      "movementSpeed": 3,
-      "lastUpdate": "2026-10-13T09:00:00.000Z",
+      "lat": 20.2,
+      "lon": -107.4,
+      "movementDir": 260,
+      "movementSpeed": 2,
+      "lastUpdate": "2026-10-13T18:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP202026_024adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP202026_025Aadv_CONE.kmz"
       }
     }
   ]
