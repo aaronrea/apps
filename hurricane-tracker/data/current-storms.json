@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-17T20:39:02.154Z",
-  "checkedAt": "2026-10-17T20:39:02.154Z",
+  "updated": "2026-10-17T23:09:14.136Z",
+  "checkedAt": "2026-10-17T23:09:14.136Z",
   "totalActive": 1,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP1",
       "name": "Trudy",
       "classification": "HU",
-      "intensity": 80,
-      "pressure": 979,
-      "lat": 17,
-      "lon": -104.3,
+      "intensity": 85,
+      "pressure": 976,
+      "lat": 17.5,
+      "lon": -105,
       "movementDir": 325,
       "movementSpeed": 10,
-      "lastUpdate": "2026-10-17T18:00:00.000Z",
+      "lastUpdate": "2026-10-17T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP212026_017Aadv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP212026_018adv_CONE.kmz"
       }
     }
   ]
