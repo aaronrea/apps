@@ -1,9 +1,9 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-20T08:36:23.214Z",
-  "issued": "2026-10-20T08:35:51.000Z",
-  "checkedAt": "2026-10-20T08:36:23.214Z",
+  "updated": "2026-10-20T14:19:45.639Z",
+  "issued": "2026-10-20T14:15:25.000Z",
+  "checkedAt": "2026-10-20T14:19:45.639Z",
   "totalAreas": 1,
   "inRegionCount": 1,
   "areas": [
@@ -12,10 +12,10 @@
       "area": "Off the East Coast of the United States",
       "descriptor": "AL93",
       "binNumber": "AL93",
-      "text": "A storm-force non-tropical low pressure area remains attached to an occluded frontal boundary a few hundred miles off the North Carolina coast. This low could develop some organized deep convection and gradually lose its frontal features over the next couple of days while it moves slowly north-northeastward over the Gulf Stream. By the end of the week, the system is expected to accelerate northeastward away from the the eastern United States, where environmental conditions are expected to become unfavorable for subtropical or tropical development. Regardless of the status of the system, high winds, coastal flooding, and dangerous surf are expected along portions of the U.S. East Coast during the next few days. For more information, please consult statements and warnings from local National Weather Service offices and the Weather Prediction Center, along with High Seas Forecasts and Storm Warnings issued by the National Weather Service. && High Seas Forecasts issued by the National Weather Service can be found under AWIPS header NFDHSFAT1, WMO header FZNT01 KWBC, and online at ocean.weather.gov/shtml/NFDHSFAT1.php",
+      "text": "A storm-force non-tropical low pressure area located a few hundred miles off the North Carolina coast is producing some shower and thunderstorm activity primarily west of its center. However, overnight satellite wind data indicated the low was still attached to an occluded front. Over the next couple of days, the low could develop some organized deep convection and gradually lose its frontal features while it moves slowly north-northeastward over the Gulf Stream, allowing the system to briefly develop subtropical characteristics. By the end of the week, the system is expected to accelerate northeastward away from the the eastern United States, where environmental conditions are expected to become unfavorable for additional subtropical or tropical development. Regardless of the status of the system, high winds, coastal flooding, and dangerous surf are expected along portions of the U.S. East Coast during the next few days. For more information, please consult statements and warnings from local National Weather Service offices and the Weather Prediction Center, along with High Seas Forecasts and Storm Warnings issued by the National Weather Service. && High Seas Forecasts issued by the National Weather Service can be found under AWIPS header NFDHSFAT1, WMO header FZNT01 KWBC, and online at ocean.weather.gov/shtml/NFDHSFAT1.php",
       "formationChance48h": {
-        "category": "low",
-        "percent": "30 percent"
+        "category": "medium",
+        "percent": "40 percent"
       },
       "formationChance7d": {
         "category": "medium",
