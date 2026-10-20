@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-19T20:36:16.238Z",
-  "checkedAt": "2026-10-19T20:36:16.238Z",
+  "updated": "2026-10-20T00:23:08.248Z",
+  "checkedAt": "2026-10-20T00:23:08.248Z",
   "totalActive": 1,
   "inRegionCount": 0,
   "storms": [
@@ -23,7 +23,7 @@
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP1.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP1.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep1.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP212026_025adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP212026_026adv_CONE.kmz"
       }
     }
   ]

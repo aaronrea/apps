@@ -1,10 +1,30 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-19T20:36:16.238Z",
-  "issued": "2026-10-19T20:35:34.000Z",
-  "checkedAt": "2026-10-19T20:36:16.238Z",
-  "totalAreas": 0,
-  "inRegionCount": 0,
-  "areas": []
+  "updated": "2026-10-20T00:23:08.248Z",
+  "issued": "2026-10-19T23:52:35.000Z",
+  "checkedAt": "2026-10-20T00:23:08.248Z",
+  "totalAreas": 1,
+  "inRegionCount": 1,
+  "areas": [
+    {
+      "id": "outlook-1",
+      "area": "Off the East Coast of the United States",
+      "descriptor": "AL93",
+      "binNumber": "AL93",
+      "text": "A storm-force non-tropical low pressure area is currently attached to an occluded frontal boundary a few hundred miles off the southeast coast of the United States. This low is likely to move slowly north-northeastward over the next couple of days. If the low remains over the Gulf Stream, it could develop organized shower and thunderstorm activity. If the low is also then able to separate from frontal features, it could briefly acquire subtropical cyclone characteristics during the middle to latter portion of this week. The system is expected to move northeastward away from the the eastern United States later this week, and environmental conditions are expected to become unfavorable for subtropical or tropical development by the weekend. Regardless of the status of the system, high winds, coastal flooding, and dangerous surf are expected along portions of the U.S. East Coast during the next few days. For more information, please consult statements and warnings from local National Weather Service offices and the Weather Prediction Center, along with High Seas Forecasts and Storm Warnings issued by the National Weather Service. && High Seas Forecasts issued by the National Weather Service can be found under AWIPS header NFDHSFAT1, WMO header FZNT01 KWBC, and online at ocean.weather.gov/shtml/NFDHSFAT1.php",
+      "formationChance48h": {
+        "category": "low",
+        "percent": "20 percent"
+      },
+      "formationChance7d": {
+        "category": "medium",
+        "percent": "40 percent"
+      },
+      "inRegion": true,
+      "matchedKeywords": [
+        "gulf"
+      ]
+    }
+  ]
 }
