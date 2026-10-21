@@ -1,9 +1,30 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-21T11:54:44.052Z",
-  "checkedAt": "2026-10-21T11:54:44.052Z",
-  "totalActive": 0,
+  "updated": "2026-10-21T17:15:26.088Z",
+  "checkedAt": "2026-10-21T17:15:26.088Z",
+  "totalActive": 1,
   "inRegionCount": 0,
-  "storms": []
+  "storms": [
+    {
+      "id": "ep222026",
+      "binNumber": "EP2",
+      "name": "Twenty-Two-E",
+      "classification": "TD",
+      "intensity": 30,
+      "pressure": 1005,
+      "lat": 9.5,
+      "lon": -99.3,
+      "movementDir": 265,
+      "movementSpeed": 7,
+      "lastUpdate": "2026-10-21T15:00:00.000Z",
+      "inRegion": false,
+      "links": {
+        "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
+        "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
+        "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP222026_001adv_CONE.kmz"
+      }
+    }
+  ]
 }
