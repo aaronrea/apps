@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-22T04:53:08.498Z",
-  "checkedAt": "2026-10-22T04:53:08.498Z",
+  "updated": "2026-10-22T11:57:47.268Z",
+  "checkedAt": "2026-10-22T11:57:47.268Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -13,17 +13,17 @@
       "classification": "STS",
       "intensity": 55,
       "pressure": 988,
-      "lat": 37.7,
-      "lon": -69.4,
-      "movementDir": 15,
-      "movementSpeed": 6,
-      "lastUpdate": "2026-10-22T03:00:00.000Z",
+      "lat": 38.7,
+      "lon": -68.3,
+      "movementDir": 40,
+      "movementSpeed": 13,
+      "lastUpdate": "2026-10-22T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL102026_002adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL102026_003adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "EP2",
       "name": "Vance",
       "classification": "TS",
-      "intensity": 40,
+      "intensity": 45,
       "pressure": 1000,
-      "lat": 9.6,
-      "lon": -100.7,
-      "movementDir": 290,
-      "movementSpeed": 5,
-      "lastUpdate": "2026-10-22T03:00:00.000Z",
+      "lat": 9.7,
+      "lon": -101.5,
+      "movementDir": 275,
+      "movementSpeed": 7,
+      "lastUpdate": "2026-10-22T09:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP222026_003adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP222026_004adv_CONE.kmz"
       }
     }
   ]
