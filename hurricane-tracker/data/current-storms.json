@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-22T17:13:42.952Z",
-  "checkedAt": "2026-10-22T17:13:42.952Z",
+  "updated": "2026-10-22T21:38:54.231Z",
+  "checkedAt": "2026-10-22T21:38:54.231Z",
   "totalActive": 2,
   "inRegionCount": 0,
   "storms": [
@@ -10,20 +10,20 @@
       "id": "al102026",
       "binNumber": "AT5",
       "name": "Josephine",
-      "classification": "STS",
+      "classification": "PTC",
       "intensity": 55,
       "pressure": 988,
-      "lat": 39.2,
-      "lon": -67.3,
-      "movementDir": 45,
-      "movementSpeed": 12,
-      "lastUpdate": "2026-10-22T15:00:00.000Z",
+      "lat": 40,
+      "lon": -65.8,
+      "movementDir": 55,
+      "movementSpeed": 17,
+      "lastUpdate": "2026-10-22T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPAT5.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDAT5.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_at5.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL102026_004adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/AL102026_005adv_CONE.kmz"
       }
     },
     {
@@ -31,19 +31,19 @@
       "binNumber": "EP2",
       "name": "Vance",
       "classification": "TS",
-      "intensity": 50,
-      "pressure": 997,
-      "lat": 9.7,
-      "lon": -101,
-      "movementDir": 305,
-      "movementSpeed": 3,
-      "lastUpdate": "2026-10-22T15:00:00.000Z",
+      "intensity": 55,
+      "pressure": 994,
+      "lat": 10,
+      "lon": -101.5,
+      "movementDir": 300,
+      "movementSpeed": 5,
+      "lastUpdate": "2026-10-22T21:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP222026_005adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP222026_006adv_CONE.kmz"
       }
     }
   ]
