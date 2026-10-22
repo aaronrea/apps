@@ -8,7 +8,7 @@ they're all served from the same GitHub Pages site.
 | Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, 98 Rock, The Bone, The Zone, DEF CON) |
 | Pump | [`gas-prices/`](gas-prices/) | Regular unleaded at four nearby stations, already compared |
 | Slate | [`sports-schedule/`](sports-schedule/) | Today and the next 7 days for the Aggies, Bucs and Lightning |
-| Showtime | [`showtime/`](showtime/) | Movies showing at Lakewood Ranch Cinemas, each linking to its filmsociety.org page |
+| Showtime | [`showtime/`](showtime/) | Card only, no page: the fetcher and data behind the landing card of Lakewood Ranch movies |
 | Cone | [`hurricane-tracker/`](hurricane-tracker/) | Active NHC storms and invests, filtered to Tampa, Texas and the western Caribbean |
 
 The root `index.html` is the landing page: one card per app, each carrying

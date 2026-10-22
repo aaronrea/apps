@@ -1,4 +1,4 @@
-/* Shared by the Showtime page and the landing card, so they can't disagree. */
+/* Reads the committed movies.json for the landing card. */
 
 export async function loadMovies(path) {
   const res = await fetch(`${path}?t=${Date.now()}`, { cache: 'no-store' });
