@@ -6,7 +6,8 @@
  *   2. Cone   — count + colour, from the two committed data files
  *   3. Pump   — cheapest price + where, and the go / no-go verdict
  *   4. Slate  — the followed team's logo and the next kick / puck drop
- *   5. Signal — a station dropdown and a play button; the card is the player
+ *   5. Showtime — the films at Lakewood Ranch, from the committed movies.json
+ *   6. Signal — a station dropdown and a play button; the card is the player
  *
  * Nothing here is new logic. Every number, tone and label comes from the same
  * modules the apps themselves import, so a card can't disagree with the app
@@ -24,6 +25,8 @@ import { fmtAge as coneAge, localizeGulf } from './hurricane-tracker/js/format.j
 import { STATIONS as PUMP_STATIONS, THRESHOLD_PCT } from './gas-prices/js/stations.js';
 import { evaluate, money, fmtCentsAbs, fmtCents, fmtPctNear, fmtAge as pumpAge } from './gas-prices/js/compare.js';
 import { readOverrides, mergePrices } from './gas-prices/js/store.js';
+
+import { loadMovies, fmtAge as showtimeAge } from './showtime/js/movies.js';
 
 import { TEAMS, HORIZON_DAYS } from './sports-schedule/js/teams.js';
 import { fetchAll } from './sports-schedule/js/espn.js';
@@ -593,14 +596,53 @@ function setupSignal() {
   }
 }
 
+/* -- Showtime ------------------------------------------------------------- */
+
+/* The card is a label and a dropdown: every film at Lakewood Ranch, each
+ * linking to its filmsociety.org page. No title is promoted to the headline. */
+async function renderShowtime() {
+  const list = el('showtime-list');
+  let data;
+  try {
+    data = await loadMovies('./showtime/data/movies.json');
+  } catch (error) {
+    el('showtime-sub').textContent = 'Could not load movies';
+    el('showtime-meta').textContent = error.message;
+    return;
+  }
+
+  el('showtime-sub').textContent = `Lakewood Ranch · ${plural(data.films.length, 'movie')}`;
+  el('showtime-meta').textContent = `Updated ${showtimeAge(data.updated)}`;
+
+  if (!data.films.length) {
+    const empty = document.createElement('li');
+    empty.className = 'drop__empty';
+    empty.textContent = 'Nothing listed right now';
+    list.replaceChildren(empty);
+    return;
+  }
+  list.replaceChildren(...data.films.map((film) => {
+    const li = document.createElement('li');
+    li.className = 'drop__row';
+    const a = document.createElement('a');
+    a.className = 'drop__main drop__link';
+    a.href = film.url;
+    a.textContent = film.title;
+    li.append(a);
+    return li;
+  }));
+}
+
 /* -- go ------------------------------------------------------------------- */
 
 setupSignal();
 setupToggle('pump-toggle', 'pump-list', 'landing.pump.open');
 setupToggle('slate-toggle', 'slate-week', 'landing.slate.open');
+setupToggle('showtime-toggle', 'showtime-list', 'landing.showtime.open');
 renderCone();
 renderPump();
 renderSlate();
+renderShowtime();
 
 /* Coming back to the page after a day should not show yesterday's numbers
  * just because the tab was never closed. Signal is left alone: a refresh
@@ -610,4 +652,5 @@ document.addEventListener('visibilitychange', () => {
   renderCone();
   renderPump();
   renderSlate();
+  renderShowtime();
 });

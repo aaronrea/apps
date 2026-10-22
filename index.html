@@ -31,6 +31,7 @@
       --pump: #4da3ff;
       --slate: #a78bfa;
       --cone: #2dd4bf;
+      --showtime: #f472b6;
 
       /* The shared tone ladder the apps use for their own verdict banners. */
       --ok: #3ddc84;    --ok-dim: rgba(61, 220, 132, 0.12);
@@ -230,6 +231,8 @@
     .drop__aside b { display: block; color: var(--text); font-weight: 600; }
     .drop__aside small { font-size: 12px; }
     .drop__row.is-live .drop__aside { color: var(--ok); }
+    .drop__link { color: inherit; text-decoration: none; }
+    .drop__link:hover { text-decoration: underline; }
     .drop__empty { padding: 6px 0; font-size: 13px; color: var(--muted); }
 
     /* -- Signal: the player is the card ----------------------------------- */
@@ -327,6 +330,24 @@
         </button>
         <ol id="slate-week" class="drop is-hidden"></ol>
         <p id="slate-meta" class="meta"></p>
+      </li>
+
+      <!-- Showtime: collapsible. Just the label; tapping drops every film at
+           Lakewood Ranch, each linking to its filmsociety.org page. No title
+           is bubbled up. -->
+      <li class="app" id="showtime" style="--app: var(--showtime)" data-tone="none">
+        <div class="app__row">
+          <a class="app__name" href="./showtime/">Showtime</a>
+        </div>
+        <button id="showtime-toggle" class="hl hl--button" type="button" aria-expanded="false" aria-controls="showtime-list">
+          <span class="hl__text">
+            <span id="showtime-head" class="hl__head">Showtime</span>
+            <span id="showtime-sub" class="hl__sub">Loading movies…</span>
+          </span>
+          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+        </button>
+        <ol id="showtime-list" class="drop is-hidden"></ol>
+        <p id="showtime-meta" class="meta"></p>
       </li>
 
       <li>

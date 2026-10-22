@@ -8,6 +8,7 @@ they're all served from the same GitHub Pages site.
 | Signal | [`signal-radio/`](signal-radio/) | Personal internet radio PWA (101X, 98 Rock, The Bone, The Zone, DEF CON) |
 | Pump | [`gas-prices/`](gas-prices/) | Regular unleaded at four nearby stations, already compared |
 | Slate | [`sports-schedule/`](sports-schedule/) | Today and the next 7 days for the Aggies, Bucs and Lightning |
+| Showtime | [`showtime/`](showtime/) | Movies showing at Lakewood Ranch Cinemas, each linking to its filmsociety.org page |
 | Cone | [`hurricane-tracker/`](hurricane-tracker/) | Active NHC storms and invests, filtered to Tampa, Texas and the western Caribbean |
 
 The root `index.html` is the landing page: one card per app, each carrying
@@ -21,6 +22,7 @@ can never disagree with the app it opens.
 | Signal | A station dropdown and a play button — the card *is* a player | `signal-radio/js/adapters.js`, loaded as a classic script for its `STATIONS` |
 | Pump | Cheapest price and station, coloured by the go / no-go verdict; tap to drop down all four stations | `gas-prices/data/prices.json`, the file the workflow commits, plus any price typed into the app (same origin, same `localStorage`) |
 | Slate | The followed team's logo, the matchup, and the next kick / puck drop; tap to drop down the rest of the week | ESPN, fetched directly, as the app does; the app's `localStorage` cache paints first |
+| Showtime | A dropdown of every film at Lakewood Ranch, each linking to filmsociety.org; no title promoted | `showtime/data/movies.json`, committed by the workflow (filmsociety.org sends no CORS headers) |
 | Cone | Count of systems in the watched regions, coloured by the worst one | `hurricane-tracker/data/*.json`, the files the workflow commits |
 
 Cards load independently, so a dead ESPN never blanks the storm count. Signal
