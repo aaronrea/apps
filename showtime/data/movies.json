@@ -1,7 +1,11 @@
 {
-  "updated": "2026-10-22T17:34:34.673Z",
+  "updated": "2026-10-23T05:01:33.742Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
+    {
+      "title": "Clayface",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=3439"
+    },
     {
       "title": "Heart of the Beast",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3429"
@@ -9,10 +13,6 @@
     {
       "title": "Street Fighter",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=4459"
-    },
-    {
-      "title": "The Social Reckoning",
-      "url": "https://filmsociety.org/movies/movie.cfm?filID=3435"
     },
     {
       "title": "Whalefall",
