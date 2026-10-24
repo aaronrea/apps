@@ -1,8 +1,8 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-10-23T21:26:51.018Z",
-  "checkedAt": "2026-10-23T21:26:51.018Z",
+  "updated": "2026-10-24T04:40:52.989Z",
+  "checkedAt": "2026-10-24T04:40:52.989Z",
   "totalActive": 1,
   "inRegionCount": 0,
   "storms": [
@@ -11,19 +11,19 @@
       "binNumber": "EP2",
       "name": "Vance",
       "classification": "HU",
-      "intensity": 90,
-      "pressure": 971,
-      "lat": 11.2,
-      "lon": -102.3,
-      "movementDir": 325,
-      "movementSpeed": 5,
-      "lastUpdate": "2026-10-23T21:00:00.000Z",
+      "intensity": 95,
+      "pressure": 965,
+      "lat": 12,
+      "lon": -102.6,
+      "movementDir": 345,
+      "movementSpeed": 7,
+      "lastUpdate": "2026-10-24T03:00:00.000Z",
       "inRegion": false,
       "links": {
         "publicAdvisory": "https://www.nhc.noaa.gov/text/MIATCPEP2.shtml",
         "forecastDiscussion": "https://www.nhc.noaa.gov/text/MIATCDEP2.shtml",
         "forecastGraphics": "https://www.nhc.noaa.gov/graphics_ep2.shtml",
-        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP222026_010adv_CONE.kmz"
+        "trackConeKmz": "https://www.nhc.noaa.gov/storm_graphics/api/EP222026_011adv_CONE.kmz"
       }
     }
   ]
