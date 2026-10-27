@@ -1,11 +1,7 @@
 {
-  "updated": "2026-10-26T15:16:44.015Z",
+  "updated": "2026-10-27T05:15:09.936Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
-    {
-      "title": "Buck Privates",
-      "url": "https://filmsociety.org/movies/movie.cfm?filID=4467"
-    },
     {
       "title": "Clayface",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3439"
