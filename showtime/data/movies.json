@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T15:06:11.413Z",
+  "updated": "2026-10-30T20:52:54.127Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
     {
@@ -13,6 +13,14 @@
     {
       "title": "Heart of the Beast",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3429"
+    },
+    {
+      "title": "Verity",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=3434"
+    },
+    {
+      "title": "Wicker",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=4504"
     },
     {
       "title": "Wildwood",
