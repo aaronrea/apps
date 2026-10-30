@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T05:15:09.936Z",
+  "updated": "2026-10-30T05:59:17.217Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
     {
@@ -11,12 +11,8 @@
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3429"
     },
     {
-      "title": "Street Fighter",
-      "url": "https://filmsociety.org/movies/movie.cfm?filID=4459"
-    },
-    {
-      "title": "Whalefall",
-      "url": "https://filmsociety.org/movies/movie.cfm?filID=3437"
+      "title": "Wildwood",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=4499"
     }
   ]
 }
