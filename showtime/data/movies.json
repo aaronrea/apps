@@ -1,10 +1,14 @@
 {
-  "updated": "2026-10-30T05:59:17.217Z",
+  "updated": "2026-10-30T15:06:11.413Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
     {
       "title": "Clayface",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3439"
+    },
+    {
+      "title": "First They Came for My College",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=3410"
     },
     {
       "title": "Heart of the Beast",
