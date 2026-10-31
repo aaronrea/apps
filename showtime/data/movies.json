@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T20:52:54.127Z",
+  "updated": "2026-10-31T05:54:55.377Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
     {
@@ -13,6 +13,10 @@
     {
       "title": "Heart of the Beast",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3429"
+    },
+    {
+      "title": "The Odyssey",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=3294"
     },
     {
       "title": "Verity",
