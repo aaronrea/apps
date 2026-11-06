@@ -1,10 +1,28 @@
 {
   "ok": true,
   "error": null,
-  "updated": "2026-11-06T06:52:08.383Z",
-  "issued": "2026-11-06T06:15:30.000Z",
-  "checkedAt": "2026-11-06T06:52:08.383Z",
-  "totalAreas": 0,
+  "updated": "2026-11-06T16:47:28.256Z",
+  "issued": "2026-11-06T16:40:15.000Z",
+  "checkedAt": "2026-11-06T16:47:28.256Z",
+  "totalAreas": 1,
   "inRegionCount": 0,
-  "areas": []
+  "areas": [
+    {
+      "id": "outlook-1",
+      "area": "Western and Central Atlantic",
+      "descriptor": "AL94",
+      "binNumber": "AL94",
+      "text": "A gale-force, non-tropical low pressure area located several hundred miles south of Bermuda is producing an area of cloudiness and showers. This system could briefly acquire some subtropical characteristics during the next couple of days while it moves generally eastward over the western and central subtropical Atlantic. By late this weekend, the low is forecast to become absorbed by a new non-tropical low pressure system to its east, and further development is not expected. Regardless, gale-force winds are likely over parts of the central subtropical Atlantic through the weekend. For more information, including Gale Warnings, please see High Seas Forecasts issued by the National Weather Service. && High Seas Forecasts issued by the National Weather Service can be found under AWIPS header NFDHSFAT1, WMO header FZNT01 KWBC, and online at ocean.weather.gov/shtml/NFDHSFAT1.php",
+      "formationChance48h": {
+        "category": "low",
+        "percent": "20 percent"
+      },
+      "formationChance7d": {
+        "category": "low",
+        "percent": "20 percent"
+      },
+      "inRegion": false,
+      "matchedKeywords": []
+    }
+  ]
 }
