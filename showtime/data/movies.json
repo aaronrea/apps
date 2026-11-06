@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-05T12:29:58.119Z",
+  "updated": "2026-11-06T06:58:12.237Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
     {
-      "title": "Clayface",
-      "url": "https://filmsociety.org/movies/movie.cfm?filID=3439"
+      "title": "Drummer Boy",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=4500"
     },
     {
       "title": "First They Came for My College",
@@ -19,16 +19,20 @@
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3429"
     },
     {
+      "title": "Jimmy",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=4506"
+    },
+    {
       "title": "The Cat in the Hat",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=3440"
     },
     {
-      "title": "Verity",
-      "url": "https://filmsociety.org/movies/movie.cfm?filID=3434"
-    },
-    {
       "title": "Wicker",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=4504"
+    },
+    {
+      "title": "Wild Horse Nine",
+      "url": "https://filmsociety.org/movies/movie.cfm?filID=4485"
     },
     {
       "title": "Wildwood",
