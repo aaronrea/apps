@@ -1,14 +1,10 @@
 {
-  "updated": "2026-11-06T06:58:12.237Z",
+  "updated": "2026-11-06T15:59:29.724Z",
   "source": "https://filmsociety.org/movies/",
   "films": [
     {
       "title": "Drummer Boy",
       "url": "https://filmsociety.org/movies/movie.cfm?filID=4500"
-    },
-    {
-      "title": "First They Came for My College",
-      "url": "https://filmsociety.org/movies/movie.cfm?filID=3410"
     },
     {
       "title": "Godzilla Minus Zero",
